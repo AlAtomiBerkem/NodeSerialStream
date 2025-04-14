@@ -1,0 +1,27 @@
+{
+  "name": "nodeserialstream",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlAtomiBerkem/NodeSerialStream.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlAtomiBerkem/NodeSerialStream/issues"
+  },
+  "homepage": "https://github.com/AlAtomiBerkem/NodeSerialStream#readme",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "nodemon": "^3.1.9",
+    "serialport": "^13.0.0",
+    "socket.io": "^4.8.1"
+  }
+}
