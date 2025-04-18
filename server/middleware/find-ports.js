@@ -11,5 +11,3 @@ async function listPorts() {
         });
     }
 }
-
-listPorts();
