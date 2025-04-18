@@ -37,3 +37,5 @@ const userServer = new mongoose.Schema({
         default: () => generateDefaultArray(config.STAND_CONFIG.resultTest)
     }
     })
+
+    module.export = mongoose.model('User', userServer);
