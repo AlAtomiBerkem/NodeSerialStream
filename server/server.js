@@ -17,10 +17,7 @@ initSocket(server);
 // Функция для подключения к MongoDB
 async function connectToDB() {
   try {
-    await mongoose.connect(config.SERVER.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(config.SERVER.MONGODB_URI);
     console.log('✅ Подключение к MongoDB успешно');
   } catch (err) {
     console.error('❌ Ошибка подключения к MongoDB:', err.message);

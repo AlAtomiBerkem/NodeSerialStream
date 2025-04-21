@@ -9,7 +9,7 @@ module.exports = {
     
     SERVER: {
       PORT: 3000,  // Порт HTTP-сервера
-      MONGODB_URI: 'mongodb://127.0.0.1:27017/userDataBase'  // Добавлен слеш перед именем БД
+      MONGODB_URI: 'mongodb://localhost:27017/User'  // Добавлен слеш перед именем БД
     },
   
     SERIAL: {
