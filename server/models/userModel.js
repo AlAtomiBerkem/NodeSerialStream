@@ -3,7 +3,7 @@ const config = require('../config/config')
 
 const generateDefaultArray = (size) => Array(size).fill(false)
 
-const userServer = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     UserName: {
         type: String,
         require: true
@@ -38,4 +38,4 @@ const userServer = new mongoose.Schema({
     }
     })
 
-    module.export = mongoose.model('User', userServer);
+module.exports = mongoose.model('User', userSchema);
