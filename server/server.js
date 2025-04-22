@@ -5,6 +5,7 @@ const config = require('./config/config');
 const app = express();
 const server = http.createServer(app);
 const userRoutes = require('./routes/userRouter');
+const standRoutes = require('./routes/standRouter');
 
 app.use(express.json());
 
@@ -23,8 +24,8 @@ server.listen(config.SERVER.PORT, async () => {
   await connectToDB();
 });
 
-//тут добавим маршруты
 app.use('/api/users', userRoutes);
+app.use('/api/stand', standRoutes);
 
 
 process.on('SIGINT', async () => {

@@ -25,3 +25,22 @@ exports.getAllUsers = async (req, res) => {
         logError(`GET - [ERROR ошибка при получении пользователей ${res.statusCode}]`);
     }
 };
+
+exports.deleteUser = async (req, res) => {
+    const { idTab } = req.params;
+
+    try {
+        const user = await User.findOneAndDelete({ idTab: idTab });
+
+        if (!user) {
+            logError(`Пользователь с таким IdTab не найден: ${idTab}`);
+            return res.status(404).send({ error: 'Пользователь с таким IdTab не найден' });
+        }
+
+        logSuccess(`DELETE - [SUCCESS] Пользователь с idTab ${idTab} успешно удален`);
+        res.json({ message: 'Пользователь успешно удален' });
+    } catch (error) {
+        logError(`DELETE - [ERROR] Произошла ошибка на стороне сервера для idTab - ${idTab}: ${error.message}`);
+        res.status(500).json({ error: 'Произошла ошибка на стороне сервера' });
+    }
+};
