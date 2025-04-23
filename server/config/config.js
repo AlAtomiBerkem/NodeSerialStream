@@ -8,13 +8,13 @@ module.exports = {
     },
     
     SERVER: {
-      PORT: 3000,  // Порт HTTP-сервера
+      PORT: 3000,
       MONGODB_URI: 'mongodb://localhost:27017/User'  // Добавлен слеш перед именем БД
     },
   
     SERIAL: {
       PORT_NAME: 'COM7',
       BAUD_RATE: 9600,
-      SERVER_PORT: 5000  // Порт для WebSocket/Socket.io
+      SERVER_PORT: 5000
     }
   };

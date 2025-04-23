@@ -1,7 +1,7 @@
 const User = require('../models/userModel');
-const { logError, logSuccess } = require('./Loger/loger'); // Импортируем функции из logger.js
-const { validateIdTabAndIndexStand } = require('./Loger/idTabErrors');
-import axios from "axios";
+const { logError, logSuccess } = require('./log-page/logError'); // Импортируем функции из logger.js
+const { validateIdTabAndIndexStand } = require('./log-page/idTabErrors');
+const axios = require ("axios");
 
 
 exports.standState = async (req, res) => {
@@ -53,15 +53,19 @@ exports.standState = async (req, res) => {
 exports.checkTests = async (req, res) => {
     try {
         const { idStand, idTab } = req.body;
-        const user = await User.findOne({ idTab });
 
-        if (!idTab) {
-            return res.status(404).json({ message: 'Пользователь не найден' });
+         if (!idTab) {
+            return res.status(400).json({ message: 'Не указан idTab' });
+        }
+
+         const user = await User.findOne({ idTab });
+
+         if (!user) {
+            return res.status(404).json({ message: 'Пользователь с таким idTab не найден' });
         }
 
         let allTestsPassed = false;
 
-        // Проверяем тесты для соответствующей комнаты
         if (idStand >= 1 && idStand <= 3) {
             allTestsPassed = user.checkingRoomOne.every(test => test);
         } else if (idStand >= 4 && idStand <= 6) {
@@ -71,13 +75,13 @@ exports.checkTests = async (req, res) => {
         }
 
         if (allTestsPassed) {
-            await axios.post('http://localhost:3001/startTest', { startTest: true, idTab });
-            res.status(200).json({ message: 'Все тесты пройдены, startTest отправлен' });
+            await axios.post('http://localhost:4000/startTest', { startTest: true, idTab });
+            return res.status(200).json({ message: 'Все тесты пройдены, startTest отправлен' });
         } else {
-            res.status(200).json({ message: 'Не все тесты пройдены' });
+            return res.status(200).json({ message: 'Не все тесты пройдены' });
         }
     } catch (err) {
-        res.status(500).json({ message: err.message });
-        logError(`POST - [ERROR ошибка при проверке тестов ${res.statusCode}]`);
+        console.error('Ошибка в checkTests:', err);
+        return res.status(500).json({ message: 'Внутренняя ошибка сервера' });
     }
 };

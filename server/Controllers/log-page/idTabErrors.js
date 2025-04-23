@@ -1,4 +1,4 @@
-const { logError } = require('./loger'); // Импортируем функцию логирования ошибок
+const { logError } = require ('./logError'); // Импортируем функцию логирования ошибок
 
 /**
  * Функция для проверки idTab и IndexStand.

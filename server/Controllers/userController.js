@@ -1,5 +1,5 @@
 const User = require('../models/userModel');
-const { logError, logSuccess } = require('./Loger/loger'); // Импортируем функции из logger.js
+const { logError, logSuccess } = require('./log-page/logError'); // Импортируем функции из logger.js
 
 exports.createUser = async (req, res) => {
     try {

@@ -6,8 +6,12 @@ const app = express();
 const server = http.createServer(app);
 const userRoutes = require('./routes/userRouter');
 const standRoutes = require('./routes/standRouter');
+const cors = require('cors');
 
 app.use(express.json());
+app.use(cors({
+  origin: 'http://localhost:3000',
+}));
 
 async function connectToDB() {
   try {
