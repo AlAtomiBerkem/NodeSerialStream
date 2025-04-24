@@ -20,7 +20,7 @@ const TestComponent = () => {
         setMessage('');
 
         try {
-            const response = await axios.get(`http://localhost:4000/api/users/${idTab}`);
+            const response = await axios.get(`http://localhost:3002/api/users/${idTab}`);
 
             if (response.data.readyForTest) {
                 setTestReady(true);
@@ -44,7 +44,7 @@ const TestComponent = () => {
         setSelectedAnswer(answer);
 
         try {
-            const response = await axios.post(`http://localhost:4000/api/users/${idTab}/answer`, {
+            const response = await axios.post(`http://localhost:3002/api/users/${idTab}/answer`, {
                 answer: answer
             });
 
