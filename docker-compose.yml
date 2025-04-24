@@ -28,5 +28,14 @@ services:
     depends_on:
       - mongodb
 
+  client2:
+    build:
+      context: ./server2/client
+      dockerfile: Dockerfile
+    ports:
+      - "8083:80"
+    depends_on:
+      - server2
+
 volumes:
   mongodb_data:
