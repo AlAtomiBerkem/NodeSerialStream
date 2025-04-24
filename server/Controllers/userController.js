@@ -1,5 +1,5 @@
 const User = require('../models/userModel');
-const { logError, logSuccess } = require('./log-page/logError'); // Импортируем функции из logger.js
+const { logError, logSuccess } = require('./log-page/logError');
 
 exports.createUser = async (req, res) => {
     try {
@@ -42,5 +42,30 @@ exports.deleteUser = async (req, res) => {
     } catch (error) {
         logError(`DELETE - [ERROR] Произошла ошибка на стороне сервера для idTab - ${idTab}: ${error.message}`);
         res.status(500).json({ error: 'Произошла ошибка на стороне сервера' });
+    }
+};
+
+exports.testResult = async (req, res) => {
+    const { idTab } = req.params;
+
+    if (!idTab) {
+        return res.status(400).json({ error: `Параметр idTab не указан` });
+    }
+
+    try {
+         const result = await User.findOne({ idTab });
+
+        if (!result) {
+            return res.status(404).json({ error: `Данные для idTab "${idTab}" не найдены` });
+        }
+
+         res.status(200).json({
+            idTab: result.idTab,
+            resultTest: result.resultTest
+        });
+
+    } catch (e) {
+        console.error(`GET /api/test/${idTab} - [ERROR]:`, e.message);
+        res.status(500).json({ error: "Ошибка сервера при получении данных" });
     }
 };
