@@ -4,15 +4,22 @@ const { logError, logSuccess } = require('./log-page/logError');
 exports.createUser = async (req, res) => {
     try {
         const { UserName, idTab } = req.body;
+
+        const existingUser = await User.findOne({ $or: [ { UserName: UserName }, { idTab: idTab } ]});
+
+        if (existingUser) {
+            logError(`POST - [ERROR попытка создания дубликата пользователя | ${idTab} | ${400}]`);
+            return res.status(400).json({ message: "ifTab уже существует в сети"});
+        }
         const newUser = new User({ UserName, idTab });
         await newUser.save();
         res.status(201).json(newUser);
         logSuccess(`POST - [SUCCESS пользователь ${UserName} создан ${res.statusCode}]`);
     } catch (err) {
+        logError(`POST - [ERROR ошибка при создании нового пользователя | ${err.message} | ${400}]`);
         res.status(400).json({ message: err.message });
-        logError(`POST - [ERROR ошибка при создании нового пользователя ${res.statusCode}]`);
     }
-};
+}
 
 exports.getAllUsers = async (req, res) => {
     try {

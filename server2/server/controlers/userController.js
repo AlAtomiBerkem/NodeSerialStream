@@ -9,8 +9,7 @@ const checkTestReadiness = async (req, res) => {
             return res.status(404).json({ message: 'Пользователь не найден' });
         }
 
-        // Проверяем, все ли значения в checkingRoomOne true
-        const allTestsPassed = user.checkingRoomOne.every(test => test === true);
+         const allTestsPassed = user.checkingRoomOne.every(test => test === true);
 
         if (!allTestsPassed) {
             return res.status(400).json({ message: 'Вы прошли не все тесты' });
@@ -21,8 +20,7 @@ const checkTestReadiness = async (req, res) => {
             return res.status(400).json({ message: 'Тест уже пройден' });
         }
 
-        // Если все условия выполнены
-        res.json({
+         res.json({
             message: 'OK',
             readyForTest: true,
             testOptions: [123, 456, 789], // варианты ответов для клиента
@@ -47,13 +45,11 @@ const submitTestAnswer = async (req, res) => {
             return res.status(404).json({ message: 'Пользователь не найден' });
         }
 
-        // Проверяем, что тест еще не завершен
-        if (user.resultTest[0] !== 0) {
+         if (user.resultTest[0] !== 0) {
             return res.status(400).json({ message: 'Тест уже пройден' });
         }
 
-        // Записываем ответ
-        user.resultTest[0] = answer;
+         user.resultTest[0] = answer;
         await user.save();
 
         res.json({
