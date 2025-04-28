@@ -37,3 +37,5 @@ process.on('SIGINT', async () => {
   console.log('MongoDB отключен');
   process.exit();
 });
+
+
