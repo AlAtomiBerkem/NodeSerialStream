@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 
-function App() {
+function SerialPort() {
     const [data, setData] = useState([]);
     const [isConnected, setIsConnected] = useState(false);
     const [error, setError] = useState(null);
@@ -84,4 +84,4 @@ function App() {
     );
 }
 
-export default App;
+export default SerialPort;
