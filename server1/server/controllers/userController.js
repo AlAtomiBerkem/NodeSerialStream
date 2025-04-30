@@ -33,6 +33,21 @@ exports.getAllUsers = async (req, res) => {
     }
 };
 
+exports.getOneUser = async (req, res) => {
+    try {
+        const idTab = req.params.idTab; // Получаем idTab из параметров запроса
+        const user = await User.findOne({ idTab: idTab }); // Ищем пользователя по idTab
+
+        if (!user) {
+            return res.status(404).json({ message: 'Пользователь не найден' });
+        }
+
+        res.status(200).json(user); // Возвращаем найденного пользователя
+    } catch (err) {
+        res.status(500).json({ message: err.message }); // Обработка ошибок
+    }
+};
+
 exports.deleteUser = async (req, res) => {
     const { idTab } = req.params;
 

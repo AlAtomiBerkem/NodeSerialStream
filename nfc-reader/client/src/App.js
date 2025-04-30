@@ -3,29 +3,32 @@ import SerialPort from "./components/SerialPort";
 import GetUsers from "./components/GetUsers/getUsers";
 
 function App() {
-    const [users, setUsers] = useState([])
-    const [portData, setPortData] = useState([])
+    const [users, setUsers] = useState([]);
+    const [portData, setPortData] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3001/api/users')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);  
-                setUsers(data); 
-            })
-            .catch(error => console.error('Error:', error));
-    }, []);
+        const lastData = portData[portData.length - 1];
+        const cleanId = lastData ? lastData.replace(/\D+/g, '') : null;
+
+        if (cleanId) {
+            fetch(`http://localhost:3001/api/users/${cleanId}`)
+                .then(response => response.json())
+                .then(data => {
+                    setUsers(Array.isArray(data) ? data : [data]);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    }, [portData]);
 
     const handleSerialData = (data) => {
-        setPortData(prevdata => [...prevdata, data])
-    }
+        setPortData(prevData => [...prevData, data]);
+    };
 
-
-  console.log(portData)
+    console.log(portData);
 
     return (
         <div className="app">
-            <SerialPort onSerialData={handleSerialData }/>
+            <SerialPort onSerialData={handleSerialData} />
             <GetUsers users={users} />
         </div>
     );
