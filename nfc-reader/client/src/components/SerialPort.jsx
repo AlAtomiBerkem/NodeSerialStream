@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 
-function SerialPort() {
+function SerialPort({ onSerialData }) {
     const [data, setData] = useState([]);
     const [isConnected, setIsConnected] = useState(false);
     const [error, setError] = useState(null);
@@ -21,6 +21,7 @@ function SerialPort() {
 
         socket.on('serial-data', (newData) => {
             setData(prev => [...prev, newData]);
+            onSerialData(newData); // пробс для прокидывания в app
         });
 
         socket.on('serial-error', (err) => {
@@ -39,10 +40,10 @@ function SerialPort() {
         return () => {
             socket.disconnect();
         };
-    }, []);
+    }, [onSerialData]);
 
     return (
-        <div style={{ padding: '20px', fontFamily: 'Arial' }}>
+        <div style={{ padding: '10px', fontFamily: 'Arial', maxWidth: '400px', margin: '20px auto' }}>
             <h1>COM port</h1>
 
             <div style={{ marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
@@ -65,7 +66,7 @@ function SerialPort() {
             )}
 
             <div style={{
-                height: '300px',
+                height: '200px',
                 border: '1px solid #ccc',
                 overflowY: 'auto',
                 padding: '10px',
