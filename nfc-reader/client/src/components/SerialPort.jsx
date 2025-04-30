@@ -12,7 +12,6 @@ function SerialPort({ onSerialData }) {
             reconnectionDelay: 1000,
         });
 
-        // Обработчики событий
         socket.on('connect', () => {
             setIsConnected(true);
             setError(null);
@@ -21,7 +20,7 @@ function SerialPort({ onSerialData }) {
 
         socket.on('serial-data', (newData) => {
             setData(prev => [...prev, newData]);
-            onSerialData(newData); // пробс для прокидывания в app
+            onSerialData(newData);
         });
 
         socket.on('serial-error', (err) => {
