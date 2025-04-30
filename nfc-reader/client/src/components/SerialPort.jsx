@@ -7,7 +7,7 @@ function SerialPort() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const socket = io('http://localhost:5000', {
+        const socket = io('http://localhost:5100', {
             reconnectionAttempts: 5,
             reconnectionDelay: 1000,
         });
