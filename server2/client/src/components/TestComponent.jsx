@@ -9,6 +9,44 @@ const TestComponent = () => {
     const [testCompleted, setTestCompleted] = useState(false);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [result, setResult] = useState(null);
+    const [quizStarted, setQuizStarted] = useState(false);
+    const [quizCompleted, setQuizCompleted] = useState(false);
+    const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [quizAnswers, setQuizAnswers] = useState([]);
+
+ 
+    const quizQuestions = [
+        {
+            question: " Какой самолёт является самым массовым пассажирским лайнером в истории?",
+            options: ["Boeing 747", "Airbus A380", "Boeing 737", "Concorde"],
+            correctAnswer: "Boeing 737"
+        },
+        {
+            question: "Как назывался первый в мире сверхзвуковой пассажирский самолёт?",
+            options: ["Ту-144", "Concorde", "SR-71 Blackbird", "МиГ-31"],
+            correctAnswer: "Concorde "
+        },
+        {
+            question: `Какой истребитель называют "Летающим Крокодилом"?`,
+            options: ["Су-27", "F-16 Fighting Falcon", " Су-34", "МиГ-29"],
+            correctAnswer: "Су-34"
+        },
+        {
+            question: "Какой самолёт установил рекорд скорости среди пилотируемых реактивных самолётов?",
+            options: ["Lockheed SR-71 Blackbird", "МиГ-25", "North American X-15", "F-22 Raptor"],
+            correctAnswer: "Lockheed SR-71 Blackbird"
+        },
+        {
+            question: ` Какой самолёт называют "Jumbo Jet"?`,
+            options: ["Airbus A380", "Boeing 747", `Ан-225 "Мрия"`, "Boeing 777"],
+            correctAnswer: "Boeing 777"
+        },
+        {
+            question: "Какой самолёт является самым большим в мире по размаху крыльев?",
+            options: [`Ан-225 "Мрия"`, "Stratolaunch", "Airbus A380", "Hughes H-4 Hercules"],
+            correctAnswer: "Stratolaunch"
+        }
+    ];
 
     const checkTestReadiness = async () => {
         if (!idTab) {
@@ -23,8 +61,8 @@ const TestComponent = () => {
             const response = await axios.get(`http://localhost:3002/api/users/${idTab}`);
 
             if (response.data.readyForTest) {
-                setTestReady(true);
-                setMessage('Выберите правильный ответ:');
+                setQuizStarted(true); // Начинаем викторину вместо сразу теста
+                setMessage('Пройдите викторину из 6 вопросов:');
             } else {
                 setMessage(response.data.message || 'Неизвестная ошибка');
             }
@@ -36,6 +74,21 @@ const TestComponent = () => {
             }
         } finally {
             setIsLoading(false);
+        }
+    };
+
+    const handleQuizAnswer = (answer) => {
+        const newAnswers = [...quizAnswers];
+        newAnswers[currentQuestion] = answer;
+        setQuizAnswers(newAnswers);
+
+        if (currentQuestion < quizQuestions.length - 1) {
+            setCurrentQuestion(currentQuestion + 1);
+        } else {
+            setQuizCompleted(true);
+            setQuizStarted(false);
+            setTestReady(true); // После викторины переходим к выбору числа
+            setMessage('Выберите правильный ответ:');
         }
     };
 
@@ -72,13 +125,17 @@ const TestComponent = () => {
         setTestCompleted(false);
         setSelectedAnswer(null);
         setResult(null);
+        setQuizStarted(false);
+        setQuizCompleted(false);
+        setCurrentQuestion(0);
+        setQuizAnswers([]);
     };
 
     return (
         <div style={styles.container}>
             <h1 style={styles.title}>Тестирующая система</h1>
 
-            {!testReady && !testCompleted && (
+            {!quizStarted && !testReady && !testCompleted && (
                 <div style={styles.section}>
                     <input
                         type="text"
@@ -95,6 +152,31 @@ const TestComponent = () => {
                     >
                         {isLoading ? 'Проверка...' : 'Начать тест'}
                     </button>
+                </div>
+            )}
+
+            {quizStarted && (
+                <div style={styles.section}>
+                    <p style={styles.message}>{message}</p>
+                    <div style={styles.quizContainer}>
+                        <h3>Вопрос {currentQuestion + 1} из {quizQuestions.length}</h3>
+                        <p style={styles.question}>{quizQuestions[currentQuestion].question}</p>
+                        <div style={styles.buttonsContainer}>
+                            {quizQuestions[currentQuestion].options.map((option, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => handleQuizAnswer(option)}
+                                    style={styles.answerButton}
+                                    disabled={isLoading}
+                                >
+                                    {option}
+                                </button>
+                            ))}
+                        </div>
+                        <p style={styles.progress}>
+                            Прогресс: {currentQuestion + 1}/{quizQuestions.length}
+                        </p>
+                    </div>
                 </div>
             )}
 
@@ -128,7 +210,7 @@ const TestComponent = () => {
                 </div>
             )}
 
-            {message && !testReady && !testCompleted && (
+            {message && !quizStarted && !testReady && !testCompleted && (
                 <p style={{ ...styles.message, color: message.includes('не все тесты') ? 'red' : 'inherit' }}>
                     {message}
                 </p>
@@ -137,7 +219,6 @@ const TestComponent = () => {
     );
 };
 
-// Стили компонента
 const styles = {
     container: {
         maxWidth: '600px',
@@ -172,9 +253,20 @@ const styles = {
         margin: '20px 0',
         fontSize: '18px',
     },
+    quizContainer: {
+        backgroundColor: '#f9f9f9',
+        padding: '20px',
+        borderRadius: '8px',
+        marginTop: '20px',
+    },
+    question: {
+        fontSize: '18px',
+        margin: '20px 0',
+        fontWeight: 'bold',
+    },
     buttonsContainer: {
         display: 'flex',
-        justifyContent: 'center',
+        flexDirection: 'column',
         gap: '10px',
         marginTop: '20px',
     },
@@ -196,6 +288,10 @@ const styles = {
         color: '#4CAF50',
         fontWeight: 'bold',
         margin: '20px 0',
+    },
+    progress: {
+        marginTop: '20px',
+        color: '#666',
     },
 };
 

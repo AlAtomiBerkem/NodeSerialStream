@@ -4,13 +4,17 @@ const { logError, logSuccess } = require('./log-page/logError');
 exports.createUser = async (req, res) => {
     try {
         const { UserName, idTab } = req.body;
-
-        const existingUser = await User.findOne({ $or: [ { UserName: UserName }, { idTab: idTab } ]});
+        const existingUser = await User.findOne({ $or: [{ idTab: idTab }] });
+ 
+        if (!UserName || !idTab) {
+            return res.status(400).json({ message: 'Поля UserName и idTab обязательны для заполнения' });
+        }
 
         if (existingUser) {
             logError(`POST - [ERROR попытка создания дубликата пользователя | ${idTab} | ${400}]`);
-            return res.status(400).json({ message: "ifTab уже существует в сети"});
+            return res.status(400).json({ message: "idTab уже существует в сети" });
         }
+
         const newUser = new User({ UserName, idTab });
         await newUser.save();
         res.status(201).json(newUser);
@@ -19,7 +23,7 @@ exports.createUser = async (req, res) => {
         logError(`POST - [ERROR ошибка при создании нового пользователя | ${err.message} | ${400}]`);
         res.status(400).json({ message: err.message });
     }
-}
+};
 
 exports.getAllUsers = async (req, res) => {
     try {
@@ -35,16 +39,16 @@ exports.getAllUsers = async (req, res) => {
 
 exports.getOneUser = async (req, res) => {
     try {
-        const idTab = req.params.idTab; // Получаем idTab из параметров запроса
-        const user = await User.findOne({ idTab: idTab }); // Ищем пользователя по idTab
+        const idTab = req.params.idTab;  
+        const user = await User.findOne({ idTab: idTab }); 
 
         if (!user) {
             return res.status(404).json({ message: 'Пользователь не найден' });
         }
 
-        res.status(200).json(user); // Возвращаем найденного пользователя
+        res.status(200).json(user); 
     } catch (err) {
-        res.status(500).json({ message: err.message }); // Обработка ошибок
+        res.status(500).json({ message: err.message }); 
     }
 };
 
