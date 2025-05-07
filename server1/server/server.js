@@ -9,6 +9,13 @@ const userRoutes = require('./routes/userRouter');
 const standRoutes = require('./routes/standRouter');
 const cors = require('cors');
 
+<<<<<<< HEAD
+=======
+app.use(express.json());
+app.use(cors({
+  origin: ['http://localhost:3000', 'http://localhost:3100'],
+}));
+>>>>>>> e16f9b295c5147fb9669317076322043ef07b47e
 
 const { initSocket, emitData, emitError } = require('./middleware/com-port-logick/socketManager');
 initSocket(server);
@@ -73,8 +80,17 @@ server.listen(config.SERVER.PORT, async () => {
 
 
 process.on('SIGINT', async () => {
+<<<<<<< HEAD
     closePort();
     await mongoose.connection.close();
     console.log('MongoDB отключен');
     process.exit();
 });
+=======
+  await mongoose.connection.close();
+  console.log('MongoDB отключен');
+  process.exit();
+});
+
+
+>>>>>>> e16f9b295c5147fb9669317076322043ef07b47e
