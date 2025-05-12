@@ -9,47 +9,20 @@ const userRoutes = require('./routes/userRouter');
 const standRoutes = require('./routes/standRouter');
 const cors = require('cors');
 
-<<<<<<< HEAD
-=======
 app.use(express.json());
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3100'],
-}));
->>>>>>> e16f9b295c5147fb9669317076322043ef07b47e
-
-const { initSocket, emitData, emitError } = require('./middleware/com-port-logick/socketManager');
-initSocket(server);
-
-
-const { connectToPort, getSerialData, closePort } = require('./middleware/com-port-logick/serial');
-connectToPort();
-
-
-async function listPorts() {
-    const ports = await SerialPort.list();
-    console.log('Доступные порты:');
-    if (ports.length === 0) {
-        console.log('Порты не найдены!');
-    } else {
-        ports.forEach(port => {
-            console.log(`- ${port.path} (Производитель: ${port.manufacturer || 'не указан'}, ID: ${port.productId || 'не указан'})`);
-        });
-    }
-}
-
-
-app.use(express.json());
-app.use(cors({
-    origin: 'http://localhost:3000',
-}));
-
+    origin: [
+       'http://localhost:3000',
+       'http://localhost:3100',
+       'http://localhost:4000',
+       'http://10.0.0.128:3000',
+       'http://localhost:3003',
+       'http://10.0.0.128:3003'
+      ],
+  }));
 
 app.use('/api/users', userRoutes);
 app.use('/api/stand', standRoutes);
-app.get('/api/serial', (req, res) => {
-    res.json(getSerialData());
-});
-
 
 app.get('/api/serial/ports', async (req, res) => {
     try {
@@ -75,22 +48,11 @@ async function connectToDB() {
 server.listen(config.SERVER.PORT, async () => {
     console.log(`✅ Сервер запущен на http://localhost:${config.SERVER.PORT}`);
     await connectToDB();
-    await listPorts();
 });
 
 
 process.on('SIGINT', async () => {
-<<<<<<< HEAD
-    closePort();
-    await mongoose.connection.close();
-    console.log('MongoDB отключен');
-    process.exit();
-});
-=======
   await mongoose.connection.close();
   console.log('MongoDB отключен');
   process.exit();
 });
-
-
->>>>>>> e16f9b295c5147fb9669317076322043ef07b47e

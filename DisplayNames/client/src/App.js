@@ -1,7 +1,9 @@
+import UserList from "./UserList";
+
 function App() {
   return (
     <div className="App">
-      хы хы
+      <UserList />
     </div>
   );
 }
