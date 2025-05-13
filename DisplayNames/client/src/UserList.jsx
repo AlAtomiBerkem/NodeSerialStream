@@ -26,13 +26,10 @@ function UserList() {
         });
     };
 
-    // Выполняем запрос сразу при монтировании компонента
     fetchData();
 
-    // Устанавливаем интервал для периодического опроса сервера
-    const intervalId = setInterval(fetchData, 5000); // Каждые 5 секунд
+    const intervalId = setInterval(fetchData, 5000); 
 
-    // Очищаем интервал при размонтировании компонента
     return () => clearInterval(intervalId);
   }, []);
 
