@@ -1,10 +1,11 @@
+// server1/server.js (дополненный)
 const express = require('express');
 const http = require('http');
 const mongoose = require('mongoose');
 const config = require('./config/config');
-const { Server } = require('socket.io'); // <-- Импортируем Socket.IO
+const { Server } = require('socket.io');
 const app = express();
-const server = http.createServer(app); // HTTP-сервер для Express + Socket.IO
+const server = http.createServer(app);
 const userRoutes = require('./routes/userRouter');
 const standRoutes = require('./routes/standRouter');
 const cors = require('cors');
@@ -14,7 +15,6 @@ app.use(cors({
   origin: ['http://localhost:3000', 'http://localhost:3100'],
 }));
 
-// Инициализируем Socket.IO
 const io = new Server(server, {
   cors: {
     origin: ['http://localhost:3000', 'http://localhost:3100'],
@@ -22,20 +22,20 @@ const io = new Server(server, {
   },
 });
 
-// Обработка подключений Socket.IO
+// Новый обработчик для передачи данных о пользователях
 io.on('connection', (socket) => {
   console.log(`🔌 Новый клиент подключён (ID: ${socket.id})`);
 
-  // Пример: Отправка сообщения всем клиентам
-  socket.on('chat_message', (msg) => {
-    console.log(`📩 Получено сообщение: ${msg}`);
-    io.emit('chat_message', `Сервер получил: ${msg}`); // Отправляем всем
-  });
-
-  // Пример: Приватное сообщение конкретному клиенту
-  socket.on('private_message', (data) => {
-    const { targetSocketId, message } = data;
-    io.to(targetSocketId).emit('private_message', `Личное: ${message}`);
+  // Отправка данных о пользователях при подключении
+  socket.on('request_users', async () => {
+    try {
+      const User = mongoose.model('User');
+      const users = await User.find({});
+      socket.emit('users_data', users);
+    } catch (err) {
+      console.error('Ошибка при получении пользователей:', err);
+      socket.emit('users_error', 'Не удалось получить данные');
+    }
   });
 
   socket.on('disconnect', () => {
