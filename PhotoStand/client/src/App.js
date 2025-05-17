@@ -8,7 +8,7 @@ function App() {
     const handleCapture = async (image) => {
         setIsLoading(true);
         try {
-            const response = await fetch('http://localhost:3500/upload', {
+            const response = await fetch('http://localhost:4000/upload', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ image }),
