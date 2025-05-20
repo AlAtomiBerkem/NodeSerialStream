@@ -1,11 +1,15 @@
 import { useState, useRef, useEffect } from 'react';
-import './Slider.css'; // Создайте этот файл для стилей
+import './Slider.css';
+
+import background_1 from '../assets/background_1.png'
+import background_2 from '../assets/background_2.png'
+import background_3 from '../assets/background_3.png'
 
 export default function BackgroundScreen({ onSelect }) {
     const backgrounds = [
-        { id: 1, url: ')' },
-        { id: 2, url: 'url(./assets/background_2.png)' },
-        { id: 3, url: 'url(./assets/background_3.png)' },
+        { id: 1, url: background_1 },
+        { id: 2, url: background_2 },
+        { id: 3, url: background_3 },
     ];
 
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -13,7 +17,6 @@ export default function BackgroundScreen({ onSelect }) {
     const [startX, setStartX] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
 
-    // Обработчики свайпа
     const handleTouchStart = (e) => {
         setStartX(e.touches[0].clientX);
         setIsDragging(true);
@@ -103,7 +106,7 @@ export default function BackgroundScreen({ onSelect }) {
                         <div
                             key={bg.id}
                             className={`slide ${index === currentIndex ? 'active' : ''}`}
-                            style={{ backgroundImage: bg.url }}
+                            style={{ backgroundImage: `url(${bg.url})` }}
                         />
                     ))}
                 </div>
