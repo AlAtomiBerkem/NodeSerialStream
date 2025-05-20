@@ -128,10 +128,22 @@ app.post('/upload', async (req, res) => {
         const { image } = req.body;
         if (!image) return res.status(400).json({ error: 'No image data' });
 
-        // Сохраняем в raw
-        const filename = `photo_${Date.now()}.png`;
+        // Определяем формат (PNG или JPG) из Base64
+        const formatMatch = image.match(/^data:image\/(\w+);base64,/);
+        if (!formatMatch) {
+            return res.status(400).json({ error: 'Invalid image format (expected PNG/JPG)' });
+        }
+
+        const imageFormat = formatMatch[1].toLowerCase(); // 'png' или 'jpeg'
+        const validFormats = ['png', 'jpeg', 'jpg'];
+        if (!validFormats.includes(imageFormat)) {
+            return res.status(400).json({ error: 'Only PNG and JPG are supported' });
+        }
+
+        // Сохраняем в исходном формате
+        const filename = `photo_${Date.now()}.${imageFormat === 'jpeg' ? 'jpg' : imageFormat}`;
         const filePath = path.join(UPLOAD_DIR, filename);
-        const buffer = Buffer.from(image.replace(/^data:image\/\w+;base64,/, ''), 'base64');
+        const buffer = Buffer.from(image.split(',')[1], 'base64');
         fs.writeFileSync(filePath, buffer);
 
         // Ждем обработки (макс 30 сек)
