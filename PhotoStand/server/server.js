@@ -27,11 +27,10 @@ const PROCESSED_DIR = './uploads/processed';
 app.use(cors());
 app.use(express.json());
 
-// Очередь обработки (FIFO)
+// очередь
 const processingQueue = [];
 let isProcessing = false;
 
-// Функция загрузки на Яндекс.Диск
 async function uploadToYandex(filePath) {
     const filename = path.basename(filePath);
     const ext = path.extname(filename);
@@ -130,7 +129,7 @@ app.post('/upload', async (req, res) => {
         if (!image) return res.status(400).json({ error: 'No image data' });
 
         // Сохраняем в raw
-        const filename = `photo_${Date.now()}.jpg`;
+        const filename = `photo_${Date.now()}.png`;
         const filePath = path.join(UPLOAD_DIR, filename);
         const buffer = Buffer.from(image.replace(/^data:image\/\w+;base64,/, ''), 'base64');
         fs.writeFileSync(filePath, buffer);

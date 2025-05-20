@@ -4,8 +4,6 @@
     height: 100vh;
     overflow: hidden;
 }
-
-/* Режим ожидания */
 .standby-screen {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
