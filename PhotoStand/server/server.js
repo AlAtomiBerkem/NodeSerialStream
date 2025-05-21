@@ -55,8 +55,7 @@ async function uploadToYandex(filePath) {
     const yandexPath = `/Names/${yandexName}`;
 
     try {
-        // 1. Получаем URL для загрузки с retry
-        const { data: { href: uploadUrl } } = await withRetry(async () => {
+         const { data: { href: uploadUrl } } = await withRetry(async () => {
             const response = await axios.get(YANDEX_UPLOAD_URL, {
                 headers: { 'Authorization': `OAuth ${YANDEX_OAUTH_TOKEN}` },
                 params: { path: yandexPath, overwrite: true }
@@ -177,14 +176,14 @@ watcher.on('add', filePath => {
     }
 }
 
- app.post('/upload', async (req, res) => {
+app.post('/upload', async (req, res) => {
     try {
-        const { image } = req.body;
+        const { image, backgroundId } = req.body;
         if (!image) {
             return res.status(400).json({ error: 'No image data provided' });
         }
 
-         const formatMatch = image.match(/^data:image\/(\w+);base64,/);
+        const formatMatch = image.match(/^data:image\/(\w+);base64,/);
         if (!formatMatch) {
             return res.status(400).json({ error: 'Invalid image format' });
         }
@@ -195,12 +194,12 @@ watcher.on('add', filePath => {
             return res.status(400).json({ error: 'Only PNG and JPG are supported' });
         }
 
-         const filename = `photo_${Date.now()}.${imageFormat === 'jpeg' ? 'jpg' : imageFormat}`;
+        const filename = `[${backgroundId}]photo_${Date.now()}.${imageFormat === 'jpeg' ? 'jpg' : imageFormat}`;
         const filePath = path.join(PROCESSED_DIR, filename);
         const buffer = Buffer.from(image.split(',')[1], 'base64');
         await fs.promises.writeFile(filePath, buffer);
 
-         const result = await Promise.race([
+        const result = await Promise.race([
             new Promise(resolve => pendingClients.push(resolve)),
             new Promise((_, reject) => setTimeout(() => reject('Timeout'), 60000))
         ]);

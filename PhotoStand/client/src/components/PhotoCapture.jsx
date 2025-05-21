@@ -1,17 +1,21 @@
 import { useState } from 'react';
 import WebcamDisplay from './WebcamDisplay';
 
-export const PhotoCapture = () => {
+export const PhotoCapture = ({ backgroundId, onBack }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [downloadData, setDownloadData] = useState(null);
 
     const handleCapture = async (image) => {
         setIsLoading(true);
         try {
+            const filenamePrefix = `[${backgroundId}]`;
             const response = await fetch('http://localhost:4000/upload', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ image }),
+                body: JSON.stringify({
+                    image,
+                    backgroundId
+                }),
             });
             const data = await response.json();
             setDownloadData(data);
@@ -38,9 +42,15 @@ export const PhotoCapture = () => {
                     <p className="mb-4">Отсканируйте QR-код для скачивания фото</p>
                     <button
                         onClick={handleNewPhoto}
-                        className="bg-blue-500 text-white px-4 py-2 rounded"
+                        className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
                     >
                         Сделать новое фото
+                    </button>
+                    <button
+                        onClick={onBack}
+                        className="bg-gray-500 text-white px-4 py-2 rounded"
+                    >
+                        Выбрать другой фон
                     </button>
                 </div>
             ) : (
