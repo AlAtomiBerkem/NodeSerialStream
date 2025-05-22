@@ -1,6 +1,6 @@
 const { SerialPort } = require('serialport');
 
-const PORT_NAME = 'COM7';
+const PORT_NAME = 'COM7;
 const BAUD_RATE = 9600;
 
 let serialPort;
