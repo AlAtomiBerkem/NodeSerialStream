@@ -141,7 +141,7 @@ const TestComponent = () => {
                         type="text"
                         value={idTab}
                         onChange={(e) => setIdTab(e.target.value)}
-                        placeholder="Введите ID планшета"
+                        placeholder="Введите ID"
                         style={styles.input}
                         disabled={isLoading}
                     />
