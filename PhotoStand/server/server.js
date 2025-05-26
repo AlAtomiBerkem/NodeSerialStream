@@ -10,25 +10,25 @@ import { watch } from 'chokidar';
 const PORT = 4000;
 const app = express();
 
- const YANDEX_OAUTH_TOKEN = 'y0_AgAAAAB4NNOlAAxRYwAAAAEOnM6dAACse6JJWJ9F2J6xQ33C6IrNvtEdRw';
+const YANDEX_OAUTH_TOKEN = 'y0_AgAAAAB4NNOlAAxRYwAAAAEOnM6dAACse6JJWJ9F2J6xQ33C6IrNvtEdRw';
 const YANDEX_UPLOAD_URL = 'https://cloud-api.yandex.net/v1/disk/resources/upload';
 const YANDEX_PUBLISH_URL = 'https://cloud-api.yandex.net/v1/disk/resources/publish';
 
- const UPLOAD_DIR = './uploads/raw';
+const UPLOAD_DIR = './uploads/raw';
 const PROCESSED_DIR = './uploads/processed';
 
- [UPLOAD_DIR, PROCESSED_DIR].forEach(dir => {
+[UPLOAD_DIR, PROCESSED_DIR].forEach(dir => {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 });
 
 app.use(cors());
 app.use(express.json());
 
- const processingQueue = [];
+const processingQueue = [];
 let isProcessing = false;
 const pendingClients = [];
 
- async function withRetry(fn, maxRetries = 3, delayMs = 2000) {
+async function withRetry(fn, maxRetries = 3, delayMs = 2000) {
     let lastError;
 
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
@@ -55,7 +55,7 @@ async function uploadToYandex(filePath) {
     const yandexPath = `/Names/${yandexName}`;
 
     try {
-         const { data: { href: uploadUrl } } = await withRetry(async () => {
+        const { data: { href: uploadUrl } } = await withRetry(async () => {
             const response = await axios.get(YANDEX_UPLOAD_URL, {
                 headers: { 'Authorization': `OAuth ${YANDEX_OAUTH_TOKEN}` },
                 params: { path: yandexPath, overwrite: true }
@@ -68,7 +68,7 @@ async function uploadToYandex(filePath) {
             return response;
         });
 
-         await withRetry(async () => {
+        await withRetry(async () => {
             const form = new FormData();
             form.append('file', fs.createReadStream(filePath));
             await axios.put(uploadUrl, form, {
@@ -78,9 +78,9 @@ async function uploadToYandex(filePath) {
             });
         });
 
-         await new Promise(resolve => setTimeout(resolve, 3000));
+        await new Promise(resolve => setTimeout(resolve, 3000));
 
-         const { data: { href: publishUrl } } = await withRetry(async () => {
+        const { data: { href: publishUrl } } = await withRetry(async () => {
             const response = await axios.put(YANDEX_PUBLISH_URL, null, {
                 headers: { 'Authorization': `OAuth ${YANDEX_OAUTH_TOKEN}` },
                 params: { path: yandexPath }
@@ -93,7 +93,7 @@ async function uploadToYandex(filePath) {
             return response;
         });
 
-         const { data: { public_url: downloadUrl } } = await withRetry(async () => {
+        const { data: { public_url: downloadUrl } } = await withRetry(async () => {
             const response = await axios.get(publishUrl, {
                 headers: { 'Authorization': `OAuth ${YANDEX_OAUTH_TOKEN}` }
             });
@@ -105,7 +105,7 @@ async function uploadToYandex(filePath) {
             return response;
         });
 
-         const qrCode = await QRCode.toDataURL(downloadUrl);
+        const qrCode = await QRCode.toDataURL(downloadUrl);
 
         return { success: true, downloadUrl, qrCode };
     } catch (error) {
@@ -114,17 +114,17 @@ async function uploadToYandex(filePath) {
     }
 }
 
- async function processFile(filePath) {
+async function processFile(filePath) {
     try {
         const result = await uploadToYandex(filePath);
 
-         await fs.promises.unlink(filePath);
+        await fs.promises.unlink(filePath);
 
         return result;
     } catch (error) {
         console.error('Ошибка обработки файла:', filePath, error);
 
-         const quarantineDir = path.join(UPLOAD_DIR, 'quarantine');
+        const quarantineDir = path.join(UPLOAD_DIR, 'quarantine');
         if (!fs.existsSync(quarantineDir)) {
             fs.mkdirSync(quarantineDir, { recursive: true });
         }
@@ -136,18 +136,18 @@ async function uploadToYandex(filePath) {
     }
 }
 
- const watcher = watch(PROCESSED_DIR, {
+const processedWatcher = watch(PROCESSED_DIR, {
     ignored: /(^|[\/\\])\../,
     persistent: true,
     ignoreInitial: true
 });
 
-watcher.on('add', filePath => {
+processedWatcher.on('add', filePath => {
     processingQueue.push(filePath);
     if (!isProcessing) processQueue();
 });
 
- async function processQueue() {
+async function processQueue() {
     if (isProcessing || processingQueue.length === 0) return;
 
     isProcessing = true;
@@ -156,14 +156,14 @@ watcher.on('add', filePath => {
     try {
         const result = await processFile(filePath);
 
-         if (pendingClients.length > 0) {
+        if (pendingClients.length > 0) {
             const resolve = pendingClients.shift();
             resolve(result);
         }
     } catch (error) {
         console.error('Ошибка в очереди обработки:', error);
 
-         if (pendingClients.length > 0) {
+        if (pendingClients.length > 0) {
             const resolve = pendingClients.shift();
             resolve({
                 success: false,
@@ -195,16 +195,11 @@ app.post('/upload', async (req, res) => {
         }
 
         const filename = `[${backgroundId}]photo_${Date.now()}.${imageFormat === 'jpeg' ? 'jpg' : imageFormat}`;
-        const filePath = path.join(PROCESSED_DIR, filename);
+        const filePath = path.join(UPLOAD_DIR, filename);
         const buffer = Buffer.from(image.split(',')[1], 'base64');
         await fs.promises.writeFile(filePath, buffer);
 
-        const result = await Promise.race([
-            new Promise(resolve => pendingClients.push(resolve)),
-            new Promise((_, reject) => setTimeout(() => reject('Timeout'), 60000))
-        ]);
-
-        res.json(result);
+        res.json({ success: true, message: 'File saved to raw directory' });
     } catch (error) {
         console.error('Ошибка загрузки:', error);
         res.status(500).json({
@@ -214,7 +209,7 @@ app.post('/upload', async (req, res) => {
     }
 });
 
- app.listen(PORT, () => {
+app.listen(PORT, () => {
     console.log(`Сервер запущен: http://localhost:${PORT}`);
     console.log(`Ожидаем файлы в: ${path.resolve(PROCESSED_DIR)}`);
 });
