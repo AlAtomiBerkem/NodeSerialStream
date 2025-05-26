@@ -10,6 +10,9 @@ import { watch } from 'chokidar';
 const PORT = 4000;
 const app = express();
 
+// Хранилище обработанных файлов
+const processedFiles = new Map();
+
 const YANDEX_OAUTH_TOKEN = 'y0_AgAAAAB4NNOlAAxRYwAAAAEOnM6dAACse6JJWJ9F2J6xQ33C6IrNvtEdRw';
 const YANDEX_UPLOAD_URL = 'https://cloud-api.yandex.net/v1/disk/resources/upload';
 const YANDEX_PUBLISH_URL = 'https://cloud-api.yandex.net/v1/disk/resources/publish';
@@ -23,10 +26,6 @@ const PROCESSED_DIR = './uploads/processed';
 
 app.use(cors());
 app.use(express.json());
-
-const processingQueue = [];
-let isProcessing = false;
-const pendingClients = [];
 
 async function withRetry(fn, maxRetries = 3, delayMs = 2000) {
     let lastError;
@@ -78,8 +77,6 @@ async function uploadToYandex(filePath) {
             });
         });
 
-        await new Promise(resolve => setTimeout(resolve, 3000));
-
         const { data: { href: publishUrl } } = await withRetry(async () => {
             const response = await axios.put(YANDEX_PUBLISH_URL, null, {
                 headers: { 'Authorization': `OAuth ${YANDEX_OAUTH_TOKEN}` },
@@ -117,21 +114,10 @@ async function uploadToYandex(filePath) {
 async function processFile(filePath) {
     try {
         const result = await uploadToYandex(filePath);
-
         await fs.promises.unlink(filePath);
-
         return result;
     } catch (error) {
         console.error('Ошибка обработки файла:', filePath, error);
-
-        const quarantineDir = path.join(UPLOAD_DIR, 'quarantine');
-        if (!fs.existsSync(quarantineDir)) {
-            fs.mkdirSync(quarantineDir, { recursive: true });
-        }
-
-        const newPath = path.join(quarantineDir, path.basename(filePath));
-        await fs.promises.rename(filePath, newPath);
-
         throw error;
     }
 }
@@ -142,39 +128,16 @@ const processedWatcher = watch(PROCESSED_DIR, {
     ignoreInitial: true
 });
 
-processedWatcher.on('add', filePath => {
-    processingQueue.push(filePath);
-    if (!isProcessing) processQueue();
-});
-
-async function processQueue() {
-    if (isProcessing || processingQueue.length === 0) return;
-
-    isProcessing = true;
-    const filePath = processingQueue.shift();
-
+processedWatcher.on('add', async filePath => {
     try {
         const result = await processFile(filePath);
-
-        if (pendingClients.length > 0) {
-            const resolve = pendingClients.shift();
-            resolve(result);
-        }
+        const filename = path.basename(filePath);
+        processedFiles.set(filename, result);
+        console.log('Файл обработан:', filename);
     } catch (error) {
-        console.error('Ошибка в очереди обработки:', error);
-
-        if (pendingClients.length > 0) {
-            const resolve = pendingClients.shift();
-            resolve({
-                success: false,
-                error: error.message || 'Processing failed'
-            });
-        }
-    } finally {
-        isProcessing = false;
-        processQueue();
+        console.error('Ошибка в обработке файла:', error);
     }
-}
+});
 
 app.post('/upload', async (req, res) => {
     try {
@@ -199,13 +162,28 @@ app.post('/upload', async (req, res) => {
         const buffer = Buffer.from(image.split(',')[1], 'base64');
         await fs.promises.writeFile(filePath, buffer);
 
-        res.json({ success: true, message: 'File saved to raw directory' });
+        res.json({
+            success: true,
+            message: 'File saved to raw directory',
+            filename // Возвращаем имя файла для отслеживания статуса
+        });
     } catch (error) {
         console.error('Ошибка загрузки:', error);
         res.status(500).json({
             success: false,
             error: error.message || 'Upload failed'
         });
+    }
+});
+
+app.get('/check-status/:filename', (req, res) => {
+    const { filename } = req.params;
+    const result = processedFiles.get(filename);
+
+    if (result) {
+        res.json({ status: 'ready', ...result });
+    } else {
+        res.json({ status: 'processing' });
     }
 });
 
