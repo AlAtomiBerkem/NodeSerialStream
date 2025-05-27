@@ -29,9 +29,14 @@ export const PhotoCapture = ({ backgroundId, onBack }) => {
         const checkStatus = async () => {
             try {
                 const response = await fetch(`http://localhost:4000/check-status/${currentFilename}`);
+                if (!response.ok) throw new Error('Network error');
+
                 const data = await response.json();
 
                 if (data.status === 'ready') {
+                    if (!data.qrCode) {
+                        throw new Error('QR код не сгенерирован');
+                    }
                     setDownloadData(data);
                     setIsLoading(false);
                 } else {
@@ -39,12 +44,13 @@ export const PhotoCapture = ({ backgroundId, onBack }) => {
                 }
             } catch (error) {
                 console.error('Ошибка проверки статуса:', error);
-                setIsLoading(false);
-                setError('Ошибка при обработке фото');
+                setError(`Ожидание QR-кода... (${error.message})`);
+                setTimeout(checkStatus, 2000); // Продолжаем попытки
             }
         };
 
-        checkStatus();
+        const timer = setTimeout(checkStatus, 500);
+        return () => clearTimeout(timer);
     }, [currentFilename]);
 
     const handleCapture = async (image) => {

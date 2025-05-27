@@ -131,11 +131,19 @@ const processedWatcher = watch(PROCESSED_DIR, {
 processedWatcher.on('add', async filePath => {
     try {
         const result = await processFile(filePath);
+        // Сохраняем по всем возможным вариантам имен
         const filename = path.basename(filePath);
         processedFiles.set(filename, result);
+
+        // Если имя было изменено (удален backgroundId)
+        const cleanName = filename.replace(/^\[\d+\]/, '');
+        if (cleanName !== filename) {
+            processedFiles.set(cleanName, result);
+        }
+
         console.log('Файл обработан:', filename);
     } catch (error) {
-        console.error('Ошибка в обработке файла:', error);
+        console.error('Ошибка обработки:', error);
     }
 });
 
