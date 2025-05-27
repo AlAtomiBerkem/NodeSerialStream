@@ -1,4 +1,4 @@
-import testStartBackdrop from '../UI/backdrops/testStartBackdrop.svg'
+import testStartBackdrop from '../../UI/backdrops/testStartBackdrop.svg'
 
 export const TestingStart = () => {
   return (
