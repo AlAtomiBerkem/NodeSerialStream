@@ -1,4 +1,4 @@
-import errorTabBackdrop from '../UI/backdrops/errorTabBackdrop.svg'
+import errorTabBackdrop from '../UI/backdrops/errorScrean.png'
 
 
 export const ErrorComponent = () => {

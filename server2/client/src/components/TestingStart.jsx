@@ -1,17 +1,23 @@
-import testStartBackdrop from '../UI/backdrops/testStartBackdrop.svg';
-
+import testStartBackdrop from '../UI/backdrops/testStartBackdrop.png';
 import startButton from '../UI/startButtons/startActive.svg';
 import startButtonActive from '../UI/startButtons/startActiveSelect.svg';
-
 import BackButton from '../UI/bigBackButtons/bigBackBtnActiveSelect.svg';
-import BackButtonPushed from '../UI/bigBackButtons/bigBackBtnActiveEmpty.svg'
-
+import BackButtonPushed from '../UI/bigBackButtons/bigBackBtnActiveEmpty.svg';
 import { useState } from 'react';
 
-export const TestingStart = () => {
+export const TestingStart = ({ onStartButtonClick, onBackButtonClick }) => {
   const [isButtonPressed, setIsButtonPressed] = useState(false);
   const [isBtnBack, setIsBtnBack] = useState(false);
 
+  const handleStartClick = () => {
+    setIsButtonPressed(!isButtonPressed);
+    onStartButtonClick();
+  };
+
+  const handleBackClick = () => {
+    setIsBtnBack(!isBtnBack);
+    onBackButtonClick();
+  };
 
   return (
     <div
@@ -24,8 +30,8 @@ export const TestingStart = () => {
         position: 'relative',
       }}
     >
-      <button 
-        onClick={() => setIsButtonPressed(!isButtonPressed)}
+      <button
+        onClick={handleStartClick}
         style={{
           position: 'absolute',
           top: '72.1%',
@@ -37,14 +43,14 @@ export const TestingStart = () => {
           padding: 0
         }}
       >
-        <img 
-          src={isButtonPressed ? startButtonActive : startButton} 
+        <img
+          src={isButtonPressed ? startButtonActive : startButton}
           alt="Start Button"
         />
       </button>
 
       <button
-              onClick={() => setIsBtnBack(!isBtnBack)}
+        onClick={handleBackClick}
         style={{
           position: 'absolute',
           top: '9%',
@@ -55,15 +61,14 @@ export const TestingStart = () => {
           cursor: 'pointer',
           padding: 0
         }}
-      >        
+      >
         <img
-          src={isBtnBack ? BackButtonPushed : BackButton} 
-          alt="Start Button"
-       />
+          src={isBtnBack ? BackButtonPushed : BackButton}
+          alt="Back Button"
+        />
       </button>
     </div>
   );
 };
-
 
 export default TestingStart;

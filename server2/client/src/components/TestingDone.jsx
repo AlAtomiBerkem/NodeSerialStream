@@ -1,4 +1,4 @@
-import testingDoneCaseBackdrop from '../UI/backdrops/testingDoneCaseBackdrop.svg'
+import testingDoneCaseBackdrop from '../UI/backdrops/testingDoneCaseBackdrop.png'
 
 
 export const TestingDone = () => {

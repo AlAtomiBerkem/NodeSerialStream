@@ -1,4 +1,4 @@
-import backdropConnection from '../UI/backdrops/connectionTabBackdrop.svg'
+import backdropConnection from '../UI/backdrops/connectionTabBackdrop.png'
 
 export const ConnectionTab = () => {
   return (
