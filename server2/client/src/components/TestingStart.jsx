@@ -4,6 +4,7 @@ import startButtonActive from '../UI/startButtons/startActiveSelect.svg';
 import BackButton from '../UI/bigBackButtons/bigBackBtnActiveSelect.svg';
 import BackButtonPushed from '../UI/bigBackButtons/bigBackBtnActiveEmpty.svg';
 import { useState } from 'react';
+import ConnectionTab from '../screens/ConnectionTab';
 
 export const TestingStart = ({ onStartButtonClick, onBackButtonClick }) => {
   const [isButtonPressed, setIsButtonPressed] = useState(false);

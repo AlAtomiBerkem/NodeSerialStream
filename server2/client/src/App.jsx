@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import ConnectionTab from "./components/ConnectionTab.jsx";
+import ConnectionTab from "./screens/ConnectionTab.jsx";
 import TestingStart from "./components/TestingStart.jsx";
 import QuizCompleted from "./components/QuizComponent.jsx";
-import ErrorComponent from "./components/ErrorComponent.jsx";
-import TestingDone from "./components/TestingDone.jsx";
-import LoadingBackground from "./components/LoadingBackground.jsx";
+import ErrorComponent from "./screens/ErrorComponent.jsx";
+import TestingDone from "./screens/TestingDone.jsx";
+import LoadingBackground from "./screens/LoadingBackground.jsx";
 import './reset.css';
 
 function App() {
