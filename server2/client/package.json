@@ -4,9 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "engines": {
-    "node": "20.18.2",     
-    "npm": "11.0.0"          
-  },  "scripts": {
+    "node": "20.18.2",
+    "npm": "11.0.0"
+  },
+  "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "lint": "eslint .",
@@ -14,6 +15,7 @@
   },
   "dependencies": {
     "axios": "^1.9.0",
+    "framer-motion": "^12.15.0",
     "normalize.css": "^8.0.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
@@ -28,9 +30,8 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
+    "rollup": "3.29.4",
     "vite": "^6.3.5",
-    "vite-plugin-svgr": "^4.3.0",
-    "rollup": "3.29.4" 
-
+    "vite-plugin-svgr": "^4.3.0"
   }
 }

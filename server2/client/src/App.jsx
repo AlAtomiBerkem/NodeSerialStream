@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ConnectionTab from "./screens/ConnectionTab.jsx";
 import TestingStart from "./components/TestingStart.jsx";
-import QuizCompleted from "./components/QuizComponent.jsx";
+import QuizCompleted from "./components/QuizComponents/QuizComponent.jsx";
 import ErrorComponent from "./screens/ErrorComponent.jsx";
 import TestingDone from "./screens/TestingDone.jsx";
 import LoadingBackground from "./screens/LoadingBackground.jsx";
