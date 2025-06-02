@@ -5,6 +5,8 @@ const initialState = {
   questions: [],
   currentQuestionIndex: 0,
   userAnswers: [],
+  showResults: false,
+  valodationError: null
 };
 
 const quizSlice = createSlice({
@@ -48,6 +50,30 @@ const quizSlice = createSlice({
       state.currentQuestionIndex = 0;
       state.userAnswers = [];
     },
+    showResults(state) {
+       const unansweredIds = state.questions
+        .filter(q => !state.userAnswers.some(a => a.questionId === q.id))
+        .map(q => q.id);
+      
+      if (unansweredIds.length > 0) {
+        state.validationError = {
+          title: "Не все вопросы отвечены",
+          unansweredIds
+        };
+        return;
+      }
+      
+      state.showResults = true;
+    },
+    
+    hideResults(state) {
+      state.showResults = false;
+      state.validationError = null;
+    },
+    
+    dismissError(state) {
+      state.validationError = null;
+    }
   },
 });
 
@@ -57,6 +83,9 @@ export const {
   goToNextQuestion,
   goToPrevQuestion,
   resetQuiz,
+  hideResults,
+  dismissError,
+  showResults
 } = quizSlice.actions;
 
 export default quizSlice.reducer;

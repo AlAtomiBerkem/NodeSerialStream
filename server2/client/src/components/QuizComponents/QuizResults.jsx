@@ -45,7 +45,6 @@ export const QuizCompleted = () => {
     questions,
     currentQuestionIndex,
     userAnswers,
-    showResults: shouldShowResults,
     validationError
   } = useSelector(state => state.quiz);
 
@@ -67,7 +66,7 @@ export const QuizCompleted = () => {
 
     if (currentQuestionIndex === questions.length - 1) {
       dispatch(showResults());
-      navigate('/quizResults'); // Переход на страницу результатов
+      navigate('/results'); // Переход на страницу результатов
       return;
     }
 
@@ -89,6 +88,8 @@ export const QuizCompleted = () => {
     handleSelect(answer ? 'true' : 'false');
     dispatch(answerQuestion({ answer }));
   };
+
+  
 
   if (!currentQuestion) {
     return <div>Loading...</div>;

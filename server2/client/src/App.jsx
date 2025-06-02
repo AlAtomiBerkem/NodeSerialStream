@@ -1,51 +1,66 @@
-import React, { useState, useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import ConnectionTab from "./screens/ConnectionTab.jsx";
 import TestingStart from "./components/TestingStart.jsx";
 import QuizCompleted from "./components/QuizComponents/QuizComponent.jsx";
 import ErrorComponent from "./screens/ErrorComponent.jsx";
 import TestingDone from "./screens/TestingDone.jsx";
 import LoadingBackground from "./screens/LoadingBackground.jsx";
+import QuizResults from "./components/QuizComponents/QuizResults.jsx"
 import './reset.css';
+import {useState, useEffect} from 'react'
 
 function App() {
-  const [currentComponent, setCurrentComponent] = useState('ConnectionTab');
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
   const handleStartButtonClick = () => {
     setIsLoading(true);
-    setCurrentComponent('QuizCompleted');
+    setTimeout(() => {
+      navigate('/quiz');
+      setIsLoading(false);
+    }, 500);
   };
 
   const handleStartQuizeClick = () => {
     setIsLoading(true);
-    setCurrentComponent('TestingStart');
-  }
+    setTimeout(() => {
+      navigate('/testing-start');
+      setIsLoading(false);
+    }, 500);
+  };
 
   const handleBackButtonClick = () => {
     setIsLoading(true);
-    setCurrentComponent('TestingStart');
+    setTimeout(() => {
+      navigate('/testing-start');
+      setIsLoading(false);
+    }, 500);
   };
 
   const handleErrorButtonClick = () => {
     setIsLoading(true);
-    setCurrentComponent('ErrorComponent');
+    setTimeout(() => {
+      navigate('/error');
+      setIsLoading(false);
+    }, 500);
   };
 
   const handleTestingDoneButtonClick = () => {
     setIsLoading(true);
-    setCurrentComponent('TestingDone');
+    setTimeout(() => {
+      navigate('/testing-done');
+      setIsLoading(false);
+    }, 500);
   };
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (currentComponent !== 'ErrorComponent' && currentComponent !== 'TestingDone') {
-        if (event.key === 'e') {
-          handleErrorButtonClick();
-        } else if (event.key === 'r') {
-          handleTestingDoneButtonClick();
-        } else if (event.key === 's') {
-            handleStartQuizeClick();
-        }
+      if (event.key === 'e') {
+        handleErrorButtonClick();
+      } else if (event.key === 'r') {
+        handleTestingDoneButtonClick();
+      } else if (event.key === 's') {
+        handleStartQuizeClick();
       }
     };
 
@@ -54,34 +69,21 @@ function App() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [currentComponent]);
-
-  useEffect(() => {
-    // Имитация загрузки при каждом изменении компонента
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 500); // Уменьшите время, если загрузка происходит быстро
-
-    return () => clearTimeout(timer);
-  }, [currentComponent]);
+  }, []);
 
   if (isLoading) {
     return <LoadingBackground />;
   }
 
   return (
-    <div className='App'>
-      {currentComponent === 'ConnectionTab' && <ConnectionTab />}
-      {currentComponent === 'TestingStart' && (
-        <TestingStart
-          onStartButtonClick={handleStartButtonClick}
-          onBackButtonClick={handleBackButtonClick}
-        />
-      )}
-      {currentComponent === 'QuizCompleted' && <QuizCompleted />}
-      {currentComponent === 'ErrorComponent' && <ErrorComponent />}
-      {currentComponent === 'TestingDone' && <TestingDone />}
-    </div>
+    <Routes>
+      <Route path="/" element={<ConnectionTab />} />
+      <Route path="/testing-start" element={<TestingStart onStartButtonClick={handleStartButtonClick} onBackButtonClick={handleBackButtonClick} />} />
+      <Route path="/quiz" element={<QuizCompleted />} />
+      <Route path="/error" element={<ErrorComponent />} />
+      <Route path="/testing-done" element={<TestingDone />} />
+      <Route path="/quizResults" element={<QuizResults />} />
+    </Routes>
   );
 }
 
