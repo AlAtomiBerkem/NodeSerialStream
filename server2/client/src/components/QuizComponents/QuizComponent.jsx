@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import backdrop from '../../UI/backdrops/qqq.png';
-import scaleBody from '../../UI/scale/scaleBody.svg';
+import Scale from './Scale.jsx';
 import ButtonQuiz from '../../helpers/ButoonQuiz.jsx';
 import TrueCheckDone from '../../UI/selectioAndMoveBtn/TryCheck.svg';
 import TrueCheck from '../../UI/selectioAndMoveBtn/TryUnCheck.svg';
@@ -16,7 +16,18 @@ const QUESTIONS = [
   { id: 2, text: "Какая сила действует перпендикулярно направлению набегающего потока воздуха и удерживает самолет в воздухе?  ", answer: false },
   { id: 3, text: "Правда ли то, что Миг-25 был одним из самых быстрых самолетов, способным развивать скорость более 3000 км/ч? ", answer: true },
   { id: 4, text: "Правда или ложь: Самолеты могут летать в космос?", answer: false }, 
-  { id: 5, text: "Первый самолет был изобретен братьями Райт.?", answer: true }
+  { id: 5, text: "Первый самолет был изобретен братьями Райт.?", answer: true },
+  { id: 6, text: "вопрос 6", answer: true },
+  { id: 7, text: "вопрос 7", answer: true },
+  { id: 8, text: "вопрос 8", answer: true },
+  { id: 9, text: "вопрос 9", answer: true },
+  { id: 10, text: "вопрос 10", answer: true },
+  { id: 11, text: "вопрос 11", answer: true },
+  { id: 12, text: "вопрос 12", answer: true },
+  { id: 13, text: "вопрос 13", answer: true },
+  { id: 14, text: "вопрос 14", answer: true },
+  { id: 15, text: "вопрос 15", answer: true },
+  
 ];
 
 export const QuizCompleted = () => {
@@ -71,21 +82,12 @@ export const QuizCompleted = () => {
         backgroundRepeat: 'no-repeat',
       }}
     >
+
       {/* Шкала */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '10.5%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          background: 'transparent',
-          border: 'none',
-          cursor: 'pointer',
-          padding: 0
-        }}
-      >
-        <img src={scaleBody} alt="scale" />
-      </div>
+      <Scale 
+        currentIndex={currentIndex} 
+        totalQuestions={QUESTIONS.length} 
+      />
 
       {/* Окно вопроса */}
       <QuestionWindow
