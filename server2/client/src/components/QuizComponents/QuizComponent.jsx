@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import backdrop from '../../UI/backdrops/qqq.png';
 import Scale from './Scale.jsx';
 import ButtonQuiz from '../../helpers/ButoonQuiz.jsx';
@@ -10,29 +10,34 @@ import { useButtonLogic } from './useButtonLogicl.js';
 import { getLeftBtnImage, getRightBtnImage } from './buttonUtils.js';
 import QuestionWindow from './QuestionWindow.jsx';
 
-// Массив вопросов
-const QUESTIONS = [
-  { id: 1, text: "Правда ли то, что военный самолет Л-403 мог приземляться без шасси?", answer: true },
-  { id: 2, text: "Какая сила действует перпендикулярно направлению набегающего потока воздуха и удерживает самолет в воздухе?  ", answer: false },
-  { id: 3, text: "Правда ли то, что Миг-25 был одним из самых быстрых самолетов, способным развивать скорость более 3000 км/ч? ", answer: true },
-  { id: 4, text: "Правда или ложь: Самолеты могут летать в космос?", answer: false }, 
-  { id: 5, text: "Первый самолет был изобретен братьями Райт.?", answer: true },
-  { id: 6, text: "вопрос 6", answer: true },
-  { id: 7, text: "вопрос 7", answer: true },
-  { id: 8, text: "вопрос 8", answer: true },
-  { id: 9, text: "вопрос 9", answer: true },
-  { id: 10, text: "вопрос 10", answer: true },
-  { id: 11, text: "вопрос 11", answer: true },
-  { id: 12, text: "вопрос 12", answer: true },
-  { id: 13, text: "вопрос 13", answer: true },
-  { id: 14, text: "вопрос 14", answer: true },
-  { id: 15, text: "вопрос 15", answer: true },
+import { setQuestions, answerQuestion, goToNextQuestion, goToPrevQuestion } from '../../store/slices/quizeSlice.js';
+import { useSelector, useDispatch } from 'react-redux';
+
+
+ const QUESTIONS = [
+  { id: 0, text: "Правда ли то, что военный самолет Л-403 мог приземляться без шасси? [true]", answer: true },
+  { id: 1, text: "Какая сила действует перпендикулярно направлению набегающего потока воздуха и удерживает самолет в воздухе? [false] ", answer: false },
+  { id: 2, text: "Правда ли то, что Миг-25 был одним из самых быстрых самолетов, способным развивать скорость более 3000 км/ч? [true]", answer: true },
+  { id: 3, text: "Правда или ложь: Самолеты могут летать в космос? [false]", answer: false }, 
+  { id: 4, text: "Первый самолет был изобретен братьями Райт.? [true]", answer: true },
+  { id: 5, text: "Утверждение: Airbus A380 является самым большим пассажирским самолетом в мире? [ture]", answer: true },
+  { id: 6, text: "Правда ли то, Самолет может взлететь без использования двигателей [false]", answer: false },
+  { id: 7, text: "Утверждение: Братья Райт были первыми, кто совершил управляемый полет на самолете.8 [true]", answer: true },
+  { id: 8, text: "Утверждение: Парашюты используются для пассажиров в коммерческих авиалайнерах [false]", answer: false },
+  { id: 9, text: "Утверждение: Самолет может лететь быстрее скорости звука. [true]", answer: true },
+  { id: 10, text: "Утверждение: Boeing 747 является первым в мире реактивным пассажирским самолетом [false].", answer: false },
+  { id: 11, text: "Утверждение: Автопилот используется в современных коммерческих самолетах [true]", answer: true },
+  { id: 12, text: "Утверждение: Самолет может приземлиться на воду, если у него нет поплавков [false]", answer: false },
+  { id: 13, text: "Черный ящик на самолете действительно черного цвета [false]", answer: false },
+  { id: 14, text: " Конкорд был первым пассажирским самолетом, способным лететь быстрее скорости звука [true]", answer: true },
   
 ];
-
+ 
+ 
+ 
 export const QuizCompleted = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState([]);
+  const dispatch = useDispatch();
+  const { questions, currentQuestionIndex, userAnswers } = useSelector(state => state.quiz);
   
   const {
     uiState,
@@ -41,18 +46,24 @@ export const QuizCompleted = () => {
     handleRightBtnHover
   } = useButtonLogic();
 
+  // Инициализация вопросов при монтировании компонента
+  useEffect(() => {
+    dispatch(setQuestions(QUESTIONS));
+  }, [dispatch]);
+
+  const currentQuestion = questions[currentQuestionIndex];
+  
   const handleNext = () => {
-    if (uiState.selectedOption !== null && currentIndex < QUESTIONS.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-      handleSelect(null); // Сброс выбора для нового вопроса
+    if (uiState.selectedOption !== null && currentQuestionIndex < questions.length - 1) {
+      dispatch(goToNextQuestion());
+      handleSelect(null);  
     }
   };
 
   const handlePrev = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-      // Восстанавливаем предыдущий ответ
-      const prevAnswer = answers.find(a => a.questionId === QUESTIONS[currentIndex - 1].id);
+    if (currentQuestionIndex > 0) {
+      dispatch(goToPrevQuestion());
+       const prevAnswer = userAnswers.find(a => a.questionId === questions[currentQuestionIndex - 1]?.id);
       if (prevAnswer) {
         handleSelect(prevAnswer.userAnswer ? 'true' : 'false');
       }
@@ -61,15 +72,12 @@ export const QuizCompleted = () => {
 
   const handleAnswer = (answer) => {
     handleSelect(answer ? 'true' : 'false');
-    setAnswers([
-      ...answers.filter(a => a.questionId !== QUESTIONS[currentIndex].id),
-      {
-        questionId: QUESTIONS[currentIndex].id,
-        userAnswer: answer,
-        isCorrect: answer === QUESTIONS[currentIndex].answer
-      }
-    ]);
+    dispatch(answerQuestion({ answer }));
   };
+
+  if (!currentQuestion) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div
@@ -82,24 +90,20 @@ export const QuizCompleted = () => {
         backgroundRepeat: 'no-repeat',
       }}
     >
-
-      {/* Шкала */}
-      <Scale 
-        currentIndex={currentIndex} 
-        totalQuestions={QUESTIONS.length} 
+       <Scale 
+        currentIndex={currentQuestionIndex} 
+        totalQuestions={questions.length} 
       />
 
-      {/* Окно вопроса */}
-      <QuestionWindow
-        currentQuestion={QUESTIONS[currentIndex]}
+       <QuestionWindow
+        currentQuestion={currentQuestion}
         onNext={handleNext}
-        onPrev={currentIndex > 0 ? handlePrev : null}
+        onPrev={currentQuestionIndex > 0 ? handlePrev : null}
         selectedOption={uiState.selectedOption}
         onSelect={handleAnswer}
       />
 
-      {/* Кнопки выбора True/False */}
-      <ButtonQuiz
+       <ButtonQuiz
         top="89%"
         left="38%"
         activeImg={TrueCheckDone}
@@ -119,8 +123,7 @@ export const QuizCompleted = () => {
         alt="False option"
       />
 
-      {/* Навигационные кнопки (можно оставить или заменить на кнопки в окне) */}
-      <ButtonQuiz
+       <ButtonQuiz
         top="89%"
         left="22.5%"
         activeImg={getLeftBtnImage(uiState)}
@@ -129,7 +132,7 @@ export const QuizCompleted = () => {
         onMouseEnter={() => handleLeftBtnHover(true)}
         onMouseLeave={() => handleLeftBtnHover(false)}
         alt="Left navigation"
-        disabled={currentIndex === 0}
+        disabled={currentQuestionIndex === 0}
       />
       
       <ButtonQuiz

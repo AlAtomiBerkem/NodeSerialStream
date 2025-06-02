@@ -51,7 +51,6 @@ const Scale = ({
     return `calc(${position}% + ${index * numberSpacing}px)`;
   };
 
-  // Форматируем цифры с ведущим нулем
   const formatNumber = (num) => {
     return num < 10 ? `0${num}` : num;
   };
@@ -66,7 +65,7 @@ const Scale = ({
       width: '100%',
       maxWidth: '800px',
     }}>
-      {/* Шкала */}
+     {/* Шкала */}
       <img 
         src={scaleBody} 
         alt="scale" 
