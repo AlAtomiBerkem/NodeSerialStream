@@ -2,6 +2,21 @@ import React from 'react';
 import scaleBody from '../../UI/scale/scaleBody.svg';
 import ruler from '../../UI/scale/ruler.png';
 
+import akrobatSemibold from '../../UI/Fonts/Acrobat/akrobat-semibold.woff2';
+import akrobatSemiboldWoff from '../../UI/Fonts/Acrobat/akrobat-semibold.woff';
+
+ const fontStyles = `
+  @font-face {
+    font-family: 'Akrobat';
+    src: url(${akrobatSemibold}) format('woff2'),
+         url(${akrobatSemiboldWoff}) format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+`;
+
+
 const Scale = ({ 
   currentQuestionIndex, 
   questions = [],
@@ -26,32 +41,29 @@ const Scale = ({
     return isAnswered ? 'answered' : 'unanswered';
   };
 
-  // Обновленные стили с точными параметрами
-  const numberStyles = {
+   const numberStyles = {
     'current-unanswered': { 
       color: '#FFFFFF',
       fontWeight: 700,
-      fontSize: '24px',
+      fontSize: '22px',
       opacity: 1,
-      textShadow: '0 0 2px rgba(255, 255, 255, 0.5)'
     },
     'current-answered': { 
       color: '#72D8FF',
       fontWeight: 700,
-      fontSize: '24px',
+      fontSize: '22px',
       opacity: 1,
-      textShadow: '0 0 2px rgba(114, 216, 255, 0.5)'
     },
     'unanswered': { 
       color: '#A1A1A1',
-      fontWeight: 400,
-      fontSize: '18px',
+      fontWeight: 500,
+      fontSize: '20px',
       opacity: 0.7
     },
     'answered': { 
       color: '#5b9db7',
-      fontWeight: 600,
-      fontSize: '18px',
+      fontWeight: 500,
+      fontSize: '20px',
       opacity: 0.9
     }
   };
@@ -65,8 +77,7 @@ const Scale = ({
     return num < 9 ? `0${num + 1}` : num + 1;
   };
 
-  // Общее время анимации (в миллисекундах)
-  const animationDuration = 300;
+   const animationDuration = 300;
 
   return (
     <div style={{
