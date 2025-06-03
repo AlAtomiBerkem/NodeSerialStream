@@ -53,6 +53,7 @@ const Scale = ({
       fontWeight: 700,
       fontSize: '22px',
       opacity: 1,
+      // textShadow: '0 0 1px rgba(114, 216, 255, 0.2)'
     },
     'unanswered': { 
       color: '#A1A1A1',

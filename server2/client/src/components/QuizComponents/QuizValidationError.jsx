@@ -1,13 +1,14 @@
-// // components/QuizValidationError.jsx
-// import React from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { dismissError } from '../../store/slices/quizeSlice';
+// components/QuizValidationError.jsx
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { dismissError } from '../../store/slices/quizeSlice';
 
-// const QuizValidationError = () => {
+const QuizValidationError = () => {
 
 
-//   return (
-//   );
-// };
+  return (
+    
+  );
+};
 
-// export default QuizValidationError;
+export default QuizValidationError;
