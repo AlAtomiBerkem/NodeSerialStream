@@ -1,25 +1,25 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import akrobatSemibold from '../../UI/Fonts/Acrobat/akrobat-semibold.woff2';
-import akrobatSemiboldWoff from '../../UI/Fonts/Acrobat/akrobat-semibold.woff';
 
- const fontStyles = `
-  @font-face {
-    font-family: 'Akrobat';
-    src: url(${akrobatSemibold}) format('woff2'),
-         url(${akrobatSemiboldWoff}) format('woff');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
+ const styleElement = document.createElement('style');
+styleElement.innerHTML = `
+  .question-text .highlight {
+    color: #72D8FF;
   }
 `;
-
-const styleElement = document.createElement('style');
-styleElement.innerHTML = fontStyles;
 document.head.appendChild(styleElement);
 
 export const QuestionWindow = ({ 
   currentQuestion, 
 }) => {
+   const formatQuestionText = (text) => {
+     const html = text.replace(
+      /\[(.*?)\]/g, 
+      '<span class="highlight">$1</span>'
+    );
+    
+     return `<div class="question-text">${html}</div>`;
+  };
+
   return (
     <div style={{
       position: 'absolute',
@@ -34,8 +34,6 @@ export const QuestionWindow = ({
       flexDirection: 'column',
       justifyContent: 'space-between'
     }}>
-
-      {/* Анимированный контент вопроса */}
       <AnimatePresence mode="wait">
         <motion.div
           key={currentQuestion.id}
@@ -51,22 +49,20 @@ export const QuestionWindow = ({
             color: 'white',
             fontSize: '50px',
             textAlign: 'center',
-            fontFamily: 'Akrobat',
+            fontFamily: 'Akrobat, sans-serif',
             fontWeight: 600
           }}
         >
-          {currentQuestion.text}
+          <div 
+            className="question-container"
+            dangerouslySetInnerHTML={{ __html: formatQuestionText(currentQuestion.text) }} 
+            style={{
+              display: 'inline-block',
+              textAlign: 'center'
+            }}
+          />
         </motion.div>
       </AnimatePresence>
-
-      {/* Кнопки управления (можно вынести в отдельный компонент) */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        marginTop: '20px'
-      }}>
-    
-      </div>
     </div>
   );
 };
