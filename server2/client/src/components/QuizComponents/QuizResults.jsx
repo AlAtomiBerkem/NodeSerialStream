@@ -1,169 +1,100 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import backdrop from '../../UI/backdrops/qqq.png';
-import Scale from './Scale.jsx';
-import ButtonQuiz from '../../helpers/ButoonQuiz.jsx';
-import TrueCheckDone from '../../UI/selectioAndMoveBtn/TryCheck.svg';
-import TrueCheck from '../../UI/selectioAndMoveBtn/TryUnCheck.svg';
-import FakeCheck from '../../UI/selectioAndMoveBtn/FakeUnCheck.svg';
-import FakeCheckDone from '../../UI/selectioAndMoveBtn/FakeCheck.svg';
-import { useButtonLogic } from './useButtonLogicl.js';
-import { getLeftBtnImage, getRightBtnImage } from './buttonUtils.js';
-import QuestionWindow from './QuestionWindow.jsx';
-import {
-  setQuestions,
-  answerQuestion,
-  goToNextQuestion,
-  goToPrevQuestion,
-  showResults,
-  dismissError
-} from '../../store/slices/quizeSlice.js';
+import React from 'react';
+// import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import Quizrezult from '../../UI/quizresult/QuizResult.png';
+import ChooseActive from '../../UI/quizresult/ChooseActive.png';
+import ChoosePushed from '../../UI/quizresult/ChoosePushed.png';
+import ButtonQuiz from '../../helpers/ButoonQuiz';
+import akrobatSemibold from '../../UI/Fonts/Acrobat/akrobat-semibold.woff2';
+import akrobatSemiboldWoff from '../../UI/Fonts/Acrobat/akrobat-semibold.woff';
+import QuestionTrue from '../../UI/quizresult/QuestionTrue.png';
+import QuestionFalse from '../../UI/quizresult/QuestionFalse.png'
 
-const QUESTIONS = [
-  { id: 0, text: "Правда ли то, что военный самолет Л-403 мог приземляться без шасси? [true]", answer: true },
-  { id: 1, text: "Какая сила действует перпендикулярно направлению набегающего потока воздуха и удерживает самолет в воздухе? [false]", answer: false },
-  { id: 2, text: "Правда ли то, что Миг-25 был одним из самых быстрых самолетов, способным развивать скорость более 3000 км/ч? [true]", answer: true },
-  { id: 3, text: "Правда или ложь: Самолеты могут летать в космос? [false]", answer: false },
-  { id: 4, text: "Первый самолет был изобретен братьями Райт.? [true]", answer: true },
-  { id: 5, text: "Утверждение: Airbus A380 является самым большим пассажирским самолетом в мире? [ture]", answer: true },
-  { id: 6, text: "Правда ли то, Самолет может взлететь без использования двигателей [false]", answer: false },
-  { id: 7, text: "Утверждение: Братья Райт были первыми, кто совершил управляемый полет на самолете. [true]", answer: true },
-  { id: 8, text: "Утверждение: Парашюты используются для пассажиров в коммерческих авиалайнерах [false]", answer: false },
-  { id: 9, text: "Утверждение: Самолет может лететь быстрее скорости звука. [true]", answer: true },
-  { id: 10, text: "Утверждение: Boeing 747 является первым в мире реактивным пассажирским самолетом [false].", answer: false },
-  { id: 11, text: "Утверждение: Автопилот используется в современных коммерческих самолетах [true]", answer: true },
-  { id: 12, text: "Утверждение: Самолет может приземлиться на воду, если у него нет поплавков [false]", answer: false },
-  { id: 13, text: "Черный ящик на самолете действительно черного цвета [false]", answer: false },
-  { id: 14, text: "Конкорд был первым пассажирским самолетом, способным лететь быстрее скорости звука [true]", answer: true },
-];
-
-export const QuizCompleted = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const {
-    questions,
-    currentQuestionIndex,
-    userAnswers,
-    validationError
-  } = useSelector(state => state.quiz);
-
-  const {
-    uiState,
-    handleSelect,
-    handleLeftBtnHover,
-    handleRightBtnHover
-  } = useButtonLogic();
-
-  useEffect(() => {
-    dispatch(setQuestions(QUESTIONS));
-  }, [dispatch]);
-
-  const currentQuestion = questions[currentQuestionIndex];
-
-  const handleNext = () => {
-    if (uiState.selectedOption === null) return;
-
-    if (currentQuestionIndex === questions.length - 1) {
-      dispatch(showResults());
-      navigate('/results'); // Переход на страницу результатов
-      return;
-    }
-
-    dispatch(goToNextQuestion());
-    handleSelect(null);
-  };
-
-  const handlePrev = () => {
-    if (currentQuestionIndex > 0) {
-      dispatch(goToPrevQuestion());
-      const prevAnswer = userAnswers.find(a => a.questionId === questions[currentQuestionIndex - 1]?.id);
-      if (prevAnswer) {
-        handleSelect(prevAnswer.userAnswer ? 'true' : 'false');
-      }
-    }
-  };
-
-  const handleAnswer = (answer) => {
-    handleSelect(answer ? 'true' : 'false');
-    dispatch(answerQuestion({ answer }));
-  };
-
-  
-
-  if (!currentQuestion) {
-    return <div>Loading...</div>;
+const fontStyles = `
+  @font-face {
+    font-family: 'Akrobat';
+    src: url(${akrobatSemibold}) format('woff2'),
+         url(${akrobatSemiboldWoff}) format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
   }
+`;
+
+const QuizResults = () => {
+  const [isButtonActive, setIsButtonActive] = React.useState(false);
+  const { userAnswers, questions } = useSelector(state => state.quiz);
+  
+  const answeredCount = userAnswers.length;
+  const totalQuestions = questions.length;
+
+  const handleButtonClick = () => {
+    setIsButtonActive(true);
+    setTimeout(() => {
+      // navigate('/next-page');
+    }, 200);
+  };
 
   return (
-    <div
-      style={{
-        width: '100vw',
-        height: '100vh',
-        backgroundImage: `url(${backdrop})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
-    >
-      <Scale
-        currentIndex={currentQuestionIndex}
-        totalQuestions={questions.length}
-      />
-
-      <QuestionWindow
-        currentQuestion={currentQuestion}
-        onNext={handleNext}
-        onPrev={currentQuestionIndex > 0 ? handlePrev : null}
-        selectedOption={uiState.selectedOption}
-        onSelect={handleAnswer}
-      />
-
-      <ButtonQuiz
-        top="89%"
-        left="38%"
-        activeImg={TrueCheckDone}
-        inactiveImg={TrueCheck}
-        onClick={() => handleAnswer(true)}
-        isActive={uiState.selectedOption === 'true'}
-        alt="True option"
-      />
-
-      <ButtonQuiz
-        top="89%"
-        left="65%"
-        activeImg={FakeCheckDone}
-        inactiveImg={FakeCheck}
-        onClick={() => handleAnswer(false)}
-        isActive={uiState.selectedOption === 'false'}
-        alt="False option"
-      />
-
-      <ButtonQuiz
-        top="89%"
-        left="22.5%"
-        activeImg={getLeftBtnImage(uiState)}
-        inactiveImg={getLeftBtnImage(uiState)}
-        onClick={handlePrev}
-        onMouseEnter={() => handleLeftBtnHover(true)}
-        onMouseLeave={() => handleLeftBtnHover(false)}
-        alt="Left navigation"
-        disabled={currentQuestionIndex === 0}
-      />
-
-      <ButtonQuiz
-        top="89%"
-        left="80.5%"
-        activeImg={getRightBtnImage(uiState)}
-        inactiveImg={getRightBtnImage(uiState)}
-        onClick={handleNext}
-        onMouseEnter={() => handleRightBtnHover(true)}
-        onMouseLeave={() => handleRightBtnHover(false)}
-        alt="Right navigation"
-        disabled={uiState.selectedOption === null}
-      />
+    <div>
+      <style>{fontStyles}</style>
+      
+      <div
+        style={{
+          width: '100vw',
+          height: '100vh',
+          backgroundImage: `url(${Quizrezult})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          position: 'relative',
+        }}
+      >
+        {/* Контейнер для счётчика вопросов */}
+        <div style={{
+          position: 'absolute',
+          top: '45%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          display: 'flex',
+          alignItems: 'baseline',
+        }}>
+          {/* Стили для отвеченных вопросов */}
+          <span style={{
+            color: '#72D8FF',
+            fontSize: '128px',
+            fontWeight: 700,
+            fontFamily: "'Akrobat', sans-serif",
+            lineHeight: 1,
+            textShadow: '0 0 10px rgba(114, 216, 255, 0.9)'
+          }}>
+            {answeredCount}
+          </span>
+          
+          {/* Стили для общего количества вопросов */}
+          <span style={{
+            color: '#A1A1A1',
+            fontSize: '120px',
+            fontWeight: 400,
+            fontFamily: "'Akrobat', sans-serif",
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)'
+          }}>
+            /{totalQuestions}
+          </span>
+        </div>
+        
+        <ButtonQuiz
+          top="75.5%"
+          left="50%"
+          activeImg={ChoosePushed}
+          inactiveImg={ChooseActive}
+          onClick={handleButtonClick}
+          isActive={isButtonActive}
+          alt="Choose option"
+        />
+      </div>
     </div>
   );
 };
 
-export default QuizCompleted;
+export default QuizResults;
