@@ -11,6 +11,7 @@ import FakeCheckDone from '../../UI/selectioAndMoveBtn/FakeCheck.svg';
 import { useButtonLogic } from './useButtonLogicl.js';
 import { getLeftBtnImage, getRightBtnImage } from './buttonUtils.js';
 import QuestionWindow from './QuestionWindow.jsx';
+
 import {
   setQuestions,
   answerQuestion,
@@ -44,55 +45,55 @@ export const QuizCompleted = () => {
   const {
     questions,
     currentQuestionIndex,
-    userAnswers,
-    showResults: shouldShowResults,
-    validationError
+    userAnswers
   } = useSelector(state => state.quiz);
 
   const {
     uiState,
     handleSelect,
-    handleLeftBtnHover,
-    handleRightBtnHover
+    handleLeftBtnClick,
+    handleRightBtnClick
   } = useButtonLogic();
 
+  // Восстанавливаем выбранный ответ при изменении вопроса
   useEffect(() => {
     dispatch(setQuestions(QUESTIONS));
-  }, [dispatch]);
+    const currentAnswer = userAnswers.find(a => 
+      a.questionId === QUESTIONS[currentQuestionIndex]?.id
+    );
+    handleSelect(currentAnswer ? (currentAnswer.userAnswer ? 'true' : 'false') : null);
+  }, [currentQuestionIndex]);
 
   const currentQuestion = questions[currentQuestionIndex];
 
   const handleNext = () => {
-    if (uiState.selectedOption === null) return;
-
-    if (currentQuestionIndex === questions.length - 1) {
-      dispatch(showResults());
-      navigate('/quizResults'); // Переход на страницу результатов
-      return;
-    }
-
-    dispatch(goToNextQuestion());
-    handleSelect(null);
+    handleRightBtnClick();
+    setTimeout(() => {
+      if (currentQuestionIndex === questions.length - 1) {
+        navigate('/quizResults');
+      } else {
+        dispatch(goToNextQuestion());
+      }
+    }, 200);
   };
 
   const handlePrev = () => {
-    if (currentQuestionIndex > 0) {
+    handleLeftBtnClick();
+    setTimeout(() => {
       dispatch(goToPrevQuestion());
-      const prevAnswer = userAnswers.find(a => a.questionId === questions[currentQuestionIndex - 1]?.id);
-      if (prevAnswer) {
-        handleSelect(prevAnswer.userAnswer ? 'true' : 'false');
-      }
-    }
+    }, 200);
   };
 
   const handleAnswer = (answer) => {
-    handleSelect(answer ? 'true' : 'false');
-    dispatch(answerQuestion({ answer }));
+    const answerStr = answer ? 'true' : 'false';
+    handleSelect(answerStr);
+    dispatch(answerQuestion({ 
+      questionId: currentQuestion.id,
+      answer: answer
+    }));
   };
 
-  if (!currentQuestion) {
-    return <div>Loading...</div>;
-  }
+  if (!currentQuestion) return <div>Loading...</div>;
 
   return (
     <div
@@ -118,6 +119,7 @@ export const QuizCompleted = () => {
         onSelect={handleAnswer}
       />
 
+      {/* Кнопки True/False */}
       <ButtonQuiz
         top="89%"
         left="38%"
@@ -138,16 +140,15 @@ export const QuizCompleted = () => {
         alt="False option"
       />
 
+      {/* Кнопки навигации */}
       <ButtonQuiz
         top="89%"
         left="22.5%"
         activeImg={getLeftBtnImage(uiState)}
         inactiveImg={getLeftBtnImage(uiState)}
         onClick={handlePrev}
-        onMouseEnter={() => handleLeftBtnHover(true)}
-        onMouseLeave={() => handleLeftBtnHover(false)}
         alt="Left navigation"
-        disabled={currentQuestionIndex === 0}
+        disabled={false}
       />
 
       <ButtonQuiz
@@ -156,10 +157,8 @@ export const QuizCompleted = () => {
         activeImg={getRightBtnImage(uiState)}
         inactiveImg={getRightBtnImage(uiState)}
         onClick={handleNext}
-        onMouseEnter={() => handleRightBtnHover(true)}
-        onMouseLeave={() => handleRightBtnHover(false)}
         alt="Right navigation"
-        disabled={uiState.selectedOption === null}
+        disabled={false}
       />
     </div>
   );
