@@ -3,46 +3,56 @@ import scaleBody from '../../UI/scale/scaleBody.svg';
 import ruler from '../../UI/scale/ruler.png';
 
 const Scale = ({ 
-  currentIndex, 
-  totalQuestions,
-  answeredQuestions = [],
-  activeRange = [0, 14],
+  currentQuestionIndex, 
+  questions = [],
+  userAnswers = [],
   onNumberClick,
   numberSpacing = 0
 }) => {
-  const rulerPosition = 100 - (currentIndex / (totalQuestions - 1)) * 100;
-  const numbers = Array.from({ length: totalQuestions }, (_, i) => i + 1);
-  
-  const getNumberState = (index) => {
-    const isAnswered = answeredQuestions.includes(index);
-    const isActive = index >= activeRange[0] && index <= activeRange[1];
-    return `${isAnswered ? 'answered' : 'unanswered'}-${isActive ? 'active' : 'disabled'}`;
+  const totalQuestions = questions.length;
+  if (totalQuestions === 0) return null;
+
+  const rulerPosition = 100 - (currentQuestionIndex / (totalQuestions - 1)) * 100;
+  const numbers = Array.from({ length: totalQuestions }, (_, i) => i);
+
+  const getQuestionState = (index) => {
+    const isCurrent = index === currentQuestionIndex;
+    const questionId = questions[index]?.id;
+    const isAnswered = userAnswers.some(answer => answer.questionId === questionId);
+
+    if (isCurrent) {
+      return isAnswered ? 'current-answered' : 'current-unanswered';
+    }
+    return isAnswered ? 'answered' : 'unanswered';
   };
 
+  // Обновленные стили с точными параметрами
   const numberStyles = {
-    'answered-active': { 
-      color: '#4CAF50', 
-      fontWeight: '700', 
-      cursor: 'pointer',
-      fontFamily: 'Arial, sans-serif'
+    'current-unanswered': { 
+      color: '#FFFFFF',
+      fontWeight: 700,
+      fontSize: '24px',
+      opacity: 1,
+      textShadow: '0 0 2px rgba(255, 255, 255, 0.5)'
     },
-    'unanswered-active': { 
-      color: '#A1A1A1', 
-      fontWeight: '500', 
-      cursor: 'pointer',
-      fontFamily: 'Arial, sans-serif'
+    'current-answered': { 
+      color: '#72D8FF',
+      fontWeight: 700,
+      fontSize: '24px',
+      opacity: 1,
+      textShadow: '0 0 2px rgba(114, 216, 255, 0.5)'
     },
-    'answered-disabled': { 
-      color: '#A1A1A1', 
-      fontWeight: '700', 
-      cursor: 'default',
-      fontFamily: 'Arial, sans-serif'
+    'unanswered': { 
+      color: '#A1A1A1',
+      fontWeight: 400,
+      fontSize: '18px',
+      opacity: 0.7
     },
-    'unanswered-disabled': { 
-      color: '#A1A1A1', 
-      fontWeight: '400', 
-      cursor: 'default',
-      fontFamily: 'Arial, sans-serif'
+    'answered': { 
+      color: '#5b9db7',
+      fontWeight: 600,
+      fontSize: '18px',
+      opacity: 0.9
     }
   };
 
@@ -52,8 +62,11 @@ const Scale = ({
   };
 
   const formatNumber = (num) => {
-    return num < 10 ? `0${num}` : num;
+    return num < 9 ? `0${num + 1}` : num + 1;
   };
+
+  // Общее время анимации (в миллисекундах)
+  const animationDuration = 300;
 
   return (
     <div style={{
@@ -65,7 +78,6 @@ const Scale = ({
       width: '100%',
       maxWidth: '800px',
     }}>
-     {/* Шкала */}
       <img 
         src={scaleBody} 
         alt="scale" 
@@ -76,7 +88,6 @@ const Scale = ({
         }} 
       />
       
-      {/* Контейнер для линейки и цифр с градиентной маской */}
       <div style={{
         position: 'absolute',
         top: 0,
@@ -86,7 +97,6 @@ const Scale = ({
         maskImage: 'linear-gradient(to right, transparent 10%, black 30%, black 75%, transparent 90%)',
         WebkitMaskImage: 'linear-gradient(to right, transparent 10%, black 30%, black 75%, transparent 90%)',
       }}>
-        {/* Линейка с цифрами */}
         <div style={{
           position: 'absolute',
           top: '65%',
@@ -95,41 +105,49 @@ const Scale = ({
           width: '100%',
           height: '20%',
           zIndex: 2,
-          transition: 'left 0.5s ease-in-out',
+          transition: `left ${animationDuration}ms ease-in-out`,
         }}>
           <img 
             src={ruler} 
             alt="ruler" 
             style={{ 
               width: '100%', 
-              height: '100%' 
+              height: '100%',
+              transition: `all ${animationDuration}ms ease-in-out` 
             }} 
           />
           
-          {/* Цифры */}
           <div style={{
             position: 'absolute',
             bottom: '200%',
             left: 0,
             width: '100%',
           }}>
-            {numbers.map((number, index) => (
-              <div 
-                key={index}
-                onClick={() => onNumberClick && onNumberClick(index)}
-                style={{
-                  ...numberStyles[getNumberState(index)],
-                  position: 'absolute',
-                  left: numberPosition(index),
-                  transform: 'translateX(-50%)',
-                  fontSize: '20px',
-                  transition: 'all 0.3s ease',
-                  letterSpacing: '0.5px',
-                }}
-              >
-                {formatNumber(number)}
-              </div>
-            ))}
+            {numbers.map((index) => {
+              const state = getQuestionState(index);
+              return (
+                <div 
+                  key={index}
+                  onClick={() => onNumberClick(index)}
+                  style={{
+                    color: numberStyles[state].color,
+                    fontWeight: numberStyles[state].fontWeight,
+                    fontSize: numberStyles[state].fontSize,
+                    opacity: numberStyles[state].opacity,
+                    position: 'absolute',
+                    left: numberPosition(index),
+                    transform: 'translateX(-50%)',
+                    cursor: 'pointer',
+                    fontFamily: 'Arial, sans-serif',
+                    letterSpacing: '0.5px',
+                    transition: `all ${animationDuration}ms ease-in-out`,
+                    textShadow: numberStyles[state].textShadow || 'none'
+                  }}
+                >
+                  {formatNumber(index)}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
