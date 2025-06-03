@@ -18,7 +18,8 @@ import {
   goToNextQuestion,
   goToPrevQuestion,
   showResults,
-  dismissError
+  dismissError,
+  goToQuestion
 } from '../../store/slices/quizeSlice.js';
 
 const QUESTIONS = [
@@ -106,10 +107,12 @@ export const QuizCompleted = () => {
         backgroundRepeat: 'no-repeat',
       }}
     >
-      <Scale
-        currentIndex={currentQuestionIndex}
-        totalQuestions={questions.length}
-      />
+    <Scale
+      currentQuestionIndex={currentQuestionIndex}
+      questions={questions}
+      userAnswers={userAnswers}
+      onNumberClick={(index) => dispatch(goToQuestion(index))}
+    />
 
       <QuestionWindow
         currentQuestion={currentQuestion}

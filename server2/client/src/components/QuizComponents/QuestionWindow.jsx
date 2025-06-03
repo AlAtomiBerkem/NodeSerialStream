@@ -1,4 +1,21 @@
 import { AnimatePresence, motion } from 'framer-motion';
+import akrobatSemibold from '../../UI/Fonts/Acrobat/akrobat-semibold.woff2';
+import akrobatSemiboldWoff from '../../UI/Fonts/Acrobat/akrobat-semibold.woff';
+
+ const fontStyles = `
+  @font-face {
+    font-family: 'Akrobat';
+    src: url(${akrobatSemibold}) format('woff2'),
+         url(${akrobatSemiboldWoff}) format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+`;
+
+const styleElement = document.createElement('style');
+styleElement.innerHTML = fontStyles;
+document.head.appendChild(styleElement);
 
 export const QuestionWindow = ({ 
   currentQuestion, 
@@ -17,6 +34,7 @@ export const QuestionWindow = ({
       flexDirection: 'column',
       justifyContent: 'space-between'
     }}>
+
       {/* Анимированный контент вопроса */}
       <AnimatePresence mode="wait">
         <motion.div
@@ -31,8 +49,10 @@ export const QuestionWindow = ({
             alignItems: 'center',
             justifyContent: 'center',
             color: 'white',
-            fontSize: '24px',
-            textAlign: 'center'
+            fontSize: '50px',
+            textAlign: 'center',
+            fontFamily: 'Akrobat',
+            fontWeight: 600
           }}
         >
           {currentQuestion.text}

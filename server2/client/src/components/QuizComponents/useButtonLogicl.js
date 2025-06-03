@@ -9,8 +9,7 @@ export const useButtonLogic = (onNextQuestion) => {
     rightBtnClicked: false
   });
 
-  // Сброс состояния нажатия левой кнопки через 200 мс
-  useEffect(() => {
+   useEffect(() => {
     if (uiState.leftBtnClicked) {
       const timer = setTimeout(() => {
         setUiState(prev => ({
@@ -23,20 +22,18 @@ export const useButtonLogic = (onNextQuestion) => {
     }
   }, [uiState.leftBtnClicked]);
 
-  // Обработка нажатия правой кнопки
-  useEffect(() => {
+   useEffect(() => {
     if (uiState.rightBtnClicked) {
       const timer = setTimeout(() => {
-        // Если кнопка была синей (выбран ответ), переходим к следующему вопросу
-        if (uiState.rightBtnState === 'blue') {
-          onNextQuestion(); // Вызываем колбэк для перехода к следующему вопросу
+         if (uiState.rightBtnState === 'blue') {
+          onNextQuestion(); 
         }
         
         setUiState(prev => ({
           ...prev,
           rightBtnClicked: false,
           rightBtnState: prev.selectedOption ? 'blue' : 'default',
-          selectedOption: null // Сбрасываем выбранный ответ
+          selectedOption: null 
         }));
       }, 200);
       return () => clearTimeout(timer);
@@ -47,7 +44,7 @@ export const useButtonLogic = (onNextQuestion) => {
     setUiState(prev => ({
       ...prev,
       selectedOption: option,
-      rightBtnState: 'blue', // Правая кнопка становится синей при выборе ответа
+      rightBtnState: 'blue', 
       leftBtnState: 'default',
       leftBtnClicked: false,
       rightBtnClicked: false

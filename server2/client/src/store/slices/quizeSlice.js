@@ -73,7 +73,13 @@ const quizSlice = createSlice({
     
     dismissError(state) {
       state.validationError = null;
-    }
+    },
+
+    goToQuestion: (state, action) => {
+      if (action.payload >= 0 && action.payload < state.questions.length) {
+      state.currentQuestionIndex = action.payload;
+  }
+}
   },
 });
 
@@ -85,7 +91,9 @@ export const {
   resetQuiz,
   hideResults,
   dismissError,
-  showResults
+  showResults,
+  goToQuestion
+
 } = quizSlice.actions;
 
 export default quizSlice.reducer;
