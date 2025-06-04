@@ -1,39 +1,35 @@
 import React from 'react';
-// import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Quizrezult from '../../UI/quizresult/QuizResult.png';
 import ChooseActive from '../../UI/quizresult/ChooseActive.png';
 import ChoosePushed from '../../UI/quizresult/ChoosePushed.png';
 import ButtonQuiz from '../../helpers/ButoonQuiz';
-import akrobatSemibold from '../../UI/Fonts/Acrobat/akrobat-semibold.woff2';
-import akrobatSemiboldWoff from '../../UI/Fonts/Acrobat/akrobat-semibold.woff';
 import QuestionTrue from '../../UI/quizresult/QuestionTrue.png';
 import QuestionFalse from '../../UI/quizresult/QuestionFalse.png'
+import {fontStyles} from '../../helpers/fontStyle'
 
-const fontStyles = `
-  @font-face {
-    font-family: 'Akrobat';
-    src: url(${akrobatSemibold}) format('woff2'),
-         url(${akrobatSemiboldWoff}) format('woff');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-  }
-`;
+import QuizPartSelect from '../QuizParts/QuizPartSelect';
+import { useState } from 'react'
 
 const QuizResults = () => {
   const [isButtonActive, setIsButtonActive] = React.useState(false);
   const { userAnswers, questions } = useSelector(state => state.quiz);
+  const [ showComponents, setShowComponent ] = useState(false)
   
   const answeredCount = userAnswers.length;
   const totalQuestions = questions.length;
 
+
   const handleButtonClick = () => {
     setIsButtonActive(true);
     setTimeout(() => {
-      // navigate('/next-page');
+      setShowComponent(true)
     }, 200);
   };
+
+  if(showComponents) {
+    return <QuizPartSelect />
+  }
 
   return (
     <div>
