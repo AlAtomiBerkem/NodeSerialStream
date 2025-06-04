@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import backdrop from '../../UI/backdrops/qqq.png';
 import Scale from './Scale.jsx';
-import ButtonQuiz from '../../helpers/ButoonQuiz.jsx';
+import ButtonQuiz from '../../helpers/ButtonQuiz.jsx';
 import TrueCheckDone from '../../UI/selectioAndMoveBtn/TryCheck.svg';
 import TrueCheck from '../../UI/selectioAndMoveBtn/TryUnCheck.svg';
 import FakeCheck from '../../UI/selectioAndMoveBtn/FakeUnCheck.svg';
