@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import backdrop from '../../UI/backdrops/qqq.png';
 import Scale from './Scale.jsx';
@@ -11,6 +10,7 @@ import FakeCheckDone from '../../UI/selectioAndMoveBtn/FakeCheck.svg';
 import { useButtonLogic } from './useButtonLogicl.js';
 import { getLeftBtnImage, getRightBtnImage } from './buttonUtils.js';
 import QuestionWindow from './QuestionWindow.jsx';
+import QuizResults from './QuizResults.jsx';
 
 import {
   setQuestions,
@@ -41,7 +41,6 @@ const QUESTIONS = [
 ];
 
 export const QuizCompleted = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
     questions,
@@ -67,16 +66,24 @@ export const QuizCompleted = () => {
 
   const currentQuestion = questions[currentQuestionIndex];
 
+
+// логика перехода на другой компонент
+  const [showComponent, setShowComponent] = useState(false);
+
+
   const handleNext = () => {
     handleRightBtnClick();
     setTimeout(() => {
       if (currentQuestionIndex === questions.length - 1) {
-        navigate('/quizResults');
+        setShowComponent(true)
       } else {
         dispatch(goToNextQuestion());
       }
     }, 200);
   };
+
+
+
 
   const handlePrev = () => {
     handleLeftBtnClick();
@@ -95,6 +102,10 @@ export const QuizCompleted = () => {
   };
 
   if (!currentQuestion) return <div>Loading...</div>;
+
+  if(showComponent) {
+    return <QuizResults />
+  }
 
   return (
     <div
