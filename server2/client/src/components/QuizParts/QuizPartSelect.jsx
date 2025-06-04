@@ -1,7 +1,7 @@
 import React from 'react';
 import partScreen from '../../UI/quizeParts/partScreen.png'
 import {fontStyles} from '../../helpers/fontStyle'
-improt 
+import Model1 from './Model1'
 
 const QuizPartSelect = () => {
     return (
@@ -18,7 +18,9 @@ const QuizPartSelect = () => {
                       backgroundRepeat: 'no-repeat',
                       position: 'relative',
                     }}
-                  ></div>
+                  >
+                    <Model1 />
+                  </div>
         </div>
     );
 };
