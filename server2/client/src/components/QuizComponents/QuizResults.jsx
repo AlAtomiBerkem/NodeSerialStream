@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import Quizrezult from '../../UI/quizresult/QuizResult.png';
 import ChooseActive from '../../UI/quizresult/ChooseActive.png';
 import ChoosePushed from '../../UI/quizresult/ChoosePushed.png';
-import ButtonQuiz from '../../helpers/ButoonQuiz';
+import ButtonQuiz from '../../helpers/ButtonQuiz';
 import QuestionTrue from '../../UI/quizresult/QuestionTrue.png';
 import QuestionFalse from '../../UI/quizresult/QuestionFalse.png'
 import {fontStyles} from '../../helpers/fontStyle'
