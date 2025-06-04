@@ -4,9 +4,9 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   questions: [],
   currentQuestionIndex: 0,
-  userAnswers: [],
+  userAnswers: [], // Здесь будут храниться только правильные ответы
   showResults: false,
-  valodationError: null
+  validationError: null
 };
 
 const quizSlice = createSlice({
@@ -20,20 +20,28 @@ const quizSlice = createSlice({
       const currentQuestion = state.questions[state.currentQuestionIndex];
       if (!currentQuestion) return;
 
-      const existingAnswerIndex = state.userAnswers.findIndex(
-        a => a.questionId === currentQuestion.id
-      );
+      // Проверяем, совпадает ли ответ пользователя с правильным ответом
+      if (action.payload.answer === currentQuestion.answer) {
+        const existingAnswerIndex = state.userAnswers.findIndex(
+          a => a.questionId === currentQuestion.id
+        );
 
-      const newAnswer = {
-        questionId: currentQuestion.id,
-        userAnswer: action.payload.answer,
-        isCorrect: action.payload.answer === currentQuestion.answer,
-      };
+        const newAnswer = {
+          questionId: currentQuestion.id,
+          userAnswer: action.payload.answer,
+          isCorrect: true // Всегда true, так как мы сохраняем только правильные ответы
+        };
 
-      if (existingAnswerIndex >= 0) {
-        state.userAnswers[existingAnswerIndex] = newAnswer;
+        if (existingAnswerIndex >= 0) {
+          state.userAnswers[existingAnswerIndex] = newAnswer;
+        } else {
+          state.userAnswers.push(newAnswer);
+        }
       } else {
-        state.userAnswers.push(newAnswer);
+        // Удаляем ответ, если он был сохранен ранее, но теперь неправильный
+        state.userAnswers = state.userAnswers.filter(
+          a => a.questionId !== currentQuestion.id
+        );
       }
     },
     goToNextQuestion(state) {
@@ -51,7 +59,7 @@ const quizSlice = createSlice({
       state.userAnswers = [];
     },
     showResults(state) {
-       const unansweredIds = state.questions
+      const unansweredIds = state.questions
         .filter(q => !state.userAnswers.some(a => a.questionId === q.id))
         .map(q => q.id);
       
@@ -65,21 +73,18 @@ const quizSlice = createSlice({
       
       state.showResults = true;
     },
-    
     hideResults(state) {
       state.showResults = false;
       state.validationError = null;
     },
-    
     dismissError(state) {
       state.validationError = null;
     },
-
     goToQuestion: (state, action) => {
       if (action.payload >= 0 && action.payload < state.questions.length) {
-      state.currentQuestionIndex = action.payload;
-  }
-}
+        state.currentQuestionIndex = action.payload;
+      }
+    }
   },
 });
 
@@ -93,7 +98,6 @@ export const {
   dismissError,
   showResults,
   goToQuestion
-
 } = quizSlice.actions;
 
 export default quizSlice.reducer;
