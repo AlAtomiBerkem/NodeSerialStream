@@ -1,10 +1,9 @@
-// store/quizSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   questions: [],
   currentQuestionIndex: 0,
-  userAnswers: [], // Здесь будут храниться только правильные ответы
+  userAnswers: [],
   showResults: false,
   validationError: null
 };
@@ -20,28 +19,20 @@ const quizSlice = createSlice({
       const currentQuestion = state.questions[state.currentQuestionIndex];
       if (!currentQuestion) return;
 
-      // Проверяем, совпадает ли ответ пользователя с правильным ответом
-      if (action.payload.answer === currentQuestion.answer) {
-        const existingAnswerIndex = state.userAnswers.findIndex(
-          a => a.questionId === currentQuestion.id
-        );
+      const existingAnswerIndex = state.userAnswers.findIndex(
+        a => a.questionId === currentQuestion.id
+      );
 
-        const newAnswer = {
-          questionId: currentQuestion.id,
-          userAnswer: action.payload.answer,
-          isCorrect: true // Всегда true, так как мы сохраняем только правильные ответы
-        };
+      const newAnswer = {
+        questionId: currentQuestion.id,
+        userAnswer: action.payload.answer,
+        isCorrect: action.payload.answer === currentQuestion.answer
+      };
 
-        if (existingAnswerIndex >= 0) {
-          state.userAnswers[existingAnswerIndex] = newAnswer;
-        } else {
-          state.userAnswers.push(newAnswer);
-        }
+      if (existingAnswerIndex >= 0) {
+        state.userAnswers[existingAnswerIndex] = newAnswer;
       } else {
-        // Удаляем ответ, если он был сохранен ранее, но теперь неправильный
-        state.userAnswers = state.userAnswers.filter(
-          a => a.questionId !== currentQuestion.id
-        );
+        state.userAnswers.push(newAnswer);
       }
     },
     goToNextQuestion(state) {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import backdrop from '../../UI/backdrops/qqq.png';
-import Scale from './Scale.jsx';
+import Scale from '../Scale/Scale.jsx';
 import ButtonQuiz from '../../helpers/ButtonQuiz.jsx';
 import TrueCheckDone from '../../UI/selectioAndMoveBtn/TryCheck.svg';
 import TrueCheck from '../../UI/selectioAndMoveBtn/TryUnCheck.svg';
@@ -17,8 +17,6 @@ import {
   answerQuestion,
   goToNextQuestion,
   goToPrevQuestion,
-  // showResults,
-  // dismissError,
   goToQuestion
 } from '../../store/slices/quizeSlice.js';
 
@@ -55,7 +53,6 @@ export const QuizCompleted = () => {
     handleRightBtnClick
   } = useButtonLogic();
 
-  // Восстанавливаем выбранный ответ при изменении вопроса
   useEffect(() => {
     dispatch(setQuestions(QUESTIONS));
     const currentAnswer = userAnswers.find(a => 
@@ -65,9 +62,6 @@ export const QuizCompleted = () => {
   }, [currentQuestionIndex]);
 
   const currentQuestion = questions[currentQuestionIndex];
-
-
-// логика перехода на другой компонент
   const [showComponent, setShowComponent] = useState(false);
 
 
@@ -81,9 +75,6 @@ export const QuizCompleted = () => {
       }
     }, 200);
   };
-
-
-
 
   const handlePrev = () => {
     handleLeftBtnClick();

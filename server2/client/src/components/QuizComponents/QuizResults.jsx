@@ -76,61 +76,35 @@ const QuizResults = () => {
         </div>
 
         {/* Контейнер с результатами по каждому вопросу */}
-        <div style={{
-          position: 'absolute',
-          top: '60%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          gap: '15px',
-          width: '90%',
-          maxWidth: '900px',
-          padding: '10px',
-        }}>
-          {questions.map((question, index) => {
+        <div
+          style={{
+            position: 'absolute',
+            top: '51.8%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            justifyContent: 'center',
+            width: '60%',
+            maxWidth: '700px',
+            padding: '10px',
+          }}
+        >
+          {questions.map((question) => {
             const userAnswer = userAnswers.find(a => a.questionId === question.id);
             const isCorrect = userAnswer?.isCorrect;
-            
+
             return (
-              <div 
+              <img
                 key={question.id}
+                src={isCorrect ? QuestionTrue : QuestionFalse}
+                alt={isCorrect ? "Правильный ответ" : "Неправильный ответ"}
                 style={{
-                  width: '50px',
-                  height: '50px',
-                  position: 'relative',
+                  width: '25px',
+                  height: '25px',
+                  objectFit: 'contain',
+                  margin: '0 2px',
                 }}
-              >
-                {/* Номер вопроса (позиционируется поверх изображения) */}
-                <span style={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  color: 'white',
-                  fontWeight: 'bold',
-                  fontSize: '18px',
-                  zIndex: 2,
-                  textShadow: '0 0 3px rgba(0,0,0,0.8)',
-                }}>
-                  {index + 1}
-                </span>
-                
-                {/* Изображение результата (под номером) */}
-                <img 
-                  src={isCorrect ? QuestionTrue : QuestionFalse} 
-                  alt={isCorrect ? "Правильный ответ" : "Неправильный ответ"}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'contain',
-                    filter: isCorrect 
-                      ? 'drop-shadow(0 0 8px rgba(114, 216, 255, 0.9))'
-                      : 'drop-shadow(0 0 8px rgba(255, 77, 77, 0.7))',
-                  }}
-                />
-              </div>
+              />
             );
           })}
         </div>

@@ -1,21 +1,8 @@
 import React from 'react';
 import scaleBody from '../../UI/scale/scaleBody.svg';
 import ruler from '../../UI/scale/ruler.png';
-
-import akrobatSemibold from '../../UI/Fonts/Acrobat/akrobat-semibold.woff2';
-import akrobatSemiboldWoff from '../../UI/Fonts/Acrobat/akrobat-semibold.woff';
-
- const fontStyles = `
-  @font-face {
-    font-family: 'Akrobat';
-    src: url(${akrobatSemibold}) format('woff2'),
-         url(${akrobatSemiboldWoff}) format('woff');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-  }
-`;
-
+import { fontStyles } from '../../helpers/fontStyle';
+import { numberStyles, animationDuration } from './numberStyles';
 
 const Scale = ({ 
   currentQuestionIndex, 
@@ -41,34 +28,6 @@ const Scale = ({
     return isAnswered ? 'answered' : 'unanswered';
   };
 
-   const numberStyles = {
-    'current-unanswered': { 
-      color: '#FFFFFF',
-      fontWeight: 700,
-      fontSize: '22px',
-      opacity: 1,
-    },
-    'current-answered': { 
-      color: '#72D8FF',
-      fontWeight: 700,
-      fontSize: '22px',
-      opacity: 1,
-      // textShadow: '0 0 1px rgba(114, 216, 255, 0.2)'
-    },
-    'unanswered': { 
-      color: '#A1A1A1',
-      fontWeight: 500,
-      fontSize: '20px',
-      opacity: 0.7
-    },
-    'answered': { 
-      color: '#5b9db7',
-      fontWeight: 500,
-      fontSize: '20px',
-      opacity: 0.9
-    }
-  };
-
   const numberPosition = (index) => {
     const position = (index / (totalQuestions - 1)) * 100;
     return `calc(${position}% + ${index * numberSpacing}px)`;
@@ -77,8 +36,6 @@ const Scale = ({
   const formatNumber = (num) => {
     return num < 9 ? `0${num + 1}` : num + 1;
   };
-
-   const animationDuration = 300;
 
   return (
     <div style={{
@@ -90,6 +47,8 @@ const Scale = ({
       width: '100%',
       maxWidth: '800px',
     }}>
+      <style>{fontStyles}</style>
+      
       <img 
         src={scaleBody} 
         alt="scale" 
@@ -142,10 +101,7 @@ const Scale = ({
                   key={index}
                   onClick={() => onNumberClick(index)}
                   style={{
-                    color: numberStyles[state].color,
-                    fontWeight: numberStyles[state].fontWeight,
-                    fontSize: numberStyles[state].fontSize,
-                    opacity: numberStyles[state].opacity,
+                    ...numberStyles[state],
                     position: 'absolute',
                     left: numberPosition(index),
                     transform: 'translateX(-50%)',
@@ -153,7 +109,6 @@ const Scale = ({
                     fontFamily: 'Arial, sans-serif',
                     letterSpacing: '0.5px',
                     transition: `all ${animationDuration}ms ease-in-out`,
-                    textShadow: numberStyles[state].textShadow || 'none'
                   }}
                 >
                   {formatNumber(index)}
