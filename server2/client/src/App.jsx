@@ -1,7 +1,7 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import { useEffect, lazy, Suspense } from 'react';
+import LoadingBackground from './screens/LoadingBackground.jsx';
 import './reset.css';
-import {useState, useEffect, lazy, Suspense} from 'react'
-import LoadingBackground from './screens/LoadingBackground.jsx'
 
 
 const ConnectionTab = lazy(() => import("./screens/ConnectionTab.jsx"));
@@ -15,7 +15,7 @@ const QuizPartSelect = lazy(() => import("./components/QuizParts/QuizPartSelect.
 function App() {
   const navigate = useNavigate();
 
-    useEffect(() => {
+  useEffect(() => {
     import("./screens/ConnectionTab.jsx");
     import("./components/TestingStart.jsx");
     import("./components/QuizComponents/QuizComponent.jsx");

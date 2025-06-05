@@ -11,7 +11,7 @@ import { useButtonLogic } from './useButtonLogicl.js';
 import { getLeftBtnImage, getRightBtnImage } from './buttonUtils.js';
 import QuestionWindow from './QuestionWindow.jsx';
 import QuizResults from './QuizResults.jsx';
-import warning from '../../UI/warning/warningQuiz.png';
+import WarningModal from './WarningModal.jsx';
 
 
 import {
@@ -106,73 +106,6 @@ const handleNext = () => {
     dispatch(checkMissedQuestions());
   };
 
- const WarningModal = () => (
-  <div
-    style={{
-      position: 'fixed',
-      top: 250,
-      left: 0,
-      width: '100vw',
-      height: '100vh',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      zIndex: 1000,
-      pointerEvents: 'none'
-    }}
-  >
-    <div style={{
-      position: 'relative',
-      textAlign: 'center',
-      pointerEvents: 'auto'
-    }}>
-      <img 
-        src={warning} 
-        alt="Warning" 
-        style={{
-          maxWidth: '100%',
-          height: 'auto',
-          display: 'block'
-        }}
-      />
-      
-      <div style={{
-        position: 'absolute',
-        top: '60%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '80%',
-        color: 'white'
-      }}>
-        <div style={{
-          marginBottom: '70px'
-        }}>
-        </div>
-        
-        <div style={{
-          top: '10px',
-          display: 'flex',
-          justifyContent: 'center',
-        }}>
-          {missedQuestions.map(id => (
-            <div 
-              key={id}
-              style={{
-                padding: '0px 5px',
-                color: '#a1a1a1',
-                fontSize: '24px',
-              }}
-            >
-              [{String(id + 1).padStart(2, '0')}]
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
-
   if (!currentQuestion) return <div>{backdrop}</div>;
 
   if (showComponent) {
@@ -244,7 +177,7 @@ const handleNext = () => {
         alt="Right navigation"
         disabled={false}
       />
-          {showWarning && <WarningModal />}
+        {showWarning && <WarningModal missedQuestions={missedQuestions} />}
 
     </div>
   );
