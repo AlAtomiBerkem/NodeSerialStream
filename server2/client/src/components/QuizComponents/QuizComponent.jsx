@@ -11,13 +11,16 @@ import { useButtonLogic } from './useButtonLogicl.js';
 import { getLeftBtnImage, getRightBtnImage } from './buttonUtils.js';
 import QuestionWindow from './QuestionWindow.jsx';
 import QuizResults from './QuizResults.jsx';
+import warning from '../../UI/warning/warningQuiz.png';
+
 
 import {
   setQuestions,
   answerQuestion,
   goToNextQuestion,
   goToPrevQuestion,
-  goToQuestion
+  goToQuestion,
+  checkMissedQuestions
 } from '../../store/slices/quizeSlice.js';
 
 const QUESTIONS = [
@@ -43,7 +46,8 @@ export const QuizCompleted = () => {
   const {
     questions,
     currentQuestionIndex,
-    userAnswers
+    userAnswers,
+    missedQuestions
   } = useSelector(state => state.quiz);
 
   const {
@@ -53,23 +57,34 @@ export const QuizCompleted = () => {
     handleRightBtnClick
   } = useButtonLogic();
 
+  const [showWarning, setShowWarning] = useState(false);
+  const [showComponent, setShowComponent] = useState(false);
+
   useEffect(() => {
     dispatch(setQuestions(QUESTIONS));
     const currentAnswer = userAnswers.find(a => 
       a.questionId === QUESTIONS[currentQuestionIndex]?.id
     );
     handleSelect(currentAnswer ? (currentAnswer.userAnswer ? 'true' : 'false') : null);
-  }, [currentQuestionIndex]);
+  }, [currentQuestionIndex, dispatch, userAnswers]);
 
   const currentQuestion = questions[currentQuestionIndex];
-  const [showComponent, setShowComponent] = useState(false);
-
 
   const handleNext = () => {
     handleRightBtnClick();
     setTimeout(() => {
       if (currentQuestionIndex === questions.length - 1) {
-        setShowComponent(true)
+        // Находим вопросы без ответов
+        const unansweredQuestions = questions.filter(
+          q => !userAnswers.some(a => a.questionId === q.id)
+        ).map(q => q.id);
+        
+        if (unansweredQuestions.length > 0) {
+          dispatch(checkMissedQuestions(unansweredQuestions));
+          setShowWarning(true);
+        } else {
+          setShowComponent(true);
+        }
       } else {
         dispatch(goToNextQuestion());
       }
@@ -92,10 +107,77 @@ export const QuizCompleted = () => {
     }));
   };
 
-  if (!currentQuestion) return <div>Loading...</div>;
+ const WarningModal = () => (
+  <div
+    style={{
+      position: 'fixed',
+      top: 250,
+      left: 0,
+      width: '100vw',
+      height: '100vh',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      zIndex: 1000,
+      pointerEvents: 'none'
+    }}
+  >
+    <div style={{
+      position: 'relative',
+      textAlign: 'center',
+      pointerEvents: 'auto'
+    }}>
+      <img 
+        src={warning} 
+        alt="Warning" 
+        style={{
+          maxWidth: '100%',
+          height: 'auto',
+          display: 'block'
+        }}
+      />
+      
+      <div style={{
+        position: 'absolute',
+        top: '60%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '80%',
+        color: 'white'
+      }}>
+        <div style={{
+          marginBottom: '70px'
+        }}>
+        </div>
+        
+        <div style={{
+          top: '10px',
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
+          {missedQuestions.map(id => (
+            <div 
+              key={id}
+              style={{
+                padding: '0px 5px',
+                color: '#a1a1a1',
+                fontSize: '24px',
+              }}
+            >
+              [{String(id + 1).padStart(2, '0')}]
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+);
 
-  if(showComponent) {
-    return <QuizResults />
+
+  if (!currentQuestion) return <div>{backdrop}</div>;
+
+  if (showComponent) {
+    return <QuizResults />;
   }
 
   return (
@@ -109,12 +191,12 @@ export const QuizCompleted = () => {
         backgroundRepeat: 'no-repeat',
       }}
     >
-    <Scale
-      currentQuestionIndex={currentQuestionIndex}
-      questions={questions}
-      userAnswers={userAnswers}
-      onNumberClick={(index) => dispatch(goToQuestion(index))}
-    />
+      <Scale
+        currentQuestionIndex={currentQuestionIndex}
+        questions={questions}
+        userAnswers={userAnswers}
+        onNumberClick={(index) => dispatch(goToQuestion(index))}
+      />
 
       <QuestionWindow
         currentQuestion={currentQuestion}
@@ -124,7 +206,6 @@ export const QuizCompleted = () => {
         onSelect={handleAnswer}
       />
 
-      {/* Кнопки True/False */}
       <ButtonQuiz
         top="89%"
         left="38%"
@@ -145,7 +226,6 @@ export const QuizCompleted = () => {
         alt="False option"
       />
 
-      {/* Кнопки навигации */}
       <ButtonQuiz
         top="89%"
         left="22.5%"
@@ -165,6 +245,8 @@ export const QuizCompleted = () => {
         alt="Right navigation"
         disabled={false}
       />
+          {showWarning && <WarningModal />}
+
     </div>
   );
 };

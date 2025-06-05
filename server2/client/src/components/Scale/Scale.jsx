@@ -1,6 +1,6 @@
 import React from 'react';
-import scaleBody from '../../UI/scale/scaleBody.svg';
-import ruler from '../../UI/scale/ruler.png';
+import scaleBody from '../../UI/quizScale/scaleBody.svg';
+import ruler from '../../UI/quizScale/ruler.png';
 import { fontStyles } from '../../helpers/fontStyle';
 import { numberStyles, animationDuration } from './numberStyles';
 
