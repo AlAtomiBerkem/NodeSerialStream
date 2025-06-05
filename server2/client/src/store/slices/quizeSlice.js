@@ -77,8 +77,7 @@ const quizSlice = createSlice({
         state.currentQuestionIndex = action.payload;
       }
     },
-    checkMissedQuestions (state, action) {
-      state.missedQuestions = action.payload;
+    checkMissedQuestions(state) {
       const answeredIds = state.userAnswers.map(a => a.questionId);
       state.missedQuestions = state.questions.filter(q => !answeredIds.includes(q.id)).map(q => q.id);
     }

@@ -11,7 +11,7 @@ import { useButtonLogic } from './useButtonLogicl.js';
 import { getLeftBtnImage, getRightBtnImage } from './buttonUtils.js';
 import QuestionWindow from './QuestionWindow.jsx';
 import QuizResults from './QuizResults.jsx';
-import warning from '../../UI/warning/warningQuiz.png';
+import WarningModal from './WarningModal.jsx';
 
 
 import {
@@ -62,34 +62,32 @@ export const QuizCompleted = () => {
 
   useEffect(() => {
     dispatch(setQuestions(QUESTIONS));
+    dispatch(checkMissedQuestions());
+      if (showWarning && missedQuestions.length === 0) {
+    setShowWarning(false);
+  }
     const currentAnswer = userAnswers.find(a => 
       a.questionId === QUESTIONS[currentQuestionIndex]?.id
     );
     handleSelect(currentAnswer ? (currentAnswer.userAnswer ? 'true' : 'false') : null);
-  }, [currentQuestionIndex, dispatch, userAnswers]);
+  }, [currentQuestionIndex, dispatch, userAnswers, showWarning]);
 
   const currentQuestion = questions[currentQuestionIndex];
 
-  const handleNext = () => {
-    handleRightBtnClick();
-    setTimeout(() => {
-      if (currentQuestionIndex === questions.length - 1) {
-        // Находим вопросы без ответов
-        const unansweredQuestions = questions.filter(
-          q => !userAnswers.some(a => a.questionId === q.id)
-        ).map(q => q.id);
-        
-        if (unansweredQuestions.length > 0) {
-          dispatch(checkMissedQuestions(unansweredQuestions));
-          setShowWarning(true);
-        } else {
-          setShowComponent(true);
-        }
+const handleNext = () => {
+  handleRightBtnClick();
+  setTimeout(() => {
+    if (currentQuestionIndex === questions.length - 1) {
+      if (missedQuestions.length > 0) {
+        setShowWarning(true);
       } else {
-        dispatch(goToNextQuestion());
+        setShowComponent(true);
       }
-    }, 200);
-  };
+    } else {
+      dispatch(goToNextQuestion());
+    }
+  }, 200);
+};
 
   const handlePrev = () => {
     handleLeftBtnClick();
@@ -105,74 +103,8 @@ export const QuizCompleted = () => {
       questionId: currentQuestion.id,
       answer: answer
     }));
+    dispatch(checkMissedQuestions());
   };
-
- const WarningModal = () => (
-  <div
-    style={{
-      position: 'fixed',
-      top: 250,
-      left: 0,
-      width: '100vw',
-      height: '100vh',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      zIndex: 1000,
-      pointerEvents: 'none'
-    }}
-  >
-    <div style={{
-      position: 'relative',
-      textAlign: 'center',
-      pointerEvents: 'auto'
-    }}>
-      <img 
-        src={warning} 
-        alt="Warning" 
-        style={{
-          maxWidth: '100%',
-          height: 'auto',
-          display: 'block'
-        }}
-      />
-      
-      <div style={{
-        position: 'absolute',
-        top: '60%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '80%',
-        color: 'white'
-      }}>
-        <div style={{
-          marginBottom: '70px'
-        }}>
-        </div>
-        
-        <div style={{
-          top: '10px',
-          display: 'flex',
-          justifyContent: 'center',
-        }}>
-          {missedQuestions.map(id => (
-            <div 
-              key={id}
-              style={{
-                padding: '0px 5px',
-                color: '#a1a1a1',
-                fontSize: '24px',
-              }}
-            >
-              [{String(id + 1).padStart(2, '0')}]
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
 
   if (!currentQuestion) return <div>{backdrop}</div>;
 
@@ -245,7 +177,7 @@ export const QuizCompleted = () => {
         alt="Right navigation"
         disabled={false}
       />
-          {showWarning && <WarningModal />}
+        {showWarning && <WarningModal missedQuestions={missedQuestions} />}
 
     </div>
   );

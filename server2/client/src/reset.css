@@ -46,3 +46,13 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+
+
+@font-face {
+  font-family: 'Akrobat';
+  src: url('./UI/Fonts/Acrobat/akrobat-semibold.woff2') format('woff2'),
+       url('./UI/Fonts/Acrobat/akrobat-semibold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
