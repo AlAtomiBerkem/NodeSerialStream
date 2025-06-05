@@ -7,6 +7,8 @@ import automatBerecosa from '../../UI/quizeParts/vinty.png'
 import ilushin52 from '../../UI/quizeParts/ilushin52.png'
 import QuizExit from '../QuizExit'
 
+// import QuizColorSelect from './QuizColorSelect';
+
 const Model1 = () => {
   const [isButtonPushed, setIsButtonPushed] = useState(false);
   const [showComponent, setShowComponent] = useState(false)
@@ -70,6 +72,7 @@ const Model1 = () => {
         />
       </div>
 
+        {/* <QuizColorSelect /> */}
     </div>
   );
 };
