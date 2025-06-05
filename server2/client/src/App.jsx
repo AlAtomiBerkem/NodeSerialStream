@@ -88,11 +88,6 @@ function App() {
       <Route path="/quizpartselect" element={<QuizPartSelect />} />
     </Routes>
   );
-
-
-  // return (
-  //   <QuizeResult />
-  // )
 }
 
 export default App;

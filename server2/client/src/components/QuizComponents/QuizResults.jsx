@@ -5,30 +5,28 @@ import ChooseActive from '../../UI/quizresult/ChooseActive.png';
 import ChoosePushed from '../../UI/quizresult/ChoosePushed.png';
 import ButtonQuiz from '../../helpers/ButtonQuiz';
 import QuestionTrue from '../../UI/quizresult/QuestionTrue.png';
-import QuestionFalse from '../../UI/quizresult/QuestionFalse.png'
-import {fontStyles} from '../../helpers/fontStyle'
-
+import QuestionFalse from '../../UI/quizresult/QuestionFalse.png';
+import {fontStyles} from '../../helpers/fontStyle';
 import QuizPartSelect from '../QuizParts/QuizPartSelect';
-import { useState } from 'react'
+import { useState } from 'react';
 
 const QuizResults = () => {
   const [isButtonActive, setIsButtonActive] = React.useState(false);
   const { userAnswers, questions } = useSelector(state => state.quiz);
-  const [ showComponents, setShowComponent ] = useState(false)
+  const [showComponents, setShowComponent] = useState(false);
   
-  const answeredCount = userAnswers.length;
+  const correctAnswersCount = userAnswers.filter(answer => answer.isCorrect).length;
   const totalQuestions = questions.length;
-
 
   const handleButtonClick = () => {
     setIsButtonActive(true);
     setTimeout(() => {
-      setShowComponent(true)
+      setShowComponent(true);
     }, 200);
   };
 
   if(showComponents) {
-    return <QuizPartSelect />
+    return <QuizPartSelect />;
   }
 
   return (
@@ -46,7 +44,7 @@ const QuizResults = () => {
           position: 'relative',
         }}
       >
-        {/* Контейнер для счётчика вопросов */}
+        {/* Основной счетчик правильных ответов */}
         <div style={{
           position: 'absolute',
           top: '45%',
@@ -55,7 +53,6 @@ const QuizResults = () => {
           display: 'flex',
           alignItems: 'baseline',
         }}>
-          {/* Стили для отвеченных вопросов */}
           <span style={{
             color: '#72D8FF',
             fontSize: '128px',
@@ -64,10 +61,9 @@ const QuizResults = () => {
             lineHeight: 1,
             textShadow: '0 0 10px rgba(114, 216, 255, 0.9)'
           }}>
-            {answeredCount}
+            {correctAnswersCount}
           </span>
           
-          {/* Стили для общего количества вопросов */}
           <span style={{
             color: '#A1A1A1',
             fontSize: '120px',
@@ -77,6 +73,40 @@ const QuizResults = () => {
           }}>
             /{totalQuestions}
           </span>
+        </div>
+
+        {/* Контейнер с результатами по каждому вопросу */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '51.8%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            justifyContent: 'center',
+            width: '60%',
+            maxWidth: '700px',
+            padding: '10px',
+          }}
+        >
+          {questions.map((question) => {
+            const userAnswer = userAnswers.find(a => a.questionId === question.id);
+            const isCorrect = userAnswer?.isCorrect;
+
+            return (
+              <img
+                key={question.id}
+                src={isCorrect ? QuestionTrue : QuestionFalse}
+                alt={isCorrect ? "Правильный ответ" : "Неправильный ответ"}
+                style={{
+                  width: '25px',
+                  height: '25px',
+                  objectFit: 'contain',
+                  margin: '0 2px',
+                }}
+              />
+            );
+          })}
         </div>
         
         <ButtonQuiz

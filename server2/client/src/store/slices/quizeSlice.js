@@ -1,4 +1,3 @@
-// store/quizSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -6,7 +5,7 @@ const initialState = {
   currentQuestionIndex: 0,
   userAnswers: [],
   showResults: false,
-  valodationError: null
+  validationError: null
 };
 
 const quizSlice = createSlice({
@@ -27,7 +26,7 @@ const quizSlice = createSlice({
       const newAnswer = {
         questionId: currentQuestion.id,
         userAnswer: action.payload.answer,
-        isCorrect: action.payload.answer === currentQuestion.answer,
+        isCorrect: action.payload.answer === currentQuestion.answer
       };
 
       if (existingAnswerIndex >= 0) {
@@ -51,7 +50,7 @@ const quizSlice = createSlice({
       state.userAnswers = [];
     },
     showResults(state) {
-       const unansweredIds = state.questions
+      const unansweredIds = state.questions
         .filter(q => !state.userAnswers.some(a => a.questionId === q.id))
         .map(q => q.id);
       
@@ -65,21 +64,18 @@ const quizSlice = createSlice({
       
       state.showResults = true;
     },
-    
     hideResults(state) {
       state.showResults = false;
       state.validationError = null;
     },
-    
     dismissError(state) {
       state.validationError = null;
     },
-
     goToQuestion: (state, action) => {
       if (action.payload >= 0 && action.payload < state.questions.length) {
-      state.currentQuestionIndex = action.payload;
-  }
-}
+        state.currentQuestionIndex = action.payload;
+      }
+    }
   },
 });
 
@@ -93,7 +89,6 @@ export const {
   dismissError,
   showResults,
   goToQuestion
-
 } = quizSlice.actions;
 
 export default quizSlice.reducer;
