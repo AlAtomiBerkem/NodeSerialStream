@@ -62,34 +62,32 @@ export const QuizCompleted = () => {
 
   useEffect(() => {
     dispatch(setQuestions(QUESTIONS));
+    dispatch(checkMissedQuestions());
+      if (showWarning && missedQuestions.length === 0) {
+    setShowWarning(false);
+  }
     const currentAnswer = userAnswers.find(a => 
       a.questionId === QUESTIONS[currentQuestionIndex]?.id
     );
     handleSelect(currentAnswer ? (currentAnswer.userAnswer ? 'true' : 'false') : null);
-  }, [currentQuestionIndex, dispatch, userAnswers]);
+  }, [currentQuestionIndex, dispatch, userAnswers, showWarning]);
 
   const currentQuestion = questions[currentQuestionIndex];
 
-  const handleNext = () => {
-    handleRightBtnClick();
-    setTimeout(() => {
-      if (currentQuestionIndex === questions.length - 1) {
-        // Находим вопросы без ответов
-        const unansweredQuestions = questions.filter(
-          q => !userAnswers.some(a => a.questionId === q.id)
-        ).map(q => q.id);
-        
-        if (unansweredQuestions.length > 0) {
-          dispatch(checkMissedQuestions(unansweredQuestions));
-          setShowWarning(true);
-        } else {
-          setShowComponent(true);
-        }
+const handleNext = () => {
+  handleRightBtnClick();
+  setTimeout(() => {
+    if (currentQuestionIndex === questions.length - 1) {
+      if (missedQuestions.length > 0) {
+        setShowWarning(true);
       } else {
-        dispatch(goToNextQuestion());
+        setShowComponent(true);
       }
-    }, 200);
-  };
+    } else {
+      dispatch(goToNextQuestion());
+    }
+  }, 200);
+};
 
   const handlePrev = () => {
     handleLeftBtnClick();
@@ -105,6 +103,7 @@ export const QuizCompleted = () => {
       questionId: currentQuestion.id,
       answer: answer
     }));
+    dispatch(checkMissedQuestions());
   };
 
  const WarningModal = () => (

@@ -47,7 +47,7 @@ export const QuestionWindow = ({
             alignItems: 'center',
             justifyContent: 'center',
             color: 'white',
-            fontSize: '50px',
+            fontSize: '100px',
             textAlign: 'center',
             fontFamily: 'Akrobat, sans-serif',
             fontWeight: 600
