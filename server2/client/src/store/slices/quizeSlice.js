@@ -5,7 +5,8 @@ const initialState = {
   currentQuestionIndex: 0,
   userAnswers: [],
   showResults: false,
-  validationError: null
+  validationError: null,
+  missedQuestions: [] 
 };
 
 const quizSlice = createSlice({
@@ -75,6 +76,11 @@ const quizSlice = createSlice({
       if (action.payload >= 0 && action.payload < state.questions.length) {
         state.currentQuestionIndex = action.payload;
       }
+    },
+    checkMissedQuestions (state, action) {
+      state.missedQuestions = action.payload;
+      const answeredIds = state.userAnswers.map(a => a.questionId);
+      state.missedQuestions = state.questions.filter(q => !answeredIds.includes(q.id)).map(q => q.id);
     }
   },
 });
@@ -88,7 +94,8 @@ export const {
   hideResults,
   dismissError,
   showResults,
-  goToQuestion
+  goToQuestion,
+  checkMissedQuestions 
 } = quizSlice.actions;
 
 export default quizSlice.reducer;
