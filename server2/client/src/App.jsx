@@ -1,58 +1,48 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import ConnectionTab from "./screens/ConnectionTab.jsx";
-import TestingStart from "./components/TestingStart.jsx";
-import QuizCompleted from "./components/QuizComponents/QuizComponent.jsx";
-import ErrorComponent from "./screens/ErrorComponent.jsx";
-import TestingDone from "./screens/TestingDone.jsx";
-import LoadingBackground from "./screens/LoadingBackground.jsx";
-import QuizResults from "./components/QuizComponents/QuizResults.jsx"
 import './reset.css';
-import {useState, useEffect} from 'react'
-import QuizeResult from "./components/QuizComponents/QuizResults.jsx"
-import QuizPartSelect from "./components/QuizParts/QuizPartSelect.jsx"
+import {useState, useEffect, lazy, Suspense} from 'react'
+import LoadingBackground from './screens/LoadingBackground.jsx'
+
+
+const ConnectionTab = lazy(() => import("./screens/ConnectionTab.jsx"));
+const TestingStart = lazy(() => import("./components/TestingStart.jsx"));
+const QuizCompleted = lazy(() => import("./components/QuizComponents/QuizComponent.jsx"));
+const ErrorComponent = lazy(() => import("./screens/ErrorComponent.jsx"));
+const TestingDone = lazy(() => import("./screens/TestingDone.jsx"));
+const QuizResults = lazy(() => import("./components/QuizComponents/QuizResults.jsx"));
+const QuizPartSelect = lazy(() => import("./components/QuizParts/QuizPartSelect.jsx"));
 
 function App() {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+    import("./screens/ConnectionTab.jsx");
+    import("./components/TestingStart.jsx");
+    import("./components/QuizComponents/QuizComponent.jsx");
+    import("./screens/ErrorComponent.jsx");
+    import("./screens/TestingDone.jsx");
+    import("./components/QuizComponents/QuizResults.jsx");
+    import("./components/QuizParts/QuizPartSelect.jsx");
+  }, []);
 
   const handleStartButtonClick = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      navigate('/quiz');
-      setIsLoading(false);
-    }, 500);
+    navigate('/quiz');
   };
 
   const handleStartQuizeClick = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      navigate('/testing-start');
-      setIsLoading(false);
-    }, 500);
+    navigate('/testing-start');
   };
 
   const handleBackButtonClick = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      navigate('/testing-start');
-      setIsLoading(false);
-    }, 500);
+    navigate('/testing-start');
   };
 
   const handleErrorButtonClick = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      navigate('/error');
-      setIsLoading(false);
-    }, 500);
+    navigate('/error');
   };
 
   const handleTestingDoneButtonClick = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      navigate('/testing-done');
-      setIsLoading(false);
-    }, 500);
+    navigate('/testing-done');
   };
 
   useEffect(() => {
@@ -73,20 +63,18 @@ function App() {
     };
   }, []);
 
-  if (isLoading) {
-    return <LoadingBackground />;
-  }
-
   return (
-    <Routes>
-      <Route path="/" element={<ConnectionTab />} />
-      <Route path="/testing-start" element={<TestingStart onStartButtonClick={handleStartButtonClick} onBackButtonClick={handleBackButtonClick} />} />
-      <Route path="/quiz" element={<QuizCompleted />} />
-      <Route path="/error" element={<ErrorComponent />} />
-      <Route path="/testing-done" element={<TestingDone />} />
-      <Route path="/quizResults" element={<QuizeResult />} />
-      <Route path="/quizpartselect" element={<QuizPartSelect />} />
-    </Routes>
+    <Suspense fallback={<LoadingBackground />}>
+      <Routes>
+        <Route path="/" element={<ConnectionTab onStartQuizeClick={handleStartQuizeClick} />} />
+        <Route path="/testing-start" element={<TestingStart onStartButtonClick={handleStartButtonClick} onBackButtonClick={handleBackButtonClick} />} />
+        <Route path="/quiz" element={<QuizCompleted />} />
+        <Route path="/error" element={<ErrorComponent />} />
+        <Route path="/testing-done" element={<TestingDone />} />
+        <Route path="/quizResults" element={<QuizResults />} />
+        <Route path="/quizpartselect" element={<QuizPartSelect />} />
+      </Routes>
+    </Suspense>
   );
 }
 
