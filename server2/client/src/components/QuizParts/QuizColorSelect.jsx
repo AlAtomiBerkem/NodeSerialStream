@@ -4,7 +4,8 @@ import vectorSelect from '../../UI/quizeParts/VectorSelect.png';
 import Color from '../../UI/quizeParts/Color.png';
 
 const QuizColorSelect = ({ onColorSelect }) => {
-  const [selectedColor, setSelectedColor] = useState(1);
+   const [selectedColor, setSelectedColor] = useState(1);
+  const [isButtonPushed, setIsButtonPushed] = useState(null);
 
   const colorButtons = [
     { id: 1, top: '64%', left: '60%' },
@@ -12,17 +13,22 @@ const QuizColorSelect = ({ onColorSelect }) => {
     { id: 3, top: '64%', left: '83%' }
   ];
 
-  const handleColorClick = (colorId) => {
-    setSelectedColor(colorId);
-    if (onColorSelect) onColorSelect(colorId);
-  };
+    const handleColorSelect = (colorId) => {
+        console.log('Нажата кнопка цвета:', colorId); // Лог нажатия
+        setIsButtonPushed(colorId);
+        setTimeout(() => {
+            setIsButtonPushed(null);
+            setSelectedColor(colorId);
+            onColorSelect(colorId);
+        }, 200);
+    };
 
   return (
     <>
       {colorButtons.map((button) => (
         <div 
           key={button.id}
-          onClick={() => handleColorClick(button.id)}
+          onClick={() => handleColorSelect(button.id)}
           style={{
             position: 'absolute',
             top: button.top,

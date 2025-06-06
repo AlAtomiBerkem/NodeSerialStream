@@ -1,23 +1,31 @@
-import React, { useState } from 'react';
-import partScreen from '../../UI/quizeParts/partScreen.png';
-import { fontStyles } from '../../helpers/fontStyle';
-import ButtonQuiz from '../../helpers/ButtonQuiz';
-import ilushin52 from '../../UI/quizeParts/ilushin52.png';
-import model2Icon from '../../UI/quizeParts/sy43.png';
-import model3Icon from '../../UI/quizeParts/ty91.png';
-import ModelOne from './ModelOne';
-import ModelTwo from './ModelTho';
-import ModelThree from './ModelThree';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setModel } from '../../store/slices/selectionSlice'
+import { fontStyles } from '../../helpers/fontStyle'
+
+import {
+  ButtonQuiz,
+  ilushin52,
+  model2Icon,
+  model3Icon,
+  ModelOne,
+  ModelTwo,
+  ModelThree,
+  partScreen
+} from './imports'
 
 const QuizPartSelect = () => {
     const [selectedModel, setSelectedModel] = useState(1);
     const [isButtonPushed, setIsButtonPushed] = useState(null);
+    const dispatch = useDispatch();
 
     const handleModelSelect = (modelId) => {
+        console.log('Пользователь выбрал модель:', modelId); 
         setIsButtonPushed(modelId);
         setTimeout(() => {
             setIsButtonPushed(null);
             setSelectedModel(modelId);
+            dispatch(setModel(modelId));
         }, 200);
     };
 

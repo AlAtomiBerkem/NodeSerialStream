@@ -1,30 +1,43 @@
-import {useState} from 'react';
-import frame1 from '../../UI/quizeParts/Frame1.png';
-import automatBerecosa from '../../UI/quizeParts/vinty.png';
-import QuizColorSelect from './QuizColorSelect';
-import ButtonQuiz from '../../helpers/ButtonQuiz';
+import {
+    frame1,
+    automatBerecosa,
+    QuizColorSelect,
+    ButtonQuiz,
+    partBtn,
+    partBtnActive,
+    QuizeExit
+} from './imports'
 
-import partBtn from '../../UI/quizeParts/partBtn.png';
-import partBtnActive from '../../UI/quizeParts/partBtnPushed.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { setColor, selectCombinedSelection } from '../../store/slices/selectionSlice' 
+import {useState} from 'react';
 
 
 const ModelOne = () => {
     const [isButtonPushed, setIsButtonPushed] = useState(false);
-  const [showComponent, setShowComponent] = useState(false)
+    const [showComponent, setShowComponent] = useState(false);
+    const dispatch = useDispatch();
+    const combinedSelection = useSelector(selectCombinedSelection);
 
-  const handleAnswer = (answer) => {
-    setIsButtonPushed(true);
-    
-    setTimeout(() => {
-      setIsButtonPushed(false);
-      setShowComponent(true)
-       console.log('Ответ принят:', answer);
-    }, 200);
-  };
+    const handleAnswer = () => {
+            console.log('Пользователь подтвердил выбор');  
+            setIsButtonPushed(true);
+            
+            setTimeout(() => {
+                setIsButtonPushed(false);
+                setShowComponent(true);
+                console.log('Финальный выбор пользователя:', combinedSelection);
+            }, 200);
+        };
 
     const handleColorSelect = (colorId) => {
-        console.log('Selected color for Model 1:', colorId);
+        console.log('Пользователь выбрал цвет:', colorId);
+        dispatch(setColor(colorId));
     };
+
+    if(showComponent) {
+        return <QuizeExit />
+    }
 
     return (
         <div>

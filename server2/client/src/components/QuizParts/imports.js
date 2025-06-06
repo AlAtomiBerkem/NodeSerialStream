@@ -1,0 +1,18 @@
+export { default as asframe1 } from '../../UI/quizeParts/Frame1.png';
+export { default as automatBerecosa } from '../../UI/quizeParts/vinty.png';
+export { default as QuizColorSelect } from './QuizColorSelect';
+export { default as ButtonQuiz } from '../../helpers/ButtonQuiz';
+export { default as partBtn } from '../../UI/quizeParts/partBtn.png';
+export { default as partBtnActive } from '../../UI/quizeParts/partBtnPushed.png';
+export { default as frame1 } from '../../UI/quizeParts/Frame1.png';
+export { default as vector } from '../../UI/quizeParts/Vector.png';
+export { default as vectorSelect } from '../../UI/quizeParts/VectorSelect.png';
+export { default as Color } from '../../UI/quizeParts/Color.png';
+export { default as ilushin52 } from '../../UI/quizeParts/ilushin52.png';
+export { default as model2Icon } from '../../UI/quizeParts/sy43.png';
+export { default as model3Icon } from '../../UI/quizeParts/ty91.png';
+export { default as ModelOne } from './ModelOne';
+export { default as ModelTwo } from './ModelTho';
+export { default as ModelThree } from './ModelThree';
+export { default as partScreen } from '../../UI/quizeParts/partScreen.png';
+export { default as QuizeExit} from '../../screens/QuizExit'
