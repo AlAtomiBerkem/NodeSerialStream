@@ -84,6 +84,12 @@ const quizSlice = createSlice({
   },
 });
 
+export const selectCurrentAnswer = (state) => {
+  const currentQuestion = state.quiz.questions[state.quiz.currentQuestionIndex];
+  if (!currentQuestion) return null;
+  return state.quiz.userAnswers.find(a => a.questionId === currentQuestion.id);
+};
+
 export const {
   setQuestions,
   answerQuestion,

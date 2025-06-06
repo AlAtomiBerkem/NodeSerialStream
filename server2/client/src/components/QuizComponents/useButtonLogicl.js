@@ -1,74 +1,51 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setSelectedOption,
+  pushLeftButton,
+  pushRightButton,
+  resetButtonStates
+} from '../../store/slices/uiSlice';
 
 export const useButtonLogic = (onNextQuestion) => {
-  const [uiState, setUiState] = useState({
-    selectedOption: null,      // 'true' | 'false' | null
-    leftBtnState: 'default',   // 'default' | 'pushed'
-    rightBtnState: 'default',  // 'default' | 'blue' | 'pushed'
-    leftBtnClicked: false,
-    rightBtnClicked: false
-  });
+  const dispatch = useDispatch();
+  const buttonsState = useSelector(state => state.ui.buttons);
 
-   useEffect(() => {
-    if (uiState.leftBtnClicked) {
+  useEffect(() => {
+    if (buttonsState.leftBtnClicked) {
       const timer = setTimeout(() => {
-        setUiState(prev => ({
-          ...prev,
-          leftBtnClicked: false,
-          leftBtnState: 'default'
-        }));
+        dispatch(resetButtonStates());
       }, 200);
       return () => clearTimeout(timer);
     }
-  }, [uiState.leftBtnClicked]);
+  }, [buttonsState.leftBtnClicked, dispatch]);
 
-   useEffect(() => {
-    if (uiState.rightBtnClicked) {
+  useEffect(() => {
+    if (buttonsState.rightBtnClicked) {
       const timer = setTimeout(() => {
-         if (uiState.rightBtnState === 'blue') {
-          onNextQuestion(); 
+        if (buttonsState.rightBtnState === 'bluePushed') {
+          onNextQuestion();
         }
-        
-        setUiState(prev => ({
-          ...prev,
-          rightBtnClicked: false,
-          rightBtnState: prev.selectedOption ? 'blue' : 'default',
-          selectedOption: null 
-        }));
+        dispatch(resetButtonStates());
       }, 200);
       return () => clearTimeout(timer);
     }
-  }, [uiState.rightBtnClicked, uiState.rightBtnState, onNextQuestion]);
+  }, [buttonsState.rightBtnClicked, buttonsState.rightBtnState, dispatch, onNextQuestion]);
 
   const handleSelect = (option) => {
-    setUiState(prev => ({
-      ...prev,
-      selectedOption: option,
-      rightBtnState: 'blue', 
-      leftBtnState: 'default',
-      leftBtnClicked: false,
-      rightBtnClicked: false
-    }));
+    dispatch(setSelectedOption(option));
   };
 
   const handleLeftBtnClick = () => {
-    setUiState(prev => ({
-      ...prev,
-      leftBtnState: 'pushed',
-      leftBtnClicked: true
-    }));
+    dispatch(pushLeftButton());
   };
 
   const handleRightBtnClick = () => {
-    setUiState(prev => ({
-      ...prev,
-      rightBtnState: prev.selectedOption ? 'blue' : 'default',
-      rightBtnClicked: true
-    }));
+    dispatch(pushRightButton());
   };
 
   return {
-    uiState,
+    uiState: buttonsState,
     handleSelect,
     handleLeftBtnClick,
     handleRightBtnClick
