@@ -15,4 +15,4 @@ export { default as ModelOne } from './ModelOne';
 export { default as ModelTwo } from './ModelTho';
 export { default as ModelThree } from './ModelThree';
 export { default as partScreen } from '../../UI/quizeParts/partScreen.png';
-export { default as QuizeExit} from '../../screens/QuizExit'
+export { default as QuizeExit } from '../../screens/QuizExit';

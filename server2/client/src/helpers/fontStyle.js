@@ -10,4 +10,4 @@ export const fontStyles = `
     font-style: normal;
     font-display: swap;
   }
-`
+`;

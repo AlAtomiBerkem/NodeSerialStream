@@ -3,16 +3,16 @@ import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr'; // Импортируем плагин
 
 export default defineConfig({
-  server: {
-    port: 3000
-  },
-  plugins: [
-    react(),
-    svgr({ 
-      svgrOptions: {
-        icon: true,
-        replaceAttrValues: { '#000': 'currentColor' },
-      },
-    }),
-  ],
+    server: {
+        port: 3000,
+    },
+    plugins: [
+        react(),
+        svgr({
+            svgrOptions: {
+                icon: true,
+                replaceAttrValues: { '#000': 'currentColor' },
+            },
+        }),
+    ],
 });
