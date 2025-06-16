@@ -13,68 +13,70 @@ import backActive from '../UI/quizReturnStart/backBtnActiv.png';
 import ButtonQuiz from '../helpers/ButtonQuiz';
 
 const ReturnScreen = () => {
-  const [activeButton, setActiveButton] = useState(null);
-  const [nextComponent, setNextComponent] = useState(null);
+    const [activeButton, setActiveButton] = useState(null);
+    const [nextComponent, setNextComponent] = useState(null);
 
-  const handleButtonClick = (buttonType) => {
-     if (activeButton) return;
-    
-    setActiveButton(buttonType);
-    
-    setTimeout(() => {
-      setActiveButton(null);
-       if (buttonType === 'yes' || buttonType === 'back') {
-        setNextComponent('connection');
-      } else if (buttonType === 'no') {
-        setNextComponent('quiz');
-      }
-    }, 200);
-  };
+    const handleButtonClick = (buttonType) => {
+        if (activeButton) return;
 
-   if (nextComponent === 'connection') return <ConnectionTab />;
-  if (nextComponent === 'quiz') return <StartScreen />;
+        setActiveButton(buttonType);
 
-  return (
-    <div style={{
-      width: '100vw',
-      height: '100vh',
-      backgroundImage: `url(${returnToStart})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
-      position: 'relative',
-    }}>
-      <ButtonQuiz
-        top="9.1%"
-        left="10.3%"
-        activeImg={backPushed}
-        inactiveImg={backActive}
-        onClick={() => handleButtonClick('back')}
-        isActive={activeButton === 'back'}
-        alt="Back button"
-      />
+        setTimeout(() => {
+            setActiveButton(null);
+            if (buttonType === 'yes' || buttonType === 'back') {
+                setNextComponent('connection');
+            } else if (buttonType === 'no') {
+                setNextComponent('quiz');
+            }
+        }, 200);
+    };
 
-      <ButtonQuiz
-        top="72%"
-        left="57.9%"
-        activeImg={noPushed}
-        inactiveImg={noActive}
-        onClick={() => handleButtonClick('no')}
-        isActive={activeButton === 'no'}
-        alt="No option"
-      />
+    if (nextComponent === 'connection') return <ConnectionTab />;
+    if (nextComponent === 'quiz') return <StartScreen />;
 
-      <ButtonQuiz
-        top="72%"
-        left="42.1%"
-        activeImg={yesPushed}
-        inactiveImg={yesActiv}
-        onClick={() => handleButtonClick('yes')}
-        isActive={activeButton === 'yes'}
-        alt="Yes option"
-      />
-    </div>
-  );
+    return (
+        <div
+            style={{
+                width: '100vw',
+                height: '100vh',
+                backgroundImage: `url(${returnToStart})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                position: 'relative',
+            }}
+        >
+            <ButtonQuiz
+                top="9.1%"
+                left="10.3%"
+                activeImg={backPushed}
+                inactiveImg={backActive}
+                onClick={() => handleButtonClick('back')}
+                isActive={activeButton === 'back'}
+                alt="Back button"
+            />
+
+            <ButtonQuiz
+                top="72%"
+                left="57.9%"
+                activeImg={noPushed}
+                inactiveImg={noActive}
+                onClick={() => handleButtonClick('no')}
+                isActive={activeButton === 'no'}
+                alt="No option"
+            />
+
+            <ButtonQuiz
+                top="72%"
+                left="42.1%"
+                activeImg={yesPushed}
+                inactiveImg={yesActiv}
+                onClick={() => handleButtonClick('yes')}
+                isActive={activeButton === 'yes'}
+                alt="Yes option"
+            />
+        </div>
+    );
 };
 
 export default ReturnScreen;

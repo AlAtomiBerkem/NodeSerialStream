@@ -14,38 +14,56 @@ const TestComponent = () => {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [quizAnswers, setQuizAnswers] = useState([]);
 
- 
     const quizQuestions = [
         {
-            question: " Какой самолёт является самым массовым пассажирским лайнером в истории?",
-            options: ["Boeing 747", "Airbus A380", "Boeing 737", "Concorde"],
-            correctAnswer: "Boeing 737"
+            question:
+                ' Какой самолёт является самым массовым пассажирским лайнером в истории?',
+            options: ['Boeing 747', 'Airbus A380', 'Boeing 737', 'Concorde'],
+            correctAnswer: 'Boeing 737',
         },
         {
-            question: "Как назывался первый в мире сверхзвуковой пассажирский самолёт?",
-            options: ["Ту-144", "Concorde", "SR-71 Blackbird", "МиГ-31"],
-            correctAnswer: "Concorde "
+            question:
+                'Как назывался первый в мире сверхзвуковой пассажирский самолёт?',
+            options: ['Ту-144', 'Concorde', 'SR-71 Blackbird', 'МиГ-31'],
+            correctAnswer: 'Concorde ',
         },
         {
             question: `Какой истребитель называют "Летающим Крокодилом"?`,
-            options: ["Су-27", "F-16 Fighting Falcon", " Су-34", "МиГ-29"],
-            correctAnswer: "Су-34"
+            options: ['Су-27', 'F-16 Fighting Falcon', ' Су-34', 'МиГ-29'],
+            correctAnswer: 'Су-34',
         },
         {
-            question: "Какой самолёт установил рекорд скорости среди пилотируемых реактивных самолётов?",
-            options: ["Lockheed SR-71 Blackbird", "МиГ-25", "North American X-15", "F-22 Raptor"],
-            correctAnswer: "Lockheed SR-71 Blackbird"
+            question:
+                'Какой самолёт установил рекорд скорости среди пилотируемых реактивных самолётов?',
+            options: [
+                'Lockheed SR-71 Blackbird',
+                'МиГ-25',
+                'North American X-15',
+                'F-22 Raptor',
+            ],
+            correctAnswer: 'Lockheed SR-71 Blackbird',
         },
         {
             question: ` Какой самолёт называют "Jumbo Jet"?`,
-            options: ["Airbus A380", "Boeing 747", `Ан-225 "Мрия"`, "Boeing 777"],
-            correctAnswer: "Boeing 777"
+            options: [
+                'Airbus A380',
+                'Boeing 747',
+                `Ан-225 "Мрия"`,
+                'Boeing 777',
+            ],
+            correctAnswer: 'Boeing 777',
         },
         {
-            question: "Какой самолёт является самым большим в мире по размаху крыльев?",
-            options: [`Ан-225 "Мрия"`, "Stratolaunch", "Airbus A380", "Hughes H-4 Hercules"],
-            correctAnswer: "Stratolaunch"
-        }
+            question:
+                'Какой самолёт является самым большим в мире по размаху крыльев?',
+            options: [
+                `Ан-225 "Мрия"`,
+                'Stratolaunch',
+                'Airbus A380',
+                'Hughes H-4 Hercules',
+            ],
+            correctAnswer: 'Stratolaunch',
+        },
     ];
 
     const checkTestReadiness = async () => {
@@ -58,7 +76,9 @@ const TestComponent = () => {
         setMessage('');
 
         try {
-            const response = await axios.get(`http://localhost:3002/api/users/${idTab}`);
+            const response = await axios.get(
+                `http://localhost:3002/api/users/${idTab}`
+            );
 
             if (response.data.readyForTest) {
                 setQuizStarted(true); // Начинаем викторину вместо сразу теста
@@ -97,9 +117,12 @@ const TestComponent = () => {
         setSelectedAnswer(answer);
 
         try {
-            const response = await axios.post(`http://localhost:3002/api/users/${idTab}/answer`, {
-                answer: answer
-            });
+            const response = await axios.post(
+                `http://localhost:3002/api/users/${idTab}/answer`,
+                {
+                    answer: answer,
+                }
+            );
 
             setTestReady(false);
             setTestCompleted(true);
@@ -107,7 +130,9 @@ const TestComponent = () => {
             setMessage(`Ответ принят: ${answer}`);
         } catch (error) {
             if (error.response) {
-                setMessage(error.response.data.message || 'Ошибка при отправке ответа');
+                setMessage(
+                    error.response.data.message || 'Ошибка при отправке ответа'
+                );
             } else {
                 setMessage('Не удалось отправить ответ');
             }
@@ -159,22 +184,30 @@ const TestComponent = () => {
                 <div style={styles.section}>
                     <p style={styles.message}>{message}</p>
                     <div style={styles.quizContainer}>
-                        <h3>Вопрос {currentQuestion + 1} из {quizQuestions.length}</h3>
-                        <p style={styles.question}>{quizQuestions[currentQuestion].question}</p>
+                        <h3>
+                            Вопрос {currentQuestion + 1} из{' '}
+                            {quizQuestions.length}
+                        </h3>
+                        <p style={styles.question}>
+                            {quizQuestions[currentQuestion].question}
+                        </p>
                         <div style={styles.buttonsContainer}>
-                            {quizQuestions[currentQuestion].options.map((option, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => handleQuizAnswer(option)}
-                                    style={styles.answerButton}
-                                    disabled={isLoading}
-                                >
-                                    {option}
-                                </button>
-                            ))}
+                            {quizQuestions[currentQuestion].options.map(
+                                (option, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => handleQuizAnswer(option)}
+                                        style={styles.answerButton}
+                                        disabled={isLoading}
+                                    >
+                                        {option}
+                                    </button>
+                                )
+                            )}
                         </div>
                         <p style={styles.progress}>
-                            Прогресс: {currentQuestion + 1}/{quizQuestions.length}
+                            Прогресс: {currentQuestion + 1}/
+                            {quizQuestions.length}
                         </p>
                     </div>
                 </div>
@@ -190,7 +223,8 @@ const TestComponent = () => {
                                 onClick={() => submitAnswer(answer)}
                                 style={{
                                     ...styles.answerButton,
-                                    ...(selectedAnswer === answer && styles.selectedButton)
+                                    ...(selectedAnswer === answer &&
+                                        styles.selectedButton),
                                 }}
                                 disabled={isLoading}
                             >
@@ -203,7 +237,9 @@ const TestComponent = () => {
 
             {testCompleted && (
                 <div style={styles.section}>
-                    <p style={styles.result}>Тест завершен! Ваш результат: {result}</p>
+                    <p style={styles.result}>
+                        Тест завершен! Ваш результат: {result}
+                    </p>
                     <button onClick={resetTest} style={styles.button}>
                         Начать заново
                     </button>
@@ -211,7 +247,14 @@ const TestComponent = () => {
             )}
 
             {message && !quizStarted && !testReady && !testCompleted && (
-                <p style={{ ...styles.message, color: message.includes('не все тесты') ? 'red' : 'inherit' }}>
+                <p
+                    style={{
+                        ...styles.message,
+                        color: message.includes('не все тесты')
+                            ? 'red'
+                            : 'inherit',
+                    }}
+                >
                     {message}
                 </p>
             )}

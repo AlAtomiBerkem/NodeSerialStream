@@ -1,76 +1,58 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    setSelectedOption,
+    pushLeftButton,
+    pushRightButton,
+    resetButtonStates,
+} from '../../store/slices/uiSlice';
 
 export const useButtonLogic = (onNextQuestion) => {
-  const [uiState, setUiState] = useState({
-    selectedOption: null,      // 'true' | 'false' | null
-    leftBtnState: 'default',   // 'default' | 'pushed'
-    rightBtnState: 'default',  // 'default' | 'blue' | 'pushed'
-    leftBtnClicked: false,
-    rightBtnClicked: false
-  });
+    const dispatch = useDispatch();
+    const buttonsState = useSelector((state) => state.ui.buttons);
 
-   useEffect(() => {
-    if (uiState.leftBtnClicked) {
-      const timer = setTimeout(() => {
-        setUiState(prev => ({
-          ...prev,
-          leftBtnClicked: false,
-          leftBtnState: 'default'
-        }));
-      }, 200);
-      return () => clearTimeout(timer);
-    }
-  }, [uiState.leftBtnClicked]);
-
-   useEffect(() => {
-    if (uiState.rightBtnClicked) {
-      const timer = setTimeout(() => {
-         if (uiState.rightBtnState === 'blue') {
-          onNextQuestion(); 
+    useEffect(() => {
+        if (buttonsState.leftBtnClicked) {
+            const timer = setTimeout(() => {
+                dispatch(resetButtonStates());
+            }, 200);
+            return () => clearTimeout(timer);
         }
-        
-        setUiState(prev => ({
-          ...prev,
-          rightBtnClicked: false,
-          rightBtnState: prev.selectedOption ? 'blue' : 'default',
-          selectedOption: null 
-        }));
-      }, 200);
-      return () => clearTimeout(timer);
-    }
-  }, [uiState.rightBtnClicked, uiState.rightBtnState, onNextQuestion]);
+    }, [buttonsState.leftBtnClicked, dispatch]);
 
-  const handleSelect = (option) => {
-    setUiState(prev => ({
-      ...prev,
-      selectedOption: option,
-      rightBtnState: 'blue', 
-      leftBtnState: 'default',
-      leftBtnClicked: false,
-      rightBtnClicked: false
-    }));
-  };
+    useEffect(() => {
+        if (buttonsState.rightBtnClicked) {
+            const timer = setTimeout(() => {
+                if (buttonsState.rightBtnState === 'bluePushed') {
+                    onNextQuestion();
+                }
+                dispatch(resetButtonStates());
+            }, 200);
+            return () => clearTimeout(timer);
+        }
+    }, [
+        buttonsState.rightBtnClicked,
+        buttonsState.rightBtnState,
+        dispatch,
+        onNextQuestion,
+    ]);
 
-  const handleLeftBtnClick = () => {
-    setUiState(prev => ({
-      ...prev,
-      leftBtnState: 'pushed',
-      leftBtnClicked: true
-    }));
-  };
+    const handleSelect = (option) => {
+        dispatch(setSelectedOption(option));
+    };
 
-  const handleRightBtnClick = () => {
-    setUiState(prev => ({
-      ...prev,
-      rightBtnState: prev.selectedOption ? 'blue' : 'default',
-      rightBtnClicked: true
-    }));
-  };
+    const handleLeftBtnClick = () => {
+        dispatch(pushLeftButton());
+    };
 
-  return {
-    uiState,
-    handleSelect,
-    handleLeftBtnClick,
-    handleRightBtnClick
-  };
+    const handleRightBtnClick = () => {
+        dispatch(pushRightButton());
+    };
+
+    return {
+        uiState: buttonsState,
+        handleSelect,
+        handleLeftBtnClick,
+        handleRightBtnClick,
+    };
 };
