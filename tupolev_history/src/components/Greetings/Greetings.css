@@ -6,21 +6,21 @@
     min-height: 100vh;
     box-sizing: border-box;
     text-align: center;
-    position: relative; /* Добавляем только один раз */
+    position: relative;
 }
 
 .greeting-image {
     max-width: 70%;
     max-height: 50vh;
     object-fit: contain;
-    margin-bottom: 20px; /* Добавляем отступ снизу */
+    margin-bottom: 20px; 
 }
 
 .button-wrapper {
     position: absolute;
-    bottom: 16%; /* Уменьшаем отступ снизу */
+    bottom: 16%;
     left: 50%;
-    transform: translateX(-50%) scale(0.75); /* Объединяем трансформации */
-    width: 100%; /* Для правильного центрирования */
+    transform: translateX(-50%) scale(0.75);
+    width: 100%; 
     text-align: center;
 }

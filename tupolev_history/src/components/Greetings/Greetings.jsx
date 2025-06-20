@@ -1,7 +1,7 @@
 import React from 'react';
 import greetingImg from '../../assets/greetings.png';
-import ButoonStart from './ButoonStart.jsx';
-import './Greetings.css';
+import ButtonStart from './ButoonStart';
+import './Greetings.css'
 
 const Greetings = () => {
   return (
@@ -12,7 +12,7 @@ const Greetings = () => {
         className="greeting-image"
       />
       <div className="button-wrapper">
-        <ButoonStart />
+        <ButtonStart />
       </div>
     </div>
   );
