@@ -4,7 +4,51 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c02ff8f-d3d3-4900-b105-23876ae56824" name="Changes" comment="" />
+    <list default="true" id="7c02ff8f-d3d3-4900-b105-23876ae56824" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/tupolev_history/.prettierignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/.prettierrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-black-demo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-black.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-black.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-bold-demo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-bold.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-bold.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-extrabold-demo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-extrabold.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-extrabold.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-extralight-demo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-extralight.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-extralight.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-light-demo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-light.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-light.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-regular-demo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-regular.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-regular.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-semibold-demo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-semibold.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-semibold.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-thin-demo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-thin.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/akrobat-thin.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/generator_config.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/specimen_files/grid_12-825-55-15.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/specimen_files/specimen_stylesheet.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/UI/Fonts/Acrobat/stylesheet.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/components/BackgroundLayout.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/components/Greetings/ButoonStart.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/components/Greetings/Greetings.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/components/Greetings/Greetings.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/styles/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tupolev_history/src/styles/fonts.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tupolev_history/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/tupolev_history/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tupolev_history/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/tupolev_history/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tupolev_history/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/tupolev_history/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tupolev_history/src/components/Test.css" beforeDir="false" afterPath="$PROJECT_DIR$/tupolev_history/src/components/Test.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tupolev_history/src/components/Test.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/tupolev_history/src/components/Test.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tupolev_history/src/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/tupolev_history/src/main.jsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,34 +77,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/annapirz/Desktop/NodeSerialStream/PhotoStand/client/src/assets&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.stickyLines&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Applications/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JavaScript Debug.index.html.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/annapirz/Desktop/NodeSerialStream/tupolev_history/src/UI",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.dev.executor": "Run",
+    "settings.editor.selected.configurable": "editor.stickyLines",
+    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tupolev_history/src/UI" />
       <recent name="$PROJECT_DIR$/PhotoStand/client/src/assets" />
       <recent name="$PROJECT_DIR$/server2" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tupolev_history/src/components/Greetings" />
+      <recent name="$PROJECT_DIR$/tupolev_history/src/styles" />
       <recent name="$PROJECT_DIR$/PhotoStand/server/uploads/processed" />
       <recent name="$PROJECT_DIR$/PhotoStand/client/src/styles" />
       <recent name="$PROJECT_DIR$/PhotoStand/client/src/components" />
-      <recent name="$PROJECT_DIR$/server2/server" />
-      <recent name="$PROJECT_DIR$/server1/server" />
     </key>
   </component>
   <component name="RunManager" selected="JavaScript Debug.index.html">
@@ -125,6 +170,7 @@
       <workItem from="1748085971611" duration="308000" />
       <workItem from="1748239689427" duration="609000" />
       <workItem from="1748261661728" duration="4998000" />
+      <workItem from="1750398104688" duration="7590000" />
     </task>
     <servers />
   </component>

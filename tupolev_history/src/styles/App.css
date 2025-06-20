@@ -1,0 +1,21 @@
+body {
+  overscroll-behavior: none; /* Отключает "отскок" на всех устройствах */
+}
+
+/*стили для ползунка */
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #72d8ff;
+}
+
+::-webkit-scrollbar-track {
+  background: url('../UI/scrollBar/track.png') no-repeat center center;
+  background-size: cover;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}

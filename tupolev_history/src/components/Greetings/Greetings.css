@@ -1,0 +1,26 @@
+.greetings-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+    text-align: center;
+    position: relative; /* Добавляем только один раз */
+}
+
+.greeting-image {
+    max-width: 70%;
+    max-height: 50vh;
+    object-fit: contain;
+    margin-bottom: 20px; /* Добавляем отступ снизу */
+}
+
+.button-wrapper {
+    position: absolute;
+    bottom: 16%; /* Уменьшаем отступ снизу */
+    left: 50%;
+    transform: translateX(-50%) scale(0.75); /* Объединяем трансформации */
+    width: 100%; /* Для правильного центрирования */
+    text-align: center;
+}
