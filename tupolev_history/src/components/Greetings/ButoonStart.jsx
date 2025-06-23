@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 
-const ButtonStart = () => {
+const ButtonStart = ({ onClick }) => {
+    const handleClick = (e) => {
+    e.stopPropagation();
+    onClick();
+  };
   const [isActive, setIsActive] = useState(false);
 
   return (
@@ -13,6 +17,8 @@ const ButtonStart = () => {
         userSelect: 'none',
         WebkitTapHighlightColor: 'transparent',
       }}
+
+      onClick={handleClick}
       onMouseDown={() => setIsActive(true)}
       onMouseUp={() => setIsActive(false)}
       onMouseLeave={() => setIsActive(false)}
