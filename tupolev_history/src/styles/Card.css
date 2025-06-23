@@ -7,10 +7,13 @@
 }
 
 .card-photo {
-  width: 40%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column; /* Элементы в колонку */
+  align-items: center; /* Центрирование по горизонтали */
+  gap: 5px; /* Отступ между элементами */
+  padding: 20px 0; /* Отступы сверху и снизу */
+  width: 40%; /* Ширина по родителю */
+  margin: 0 auto; /* Центрирование блока (если нужно) */
   border-right: 1px solid #ccc;
 }
 
@@ -42,7 +45,28 @@
 }
 
 .placeholder {
-   background: url('../UI/scrollBar/track.png')
+  background: url('../UI/scrollBar/track.png');
+}
+
+.photo-placeholder {
+  background: url('../assets/photo_mask.png') no-repeat center center;
+  background-size: contain; /* Маска растягивается на весь блок */
+  width: 550px;
+  height: 550px;
+  position: relative; /* Чтобы дочерний элемент позиционировался относительно маски */
+  margin-top: -40px;
+}
+
+.photo-phocus {
+  position: absolute; /* Фото позиционируется абсолютно внутри маски */
+  top: 0;
+  left: 0;
+  width: 100%; /* Занимает всю ширину маски */
+  height: 100%; /* Занимает всю высоту маски */
+  object-fit: cover; /* Если фото внутри — сохраняет пропорции и заполняет блок */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 ::-webkit-scrollbar {

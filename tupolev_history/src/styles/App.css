@@ -1,14 +1,13 @@
-/* Отключаем overscroll и стандартный скролл (если нужно) */
-html, body {
-  overscroll-behavior: none; /* Убирает инерцию/отскок на iOS и Android */
-  overflow: hidden; /* Если нужно полностью запретить скролл */
-  /* overflow: auto;  если скролл должен работать */
+html,
+body {
+  overscroll-behavior: none;
+  overflow: hidden;
 }
 
 /* Стилизация скроллбара для WebKit (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
   width: 14px;
-  height: 14px; /* Для горизонтального скролла */
+  height: 14px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -25,7 +24,6 @@ html, body {
   display: none;
 }
 
-/* Для Firefox (если нужно) */
 * {
   scrollbar-width: thin;
   scrollbar-color: #72d8ff transparent;

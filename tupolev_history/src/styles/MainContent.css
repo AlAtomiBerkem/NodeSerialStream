@@ -1,15 +1,13 @@
-/* Основная обертка */
 .main-content-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  height: 100vh; /* Или нужная вам высота */
+  height: 100vh;
   padding: 20px;
   box-sizing: border-box;
 }
 
-/* Контейнер для карточки */
 .main-container {
   display: flex;
   justify-content: center;
