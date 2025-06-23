@@ -18,9 +18,9 @@
 
 .button-wrapper {
   position: absolute;
-  bottom: 15.5%;
+  bottom: 21.5%;
   left: 50%;
-  transform: translateX(-50%) scale(0.75);
+  transform: translateX(-50%) scale(1);
   width: 100%;
   text-align: center;
 }

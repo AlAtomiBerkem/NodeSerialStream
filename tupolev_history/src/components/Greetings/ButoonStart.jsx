@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const ButtonStart = ({ onClick }) => {
-    const handleClick = (e) => {
+  const handleClick = (e) => {
     e.stopPropagation();
     onClick();
   };
@@ -17,7 +17,6 @@ const ButtonStart = ({ onClick }) => {
         userSelect: 'none',
         WebkitTapHighlightColor: 'transparent',
       }}
-
       onClick={handleClick}
       onMouseDown={() => setIsActive(true)}
       onMouseUp={() => setIsActive(false)}

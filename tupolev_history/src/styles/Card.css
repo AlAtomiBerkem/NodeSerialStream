@@ -1,0 +1,64 @@
+.card {
+  width: 100%;
+  height: 65vh;
+  display: flex;
+  border: 2px solid aliceblue;
+  overflow: hidden;
+}
+
+.card-photo {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #ccc;
+}
+
+.photo-placeholder {
+  color: #666;
+  font-size: 18px;
+}
+
+.card-content {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  padding: 15px;
+  font-size: 22px;
+  color: white;
+  background-color: #333;
+  border-bottom: 1px solid #555;
+}
+
+.card-description {
+  flex-grow: 1;
+  padding: 15px;
+  overflow-y: auto; /* Вертикальная прокрутка при переполнении */
+  color: white;
+  line-height: 1.5;
+}
+
+.placeholder {
+   background: url('../UI/scrollBar/track.png')
+}
+
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px; /* Для горизонтального скролла */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #72d8ff;
+}
+
+::-webkit-scrollbar-track {
+  background: url('../UI/scrollBar/track.png') no-repeat center center;
+  background-size: cover;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}

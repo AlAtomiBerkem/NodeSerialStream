@@ -1,0 +1,20 @@
+/* Основная обертка */
+.main-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh; /* Или нужная вам высота */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Контейнер для карточки */
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  flex-grow: 1;
+  margin-bottom: 60px;
+}
