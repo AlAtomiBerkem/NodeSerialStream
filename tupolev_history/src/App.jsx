@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import BackgroundLayout from './components/BackgroundLayout.jsx';
+import BackgroundLayout from './styles/BackgroundLayout.jsx';
 import Greetings from './components/Greetings/Greetings.jsx';
-import MainContent from './components/MainContent/MainContentCard.jsx';
+import MainContent from './components/MainContent/MainContent.jsx';
 import { useInactivityRedirect } from '../hooks/useInactiveRedirect.js';
-import './styles/fonts.css'
+import './styles/fonts.css';
 
 function App() {
-  const [showGreetings, setShowGreetings] = useState(true);  // Начинаем с приветствия
+  const [showGreetings, setShowGreetings] = useState(true);
 
   const handleStart = () => {
     setShowGreetings(false);
@@ -18,11 +18,7 @@ function App() {
 
   return (
     <BackgroundLayout>
-      {showGreetings ? (
-        <Greetings onStart={handleStart} />
-      ) : (
-        <MainContent />
-      )}
+      {showGreetings ? <Greetings onStart={handleStart} /> : <MainContent />}
     </BackgroundLayout>
   );
 }
