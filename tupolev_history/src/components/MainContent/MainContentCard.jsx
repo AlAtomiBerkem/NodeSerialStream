@@ -1,10 +1,10 @@
 import React from 'react';
-import SelectContentBtn from './SelectContentBtn.jsx';
+import ButtonGroup from './ButtonGroup.jsx';
 
 const MainContent = () => {
   return (
     <div>
-      <SelectContentBtn />
+      <ButtonGroup />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SelectContentBtn = ({ label = 'ИЗОБРИТЕНИЯ', isActive, onClick }) => {
+const SelectContentBtn = ({ label, isActive, onClick }) => {
   return (
     <button
       style={{
@@ -37,8 +37,8 @@ const SelectContentBtn = ({ label = 'ИЗОБРИТЕНИЯ', isActive, onClick 
           dominantBaseline="middle"
           textAnchor="middle"
           fill={isActive ? '#000000' : '#A1A1A1'}
-          fontSize="20"
-          fontFamily="Arial, sans-serif"
+          fontSize="26"
+          // fontFamily="Arial, sans-serif"
         >
           {label}
         </text>
