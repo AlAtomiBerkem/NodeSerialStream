@@ -1,6 +1,10 @@
 body {
   overscroll-behavior: none; /* Отключает "отскок" на всех устройствах */
 }
+body, html {
+  overscroll-behavior: none;
+  overflow: hidden;
+}
 
 /*стили для ползунка */
 ::-webkit-scrollbar {
