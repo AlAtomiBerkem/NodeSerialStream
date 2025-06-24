@@ -3,17 +3,25 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   photos: {
     1: [ 
-      { id: 1, url: '' },
-      { id: 2, url: '' },
+      { id: 1, url: '../../assets/ant-2.png' },
+      { id: 2, url: '../../assets/tb-2' },
+      { id: 3, url: '../../assets/tupolev' },
+      { id: 4, url: '' },
+
     ],
     2: [
-      { id: 3, url: '' },
-      { id: 4, url: '' },
+      { id: 5, url: '../../assets/ant-2.png' },
+      { id: 6, url: '../../assets/tb-2' },
+      { id: 7, url: '../../assets/tupolev' },
+      { id: 8, url: '../../assets/tb-2' },
+      { id: 9, url: '../../assets/ant-2.png' },
+
+
     ],
   },
   activePhotoIndex: {
     1: 0, 
-    2: 1,
+    2: 0,
   },
 };
 
