@@ -9,10 +9,39 @@
 }
 
 .main-container {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 80%;
   flex-grow: 1;
   margin-bottom: 60px;
+}
+
+.card-arrow {
+  background: none;
+  border: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.card-arrow.left {
+  left: -60px;
+}
+
+.card-arrow.right {
+  right: -60px;
+}
+
+.card-arrow:hover {
+  opacity: 1;
 }
