@@ -15,6 +15,10 @@
   width: 40%; /* Ширина по родителю */
   margin: 0 auto; /* Центрирование блока (если нужно) */
   border-right: 1px solid #ccc;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .photo-placeholder {
@@ -85,4 +89,64 @@
 
 ::-webkit-scrollbar-button {
   display: none;
+}
+
+.photo-switch {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+.photo-switch.left {
+  left: 0;
+}
+.photo-switch.right {
+  right: 0;
+}
+
+.photo-img {
+  display: block;
+  max-width: 100%;
+  border-radius: 12px;
+}
+
+.card-description.custom-scroll {
+  max-height: 120px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+.card-description.custom-scroll::-webkit-scrollbar {
+  width: 8px;
+  background: url('../UI/scrollBar/track.png');
+}
+.card-description.custom-scroll::-webkit-scrollbar-thumb {
+  background: url('../UI/scrollBar/slider.svg');
+  border-radius: 4px;
+}
+.card-description.custom-scroll::-webkit-scrollbar-track {
+  background: url('../UI/scrollBar/track.png');
+}
+
+.photo_radio_buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+.photo-radio-btn {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #b0b0b0;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.photo-radio-btn.active {
+  border-color: #007bff;
+  background: #007bff;
 }
