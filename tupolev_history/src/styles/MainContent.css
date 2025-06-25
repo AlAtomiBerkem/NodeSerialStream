@@ -35,11 +35,11 @@
 }
 
 .card-arrow.left {
-  left: -60px;
+  left: -80px;
 }
 
 .card-arrow.right {
-  right: -60px;
+  right: -80px;
 }
 
 .card-arrow:hover {

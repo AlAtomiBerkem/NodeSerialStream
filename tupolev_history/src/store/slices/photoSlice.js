@@ -1,19 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
+import ant2 from '../../assets/ant-2.png';
+import tb2 from '../../assets/tb-2.png';
+import tupolev from '../../assets/tupolev.png';
 
 const initialState = {
   photos: {
-    1: [ 
-      { id: 1, url: '' },
-      { id: 2, url: '' },
+    1: [
+      { id: 1, url: ant2 },
+      { id: 2, url: tb2 },
+      { id: 3, url: tupolev },
     ],
     2: [
-      { id: 3, url: '' },
-      { id: 4, url: '' },
+      { id: 5, url: ant2 },
+      { id: 6, url: tb2 },
+      { id: 7, url: tupolev },
+      { id: 8, url: tb2 },
+      { id: 9, url: ant2 },
     ],
   },
   activePhotoIndex: {
-    1: 0, 
-    2: 1,
+    1: 0,
+    2: 0,
   },
 };
 
