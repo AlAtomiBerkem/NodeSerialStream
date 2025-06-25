@@ -9,7 +9,7 @@ import cardTexts from '../../store/texts/cardTexts';
 import '../../styles/CardTexts.css';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Card = ({ card }) => {
+const Card = ({ card, onTouchStart, onTouchEnd }) => {
   const dispatch = useDispatch();
   const activePhotoIndex = useSelector(
     (state) => state.photos.activePhotoIndex[card.id]
@@ -28,6 +28,10 @@ const Card = ({ card }) => {
   const [direction, setDirection] = React.useState(1);
   const text = cardTexts[card.id];
 
+  // touch swipe state
+  const touchStartX = useRef(null);
+  const touchEndX = useRef(null);
+
   React.useEffect(() => {
     if (activePhotoIndex > prevPhotoIndex.current) setDirection(1);
     else if (activePhotoIndex < prevPhotoIndex.current) setDirection(-1);
@@ -38,6 +42,24 @@ const Card = ({ card }) => {
     dispatch(setActivePhoto({ cardId: card.id, photoIndex: idx }));
   };
 
+  // обработка свайпа
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const handleTouchEnd = (e) => {
+    touchEndX.current = e.changedTouches[0].clientX;
+    const delta = touchEndX.current - touchStartX.current;
+    if (Math.abs(delta) > 40) {
+      if (delta < 0 && activePhotoIndex < photos.length - 1) {
+        // свайп влево — следующая
+        dispatch(setActivePhoto({ cardId: card.id, photoIndex: activePhotoIndex + 1 }));
+      } else if (delta > 0 && activePhotoIndex > 0) {
+        // свайп вправо — предыдущая
+        dispatch(setActivePhoto({ cardId: card.id, photoIndex: activePhotoIndex - 1 }));
+      }
+    }
+  };
+
   const variants = {
     enter: (dir) => ({ x: dir > 0 ? 100 : -100, opacity: 0 }),
     center: { x: 0, opacity: 1 },
@@ -45,10 +67,15 @@ const Card = ({ card }) => {
   };
 
   return (
-    <div className="card">
+    <div className="card" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
       <div className="card-photo">
         <div className="photo-placeholder">
-          <div className="photo-phocus" style={{position: 'relative'}}>
+          <div
+            className="photo-phocus"
+            style={{position: 'relative'}}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
             {photoCaption && (
               <div
                 style={{

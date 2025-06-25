@@ -13,6 +13,25 @@ const MainContent = () => {
   const cards = useSelector((state) => state.cards.cards);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
 
+  // touch swipe state для карточек
+  const touchStartX = React.useRef(null);
+  const touchEndX = React.useRef(null);
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const handleTouchEnd = (e) => {
+    touchEndX.current = e.changedTouches[0].clientX;
+    const delta = touchEndX.current - touchStartX.current;
+    if (Math.abs(delta) > 40) {
+      if (delta < 0 && activeCardIndex < cards.length - 1) {
+        setActiveCardIndex(activeCardIndex + 1);
+      } else if (delta > 0 && activeCardIndex > 0) {
+        setActiveCardIndex(activeCardIndex - 1);
+      }
+    }
+  };
+
   useEffect(() => {
     if (cards.length > 0) {
       const cardId = cards[activeCardIndex].id;
@@ -45,7 +64,11 @@ const MainContent = () => {
             transition={{ duration: 0.4 }}
             style={{ width: '100%' }}
           >
-            <Card card={cards[activeCardIndex]} />
+            <Card
+              card={cards[activeCardIndex]}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+            />
           </motion.div>
         </AnimatePresence>
         {activeCardIndex < cards.length - 1 && (
