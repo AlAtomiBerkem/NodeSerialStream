@@ -1,11 +1,11 @@
 import React from 'react';
-import backgroundImage from '../assets/Frame 1.png';
+import defaultBackground from '../assets/Frame 1.png';
 
-const BackgroundLayout = ({ children }) => {
+const BackgroundLayout = ({ children, background }) => {
   return (
     <div
       style={{
-        backgroundImage: `url(${backgroundImage})`,
+        backgroundImage: `url(${background || defaultBackground})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',

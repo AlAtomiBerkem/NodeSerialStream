@@ -73,10 +73,8 @@ const Card = ({ card }) => {
         </div>
       </div>
       <div className="card-content">
-        <div className="card-description custom-scroll">
           <h2 className="card-title">{text.title}</h2>
           <p className="card-desc">{text.description}</p>
-        </div>
       </div>
     </div>
   );
