@@ -10,7 +10,7 @@ import { setActivePhoto } from '../../store/slices/photoSlice';
 
 const MainContent = () => {
   const dispatch = useDispatch();
-  const cards = useSelector(state => state.cards.cards);
+  const cards = useSelector((state) => state.cards.cards);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
 
   useEffect(() => {
@@ -24,17 +24,15 @@ const MainContent = () => {
     if (activeCardIndex > 0) setActiveCardIndex(activeCardIndex - 1);
   };
   const handleNextCard = () => {
-    if (activeCardIndex < cards.length - 1) setActiveCardIndex(activeCardIndex + 1);
+    if (activeCardIndex < cards.length - 1)
+      setActiveCardIndex(activeCardIndex + 1);
   };
 
   return (
     <div className="main-content-wrapper">
       <div className="main-container">
         {activeCardIndex > 0 && (
-          <button
-            className="card-arrow left"
-            onClick={handlePrevCard}
-          >
+          <button className="card-arrow left" onClick={handlePrevCard}>
             <img src={arrowLeft} alt="Назад" />
           </button>
         )}
@@ -51,10 +49,7 @@ const MainContent = () => {
           </motion.div>
         </AnimatePresence>
         {activeCardIndex < cards.length - 1 && (
-          <button
-            className="card-arrow right"
-            onClick={handleNextCard}
-          >
+          <button className="card-arrow right" onClick={handleNextCard}>
             <img src={arrowRight} alt="Вперёд" />
           </button>
         )}

@@ -4,7 +4,7 @@ import Greetings from './components/Greetings/Greetings.jsx';
 import MainContent from './components/MainContent/MainContent.jsx';
 import { useInactivityRedirect } from '../hooks/useInactiveRedirect.js';
 import './styles/fonts.css';
-import mainFon from './assets/mainFon.png'
+import mainFon from './assets/mainFon.png';
 
 function App() {
   const [showGreetings, setShowGreetings] = useState(true);
