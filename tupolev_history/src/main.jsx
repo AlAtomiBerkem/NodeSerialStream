@@ -9,6 +9,11 @@ const rootElement = document.getElementById('root');
 
 const root = createRoot(rootElement);
 
+// Блокировка bounce-эффекта на всех touch-устройствах
+window.addEventListener('touchmove', function(e) {
+  e.preventDefault();
+}, { passive: false });
+
 root.render(
   <Provider store={store}>
     <App />
