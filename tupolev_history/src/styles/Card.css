@@ -54,20 +54,20 @@
 
 .photo-placeholder {
   background: url('../assets/photo_mask.png') no-repeat center center;
-  background-size: contain; /* Маска растягивается на весь блок */
+  background-size: contain;
   width: 550px;
   height: 550px;
-  position: relative; /* Чтобы дочерний элемент позиционировался относительно маски */
+  position: relative;
   margin-top: -40px;
 }
 
 .photo-phocus {
-  position: absolute; /* Фото позиционируется абсолютно внутри маски */
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100%; /* Занимает всю ширину маски */
-  height: 100%; /* Занимает всю высоту маски */
-  object-fit: cover; /* Если фото внутри — сохраняет пропорции и заполняет блок */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -75,7 +75,7 @@
 
 ::-webkit-scrollbar {
   width: 14px;
-  height: 14px; /* Для горизонтального скролла */
+  height: 14px;
 }
 
 ::-webkit-scrollbar-thumb {
