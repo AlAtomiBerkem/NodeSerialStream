@@ -2,19 +2,19 @@
   width: 100%;
   height: 65vh;
   display: flex;
-  border: 2px solid aliceblue;
+  /* border: 2px solid aliceblue; */
   overflow: hidden;
 }
 
 .card-photo {
   display: flex;
-  flex-direction: column; 
-  align-items: center; 
-  gap: 5px; 
-  padding: 20px 0; 
-  width: 40%; 
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 20px 0;
+  width: 40%;
   margin: 0 auto;
-  border-right: 1px solid #ccc;
+  /* border-right: 1px solid #ccc; */
   position: relative;
   display: flex;
   align-items: center;
@@ -29,23 +29,90 @@
 .card-content {
   width: 60%;
   display: flex;
+  color: white;
   flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  padding: 24px 32px;
+  box-sizing: border-box;
+  background: transparent;
 }
 
 .card-title {
-  padding: 15px;
-  font-size: 22px;
-  color: white;
-  background-color: #333;
-  border-bottom: 1px solid #555;
+  font-family: 'Akrobat', sans-serif;
+  font-weight: 800;
+  font-size: 2.2rem;
+  color: #fff;
+  margin: 0 0 18px 0;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
 }
 
-.card-description {
-  flex-grow: 1;
-  padding: 15px;
-  overflow-y: auto;
-  color: white;
-  line-height: 1.5;
+.card-desc {
+  font-family: 'Akrobat', sans-serif;
+  font-weight: 500;
+  font-size: 32px;
+  color: #e0e0e0;
+  margin: 0;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  white-space: pre-line;
+}
+
+/* Гибкие классы для кастомизации текста */
+.font-xxl {
+  font-size: 3.2rem !important;
+}
+.font-xl {
+  font-size: 2.2rem !important;
+}
+.font-lg {
+  font-size: 1.5rem !important;
+}
+.font-md {
+  font-size: 1.15rem !important;
+}
+.font-sm {
+  font-size: 0.95rem !important;
+}
+.font-xs {
+  font-size: 0.8rem !important;
+}
+.font-bold {
+  font-weight: 700 !important;
+}
+.font-extrabold {
+  font-weight: 800 !important;
+}
+.font-black {
+  font-weight: 900 !important;
+}
+.font-light {
+  font-weight: 300 !important;
+}
+.font-thin {
+  font-weight: 100 !important;
+}
+.text-blue {
+  color: #4ec3ff !important;
+}
+.text-white {
+  color: #fff !important;
+}
+.text-gray {
+  color: #b0b0b0 !important;
+}
+.text-dark {
+  color: #222 !important;
+}
+
+.card-content::-webkit-scrollbar {
+  width: 20px;
+  background: #222;
+}
+.card-content::-webkit-scrollbar-thumb {
+  background: #4ec3ff;
+  border-radius: 4px;
 }
 
 .placeholder {

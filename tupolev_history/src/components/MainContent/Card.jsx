@@ -11,10 +11,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const Card = ({ card }) => {
   const dispatch = useDispatch();
-  const activePhotoIndex = useSelector(state => state.photos.activePhotoIndex[card.id]);
-  const photos = useSelector(state => state.photos.photos[card.id]);
+  const activePhotoIndex = useSelector(
+    (state) => state.photos.activePhotoIndex[card.id]
+  );
+  const photos = useSelector((state) => state.photos.photos[card.id]);
   const safeIndex = Math.max(0, Math.min(activePhotoIndex, photos.length - 1));
-  const photoUrl = photos && photos[safeIndex] && photos[safeIndex].url ? photos[safeIndex].url : '';
+  const photoUrl =
+    photos && photos[safeIndex] && photos[safeIndex].url
+      ? photos[safeIndex].url
+      : '';
   const prevPhotoIndex = useRef(activePhotoIndex);
   const [direction, setDirection] = React.useState(1);
   const text = cardTexts[card.id];
@@ -32,7 +37,7 @@ const Card = ({ card }) => {
   const variants = {
     enter: (dir) => ({ x: dir > 0 ? 100 : -100, opacity: 0 }),
     center: { x: 0, opacity: 1 },
-    exit: (dir) => ({ x: dir > 0 ? -100 : 100, opacity: 0 })
+    exit: (dir) => ({ x: dir > 0 ? -100 : 100, opacity: 0 }),
   };
 
   return (
@@ -41,7 +46,7 @@ const Card = ({ card }) => {
         <div className="photo-placeholder">
           <div className="photo-phocus">
             <AnimatePresence mode="wait" custom={direction}>
-            {photoUrl && (
+              {photoUrl && (
                 <motion.img
                   key={card.id + '-' + safeIndex}
                   className="photo-img"
@@ -57,26 +62,34 @@ const Card = ({ card }) => {
           </div>
         </div>
         <div className="photo_radio_buttons">
-          {photos && photos.map((_, idx) => (
-            <button
-              key={idx}
-              className="photo-radio-btn-img"
-              onClick={() => handleRadioClick(idx)}
-              style={{ background: 'none', border: 'none', padding: 2, cursor: 'pointer' }}
-            >
-              <img
-                src={activePhotoIndex === idx ? radioBtnActive : radionBtn}
-                alt={activePhotoIndex === idx ? 'Активная радиокнопка' : 'Радиокнопка'}
-              />
-            </button>
-          ))}
+          {photos &&
+            photos.map((_, idx) => (
+              <button
+                key={idx}
+                className="photo-radio-btn-img"
+                onClick={() => handleRadioClick(idx)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  padding: 2,
+                  cursor: 'pointer',
+                }}
+              >
+                <img
+                  src={activePhotoIndex === idx ? radioBtnActive : radionBtn}
+                  alt={
+                    activePhotoIndex === idx
+                      ? 'Активная радиокнопка'
+                      : 'Радиокнопка'
+                  }
+                />
+              </button>
+            ))}
         </div>
       </div>
       <div className="card-content">
-        <div className="card-description custom-scroll">
-          <h2 className="card-title">{text.title}</h2>
-          <p className="card-desc">{text.description}</p>
-        </div>
+        <h2 className="card-title">{text.title}</h2>
+        <p className="card-desc">{text.description}</p>
       </div>
     </div>
   );

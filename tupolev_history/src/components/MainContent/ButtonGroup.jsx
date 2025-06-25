@@ -26,7 +26,7 @@ const ButtonGroup = () => {
           position: 'relative',
           marginRight: '-90px',
           zIndex: activeButton === 'inventions' ? 3 : 1,
-          transition: 'all 0.3s ease',
+          // transition: 'all 0.3s ease',
         }}
       >
         <SelectContentBtn
@@ -41,7 +41,7 @@ const ButtonGroup = () => {
           position: 'relative',
           marginRight: '-90px',
           zIndex: activeButton === 'patents' ? 3 : 2,
-          transition: 'all 0.3s ease',
+          // transition: 'all 0.3s ease',
         }}
       >
         <SelectContentBtn
@@ -55,7 +55,7 @@ const ButtonGroup = () => {
         style={{
           position: 'relative',
           zIndex: activeButton === 'licenses' ? 3 : 1,
-          transition: 'all 0.3s ease',
+          // transition: 'all 0.3s ease',
         }}
       >
         <SelectContentBtn
