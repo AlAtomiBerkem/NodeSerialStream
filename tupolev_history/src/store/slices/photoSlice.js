@@ -11,8 +11,8 @@ const initialState = {
       { id: 3, url: tupolev, caption: 'Туполев' },
     ],
     2: [
-      { id: 5, url: ant2, caption: 'АТ-2' },
-      { id: 6, url: tb2, caption: 'ТБ-2' },
+      { id: 5, url: tb2, caption: 'АТ-2' },
+      { id: 6, url: tupolev, caption: 'ТБ-2' },
       { id: 7, url: tupolev, caption: 'Туполев' },
       { id: 8, url: tb2, caption: 'ТБ-2' },
       { id: 9, url: ant2, caption: 'АТ-2' },

@@ -1,11 +1,13 @@
 import React from 'react';
 import SelectContentBtn from './SelectContentBtn.jsx';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSection } from '../../store/slices/sectionSlice';
 
 const ButtonGroup = () => {
-  const [activeButton, setActiveButton] = React.useState(null);
-
+  const dispatch = useDispatch();
+  const activeButton = useSelector((state) => state.section.currentSection);
   const handleButtonClick = (buttonName) => {
-    setActiveButton(buttonName);
+    dispatch(setSection(buttonName));
   };
 
   return (
