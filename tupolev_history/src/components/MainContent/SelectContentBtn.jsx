@@ -1,4 +1,6 @@
 import React from 'react';
+import UnSelectBtn from '../../assets/UnSelectBtn.png';
+import SelectBtn from '../../assets/SelectBtn.png';
 
 const SelectContentBtn = ({ label, isActive, onClick }) => {
   return (
@@ -11,38 +13,47 @@ const SelectContentBtn = ({ label, isActive, onClick }) => {
         userSelect: 'none',
         WebkitTapHighlightColor: 'transparent',
         outline: 'none',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 592,
+        height: 75,
+        boxSizing: 'border-box',
+        position: 'relative',
       }}
       onClick={onClick}
     >
-      <svg
-        width="592"
-        height="75"
-        viewBox="0 0 592 75"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M2 74L74.9168 1H517L590 74H2Z"
-          fill={isActive ? '#72D8FF' : '#191919'}
+      <div style={{width: 592, height: 75, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <img
+          src={isActive ? SelectBtn : UnSelectBtn}
+          alt={isActive ? 'selected' : 'unselected'}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+            display: 'block',
+          }}
         />
-        <path
-          d="M2 74L74.9168 1H517L590 74H2Z"
-          stroke={isActive ? '#72D8FF' : '#A1A1A1'}
-          strokeWidth="1.5"
-          fill="none"
-        />
-        <text
-          x="50%"
-          y="50%"
-          dominantBaseline="middle"
-          textAnchor="middle"
-          fill={isActive ? '#000000' : '#A1A1A1'}
-          fontSize="26"
-          // fontFamily="Arial, sans-serif"
+        <span
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            color: isActive ? '#000000' : '#A1A1A1',
+            fontSize: 28,
+            fontFamily: 'Arial, sans-serif',
+            fontWeight: 400,
+            textAlign: 'center',
+            width: '90%',
+            pointerEvents: 'none',
+            lineHeight: 1.1,
+          }}
         >
           {label}
-        </text>
-      </svg>
+        </span>
+      </div>
     </button>
   );
 };

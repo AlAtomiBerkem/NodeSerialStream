@@ -20,6 +20,10 @@ const Card = ({ card }) => {
     photos && photos[safeIndex] && photos[safeIndex].url
       ? photos[safeIndex].url
       : '';
+  const photoCaption =
+    photos && photos[safeIndex] && photos[safeIndex].caption
+      ? photos[safeIndex].caption
+      : '';
   const prevPhotoIndex = useRef(activePhotoIndex);
   const [direction, setDirection] = React.useState(1);
   const text = cardTexts[card.id];
@@ -44,7 +48,32 @@ const Card = ({ card }) => {
     <div className="card">
       <div className="card-photo">
         <div className="photo-placeholder">
-          <div className="photo-phocus">
+          <div className="photo-phocus" style={{position: 'relative'}}>
+            {photoCaption && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 52,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  color: '#A1A1A1',
+                  fontWeight: 400,
+                  fontSize: 26,
+                  zIndex: 2,
+                  padding: '2px 16px',
+                  borderRadius: 12,
+                  pointerEvents: 'none',
+                  maxWidth: '90%',
+                  textAlign: 'center',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  fontFamily: 'Akrobat, Arial, sans-serif',
+                }}
+              >
+                [{photoCaption}]
+              </div>
+            )}
             <AnimatePresence mode="wait" custom={direction}>
               {photoUrl && (
                 <motion.img

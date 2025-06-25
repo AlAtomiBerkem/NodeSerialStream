@@ -24,7 +24,7 @@ const ButtonGroup = () => {
       <div
         style={{
           position: 'relative',
-          marginRight: '-90px',
+          marginRight: '-60px',
           zIndex: activeButton === 'inventions' ? 3 : 1,
           // transition: 'all 0.3s ease',
         }}
@@ -39,7 +39,7 @@ const ButtonGroup = () => {
       <div
         style={{
           position: 'relative',
-          marginRight: '-90px',
+          marginRight: '-60px',
           zIndex: activeButton === 'patents' ? 3 : 2,
           // transition: 'all 0.3s ease',
         }}
