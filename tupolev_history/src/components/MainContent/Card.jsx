@@ -144,8 +144,28 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
         </div>
       </div>
       <div className="card-content">
-        <h2 className="card-title">{text.title}</h2>
-        <p className="card-desc">{text.description}</p>
+        <div className="card-title" style={{display:'flex', alignItems:'flex-end', gap: '18px', marginBottom: 16, flexWrap: 'wrap'}}>
+          {Array.isArray(text.title) && text.title.map((part, idx) => {
+            if (part.type === 'number') return (
+              <span key={idx} style={{color:'#fff', fontSize:64, fontWeight:700, fontFamily:'Akrobat, Arial, sans-serif', lineHeight:'1', letterSpacing:2}}>{part.text}</span>
+            );
+            if (part.type === 'main') return (
+              <span key={idx} style={{color:'#3EC6FF', fontFamily:'Akrobat, Arial, sans-serif'}}>{part.text}</span>
+            );
+            if (part.type === 'accent') return (
+              <>
+                <span key={idx} style={{color:'#3EC6FF', fontFamily:'Akrobat, Arial, sans-serif'}}>{part.text}</span>
+                <hr style={{width:'100%', border:'none', borderTop:'2px solid #fff', margin:'12px 0 0 0'}} />
+              </>
+            );
+            return null;
+          })}
+        </div>
+        <div className="card-desc">
+          {Array.isArray(text.description) && text.description.map((p, idx) => (
+            <p key={idx} style={{color:'#fff', marginBottom: idx < text.description.length-1 ? 24 : 0}}>{p.text}</p>
+          ))}
+        </div>
       </div>
     </div>
   );
