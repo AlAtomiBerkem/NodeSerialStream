@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import '../../styles/Card.css';
-import photo from '../../assets/ant-2.png';
 import { useSelector, useDispatch } from 'react-redux';
 import { setActivePhoto } from '../../store/slices/photoSlice';
 import radionBtn from '../../assets/buttons/radionBtn.png';
@@ -8,6 +7,7 @@ import radioBtnActive from '../../assets/buttons/radioBtnActive.png';
 import cardTexts from '../../store/texts/cardTexts';
 import '../../styles/CardTexts.css';
 import { motion, AnimatePresence } from 'framer-motion';
+import { button } from 'framer-motion/client';
 
 const Card = ({ card, onTouchStart, onTouchEnd }) => {
   const dispatch = useDispatch();
@@ -29,7 +29,6 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
   const text = cardTexts[card.id];
 
   const touchStartX = useRef(null);
-  const touchEndX = useRef(null);
 
   React.useEffect(() => {
     if (activePhotoIndex > prevPhotoIndex.current) setDirection(1);
@@ -45,11 +44,14 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
     touchStartX.current = e.touches[0].clientX;
   };
 
-  const variants = {
-    enter: (dir) => ({ x: dir > 0 ? 100 : -100, opacity: 0 }),
-    center: { x: 0, opacity: 1 },
-    exit: (dir) => ({ x: dir > 0 ? -100 : 100, opacity: 0 }),
-  };
+  // --- Новый заголовок ---
+  const numberPart = Array.isArray(text.title)
+    ? text.title.find((part) => part.type === 'number')
+    : null;
+  const textParts = Array.isArray(text.title)
+    ? text.title.filter((part) => part.type === 'main' || part.type === 'accent')
+    : [];
+  const hasAccent = Array.isArray(text.title) && text.title.some((part) => part.type === 'accent');
 
   return (
     <div className="card" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
@@ -111,7 +113,7 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
                 style={{
                   background: 'none',
                   border: 'none',
-                  padding: 2,                  
+                  padding: 2,
                 }}
               >
                 <img
@@ -127,28 +129,107 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
         </div>
       </div>
       <div className="card-content">
-        <div className="card-title" style={{display:'flex', alignItems:'flex-end', marginBottom: 1, flexWrap: 'wrap'}}>
-          {Array.isArray(text.title) && text.title.map((part, idx) => {
-            if (part.type === 'number') return (
-              <span key={idx} style={{color:'#fff', fontSize:109, fontWeight:700, fontFamily:'Akrobat, Arial, sans-serif', lineHeight:'1', letterSpacing:2}}>{part.text}</span>
-            );
-            if (part.type === 'main') return (
-              <span key={idx} style={{color:'#72D8FF', fontSize:40, fontWeight:600, fontFamily:'Akrobat, Arial, sans-serif'}}>{part.text}</span>
-            );
-            if (part.type === 'accent') return (
-              <>
-                <span key={idx} style={{color:'#72D8FF', fontSize:40, fontWeight:600, fontFamily:'Akrobat, Arial, sans-serif'}}>{part.text}</span>
-                <hr style={{width:'100%', border:'none', borderTop:'2px solid #fff', margin:'12px 0 0 0'}} />
-              </>
-            );
-            return null;
-          })}
- 
+        <div
+          className="card-title"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'stretch',
+            marginBottom: 10,
+          
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'flex-end',
+              flexWrap: 'nowrap',
+            }}
+          >
+            {/* Левая колонка — число */}
+            <div
+              style={{
+                minWidth: 120,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                justifyContent: 'flex-end',
+              }}
+            >
+              {numberPart && (
+                <span
+                  style={{
+                    color: '#fff',
+                    fontSize: 109,
+                    fontWeight: 700,
+                    fontFamily: 'Akrobat, Arial, sans-serif',
+                    lineHeight: '1',
+                    letterSpacing: 2,
+                  }}
+                >
+                  {numberPart.text}
+                </span>
+              )}
+            </div>
+            {/* Правая колонка — текст */}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                flex: 1,
+                marginLeft: 24,
+                minWidth: 0,
+              }}
+            >
+              {textParts.map((part, idx) => (
+                <span
+                  key={idx}
+                  style={{
+                    color: '#72D8FF',
+                    fontSize: 40,
+                    fontWeight: 600,
+                    fontFamily: 'Akrobat, Arial, sans-serif',
+                    wordBreak: 'break-word',
+                    textAlign: 'left',
+                  }}
+                >
+                  {part.text}
+                </span>
+              ))}
+            </div>
+          </div>
+          {/* Нижнее подчёркивание на всю ширину, если есть accent */}
+          {hasAccent && (
+            <hr
+              style={{
+                width: '100%',
+                border: 'none',
+                borderTop: '2px solid #fff',
+                margin: '30px 0 0 0',
+                opacity: 0.7,
+              }}
+            />
+          )}
         </div>
         <div className="card-desc">
-          {Array.isArray(text.description) && text.description.map((p, idx) => (
-            <p key={idx} style={{color:'#fffff', fontWeight: 300, fontSize: 32, opacity: 0.9, fontFamily:'Akrobat', marginBottom: idx < text.description.length-1 ? 24 : 0}}>{p.text}</p>
-          ))}
+          {Array.isArray(text.description) &&
+            text.description.map((p, idx) => (
+              <p
+                key={idx}
+                style={{
+                  color: '#fffff',
+                  fontWeight: 300,
+                  fontSize: 32,
+                  opacity: 0.9,
+                  fontFamily: 'Akrobat',
+                  marginBottom: idx < text.description.length - 1 ? 24 : 0,
+                }}
+              >
+                {p.text}
+              </p>
+            ))}
         </div>
       </div>
     </div>
