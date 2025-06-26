@@ -130,24 +130,24 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
         <div className="card-title" style={{display:'flex', alignItems:'flex-end', gap: '18px', marginBottom: 16, flexWrap: 'wrap'}}>
           {Array.isArray(text.title) && text.title.map((part, idx) => {
             if (part.type === 'number') return (
-              <span key={idx} style={{color:'#fff', fontSize:64, fontWeight:700, fontFamily:'Akrobat, Arial, sans-serif', lineHeight:'1', letterSpacing:2}}>{part.text}</span>
+              <span key={idx} style={{color:'#fff', fontSize:109, fontWeight:700, fontFamily:'Akrobat, Arial, sans-serif', lineHeight:'1', letterSpacing:2}}>{part.text}</span>
             );
             if (part.type === 'main') return (
-              <span key={idx} style={{color:'#3EC6FF', fontFamily:'Akrobat, Arial, sans-serif'}}>{part.text}</span>
+              <span key={idx} style={{color:'#72D8FF', fontSize:40, fontWeight:600, fontFamily:'Akrobat, Arial, sans-serif'}}>{part.text}</span>
             );
             if (part.type === 'accent') return (
               <>
-                <span key={idx} style={{color:'#3EC6FF', fontFamily:'Akrobat, Arial, sans-serif'}}>{part.text}</span>
+                <span key={idx} style={{color:'#72D8FF', fontSize:40, fontWeight:600, fontFamily:'Akrobat, Arial, sans-serif'}}>{part.text}</span>
                 <hr style={{width:'100%', border:'none', borderTop:'2px solid #fff', margin:'12px 0 0 0'}} />
               </>
             );
             return null;
           })}
-
+ 
         </div>
         <div className="card-desc">
           {Array.isArray(text.description) && text.description.map((p, idx) => (
-            <p key={idx} style={{color:'#fff', marginBottom: idx < text.description.length-1 ? 24 : 0}}>{p.text}</p>
+            <p key={idx} style={{color:'#fffff', fontWeight: 300, fontSize: 32, opacity: 0.9, fontFamily:'Akrobat', marginBottom: idx < text.description.length-1 ? 24 : 0}}>{p.text}</p>
           ))}
         </div>
       </div>

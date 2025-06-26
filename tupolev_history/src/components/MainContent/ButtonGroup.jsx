@@ -14,7 +14,7 @@ const ButtonGroup = () => {
     <div
       style={{
         position: 'fixed',
-        bottom: '45px',
+        bottom: '50px',
         left: '50%',
         transform: 'translateX(-50%)',
         display: 'flex',
