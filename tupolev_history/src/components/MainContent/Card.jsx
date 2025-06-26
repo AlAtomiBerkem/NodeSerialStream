@@ -44,7 +44,6 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
     touchStartX.current = e.touches[0].clientX;
   };
 
-  // --- Новый заголовок ---
   const numberPart = Array.isArray(text.title)
     ? text.title.find((part) => part.type === 'number')
     : null;
@@ -147,7 +146,6 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
               flexWrap: 'nowrap',
             }}
           >
-            {/* Левая колонка — число */}
             <div
               style={{
                 minWidth: 120,
@@ -172,14 +170,14 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
                 </span>
               )}
             </div>
-            {/* Правая колонка — текст */}
+
             <div
               style={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'flex-start',
                 flex: 1,
-                marginLeft: 24,
+                marginLeft: 20,
                 minWidth: 0,
               }}
             >
@@ -188,11 +186,12 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
                   key={idx}
                   style={{
                     color: '#72D8FF',
-                    fontSize: 40,
+                    fontSize: 39,
                     fontWeight: 600,
                     fontFamily: 'Akrobat, Arial, sans-serif',
                     wordBreak: 'break-word',
                     textAlign: 'left',
+                    paddingBlockEnd: 8
                   }}
                 >
                   {part.text}
@@ -200,7 +199,7 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
               ))}
             </div>
           </div>
-          {/* Нижнее подчёркивание на всю ширину, если есть accent */}
+          
           {hasAccent && (
             <hr
               style={{
