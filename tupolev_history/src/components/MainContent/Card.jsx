@@ -44,17 +44,6 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
   };
-  const handleTouchEnd = (e) => {
-    touchEndX.current = e.changedTouches[0].clientX;
-    const delta = touchEndX.current - touchStartX.current;
-    if (Math.abs(delta) > 40) {
-      if (delta < 0 && activePhotoIndex < photos.length - 1) {
-        dispatch(setActivePhoto({ cardId: card.id, photoIndex: activePhotoIndex + 1 }));
-      } else if (delta > 0 && activePhotoIndex > 0) {
-        dispatch(setActivePhoto({ cardId: card.id, photoIndex: activePhotoIndex - 1 }));
-      }
-    }
-  };
 
   const variants = {
     enter: (dir) => ({ x: dir > 0 ? 100 : -100, opacity: 0 }),
@@ -70,7 +59,6 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
             className="photo-phocus"
             style={{position: 'relative'}}
             onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
           >
             {photoCaption && (
               <div
@@ -123,15 +111,14 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
                 style={{
                   background: 'none',
                   border: 'none',
-                  padding: 2,
-                  cursor: 'pointer',
+                  padding: 2,                  
                 }}
               >
                 <img
                   src={activePhotoIndex === idx ? radioBtnActive : radionBtn}
                   alt={
                     activePhotoIndex === idx
-                      ? 'Активная радиокнопка adfadfadfafd'
+                      ? 'Активная радиокнопка'
                       : 'Радиокнопка'
                   }
                 />

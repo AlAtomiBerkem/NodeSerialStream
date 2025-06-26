@@ -37,6 +37,19 @@
   box-sizing: border-box;
   background: transparent;
 }
+.card-content, .card-content * {
+  touch-action: auto !important;
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+.photo-radio-btn-img:focus,
+.photo-radio-btn-img:active {
+  outline: none !important;
+  box-shadow: none !important;
+  background: none !important;
+}
+
 
 .card-title {
   font-family: 'Akrobat', sans-serif;
