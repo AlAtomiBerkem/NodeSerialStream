@@ -61,6 +61,8 @@ const Card = ({ card }) => {
             </AnimatePresence>
           </div>
         </div>
+
+        
         <div className="photo_radio_buttons">
           {photos &&
             photos.map((_, idx) => (
