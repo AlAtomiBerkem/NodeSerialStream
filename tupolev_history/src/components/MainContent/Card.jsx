@@ -28,7 +28,6 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
   const [direction, setDirection] = React.useState(1);
   const text = cardTexts[card.id];
 
-  // touch swipe state
   const touchStartX = useRef(null);
   const touchEndX = useRef(null);
 
@@ -42,7 +41,6 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
     dispatch(setActivePhoto({ cardId: card.id, photoIndex: idx }));
   };
 
-  // обработка свайпа
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
   };
@@ -51,10 +49,8 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
     const delta = touchEndX.current - touchStartX.current;
     if (Math.abs(delta) > 40) {
       if (delta < 0 && activePhotoIndex < photos.length - 1) {
-        // свайп влево — следующая
         dispatch(setActivePhoto({ cardId: card.id, photoIndex: activePhotoIndex + 1 }));
       } else if (delta > 0 && activePhotoIndex > 0) {
-        // свайп вправо — предыдущая
         dispatch(setActivePhoto({ cardId: card.id, photoIndex: activePhotoIndex - 1 }));
       }
     }
@@ -135,7 +131,7 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
                   src={activePhotoIndex === idx ? radioBtnActive : radionBtn}
                   alt={
                     activePhotoIndex === idx
-                      ? 'Активная радиокнопка'
+                      ? 'Активная радиокнопка adfadfadfafd'
                       : 'Радиокнопка'
                   }
                 />
@@ -160,6 +156,7 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
             );
             return null;
           })}
+
         </div>
         <div className="card-desc">
           {Array.isArray(text.description) && text.description.map((p, idx) => (
