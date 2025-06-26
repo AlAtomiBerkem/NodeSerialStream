@@ -15,4 +15,4 @@ export const sectionSlice = createSlice({
 });
 
 export const { setSection } = sectionSlice.actions;
-export default sectionSlice.reducer; 
+export default sectionSlice.reducer;

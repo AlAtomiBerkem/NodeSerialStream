@@ -69,7 +69,7 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
                   transform: 'translateX(-50%)',
                   color: '#A1A1A1',
                   fontWeight: 400,
-                  fontSize: 26,
+                  fontSize: 40,
                   zIndex: 2,
                   padding: '2px 16px',
                   borderRadius: 12,
@@ -127,7 +127,7 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
         </div>
       </div>
       <div className="card-content">
-        <div className="card-title" style={{display:'flex', alignItems:'flex-end', gap: '18px', marginBottom: 16, flexWrap: 'wrap'}}>
+        <div className="card-title" style={{display:'flex', alignItems:'flex-end', marginBottom: 1, flexWrap: 'wrap'}}>
           {Array.isArray(text.title) && text.title.map((part, idx) => {
             if (part.type === 'number') return (
               <span key={idx} style={{color:'#fff', fontSize:109, fontWeight:700, fontFamily:'Akrobat, Arial, sans-serif', lineHeight:'1', letterSpacing:2}}>{part.text}</span>

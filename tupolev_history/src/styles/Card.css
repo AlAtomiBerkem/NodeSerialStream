@@ -37,7 +37,8 @@
   box-sizing: border-box;
   background: transparent;
 }
-.card-content, .card-content * {
+.card-content,
+.card-content * {
   touch-action: auto !important;
   user-select: text !important;
   -webkit-user-select: text !important;
@@ -50,12 +51,9 @@
   background: none !important;
 }
 
-
 .card-title {
   font-family: 'Akrobat', sans-serif;
-  font-weight: 800;
   font-size: 2.2rem;
-  color: #fff;
   margin: 0 0 18px 0;
   letter-spacing: 0.01em;
   line-height: 1.1;

@@ -93,7 +93,7 @@ const MainContent = () => {
           </button>
         )}
       </div>
-      <ButtonGroup  />
+      <ButtonGroup />
     </div>
   );
 };
