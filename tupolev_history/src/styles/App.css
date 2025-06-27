@@ -1,3 +1,6 @@
+* {
+  -webkit-tap-highlight-color: transparent;
+}
 html,
 body,
 .main-content-wrapper,
@@ -38,7 +41,6 @@ body {
   -webkit-overflow-scrolling: auto !important;
 }
 
-/* Стилизация скроллбара для WebKit (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
   width: 14px;
   height: 14px;
@@ -64,11 +66,14 @@ body {
   scrollbar-color: #72d8ff transparent;
 }
 
-*:before, *:after {
+*:before,
+*:after {
   touch-action: none !important;
 }
 
-button, .card-arrow, .photo-radio-btn-img {
+button,
+.card-arrow,
+.photo-radio-btn-img {
   touch-action: manipulation;
   min-width: 48px;
   min-height: 48px;

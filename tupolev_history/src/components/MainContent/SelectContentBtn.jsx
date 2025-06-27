@@ -24,7 +24,16 @@ const SelectContentBtn = ({ label, isActive, onClick }) => {
       }}
       onClick={onClick}
     >
-      <div style={{width: 592, height: 75, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+      <div
+        style={{
+          width: 592,
+          height: 75,
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
         <img
           src={isActive ? SelectBtn : UnSelectBtn}
           alt={isActive ? 'selected' : 'unselected'}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ButtonGroup from './ButtonGroup.jsx';
 import Card from './Card.jsx';
 import '../../styles/MainContent.css';
@@ -8,14 +8,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AnimatePresence, motion } from 'framer-motion';
 import { setActivePhoto } from '../../store/slices/photoSlice';
 
+const variants = {
+  enter: (dir) => ({ x: dir > 0 ? 100 : -100, opacity: 0 }),
+  center: { x: 0, opacity: 1 },
+  exit: (dir) => ({ x: dir > 0 ? -100 : 100, opacity: 0 }),
+};
+
 const MainContent = () => {
   const dispatch = useDispatch();
-  const cards = useSelector((state) => state.cards.cards);
+  const currentSection = useSelector((state) => state.section.currentSection);
+  const cards = useSelector((state) => state.cards.cards[currentSection] || []);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
 
-  // touch swipe state для карточек
-  const touchStartX = React.useRef(null);
-  const touchEndX = React.useRef(null);
+  const touchStartX = useRef(null);
+  const touchEndX = useRef(null);
 
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
@@ -25,53 +32,74 @@ const MainContent = () => {
     const delta = touchEndX.current - touchStartX.current;
     if (Math.abs(delta) > 40) {
       if (delta < 0 && activeCardIndex < cards.length - 1) {
+        setDirection(1);
         setActiveCardIndex(activeCardIndex + 1);
       } else if (delta > 0 && activeCardIndex > 0) {
+        setDirection(-1);
         setActiveCardIndex(activeCardIndex - 1);
       }
     }
   };
 
   useEffect(() => {
-    if (cards.length > 0) {
-      const cardId = cards[activeCardIndex].id;
-      dispatch(setActivePhoto({ cardId, photoIndex: 0 }));
+    setActiveCardIndex(0);
+  }, [currentSection]);
+
+  const currentCard = cards.length > 0 && activeCardIndex < cards.length ? cards[activeCardIndex] : null;
+
+  useEffect(() => {
+    if (currentCard) {
+      dispatch(setActivePhoto({ cardId: currentCard.id, photoIndex: 0 }));
     }
-  }, [activeCardIndex, cards, dispatch]);
+  }, [activeCardIndex, cards, dispatch, currentCard]);
 
   const handlePrevCard = () => {
-    if (activeCardIndex > 0) setActiveCardIndex(activeCardIndex - 1);
+    if (activeCardIndex > 0) {
+      setDirection(-1);
+      setActiveCardIndex(activeCardIndex - 1);
+    }
   };
   const handleNextCard = () => {
-    if (activeCardIndex < cards.length - 1)
+    if (activeCardIndex < cards.length - 1) {
+      setDirection(1);
       setActiveCardIndex(activeCardIndex + 1);
+    }
   };
 
   return (
     <div className="main-content-wrapper">
       <div className="main-container">
-        {activeCardIndex > 0 && (
+        {cards.length > 0 && activeCardIndex > 0 && (
           <button className="card-arrow left" onClick={handlePrevCard}>
             <img src={arrowLeft} alt="Назад" />
           </button>
         )}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={cards[activeCardIndex].id}
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
-            transition={{ duration: 0.4 }}
-            style={{ width: '100%' }}
-          >
-            <Card
-              card={cards[activeCardIndex]}
-              onTouchStart={handleTouchStart}
-              onTouchEnd={handleTouchEnd}
-            />
-          </motion.div>
+        <AnimatePresence mode="wait" custom={direction}>
+          {cards.length > 0 && cards[activeCardIndex] ? (
+            <motion.div
+              key={cards[activeCardIndex]?.id || 'empty'}
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.4 }}
+              style={{ width: '100%' }}
+            >
+              <Card
+                card={cards[activeCardIndex]}
+                direction={direction}
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+              />
+            </motion.div>
+          ) : (
+            <div style={{ color: '#fff', textAlign: 'center', width: '100%' }}>
+              Нет карточек в этом разделе
+            </div>
+          )}
         </AnimatePresence>
-        {activeCardIndex < cards.length - 1 && (
+        {cards.length > 0 && activeCardIndex < cards.length - 1 && (
           <button className="card-arrow right" onClick={handleNextCard}>
             <img src={arrowRight} alt="Вперёд" />
           </button>
