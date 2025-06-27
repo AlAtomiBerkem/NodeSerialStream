@@ -1,3 +1,27 @@
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overscroll-behavior: none;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow: hidden;
+}
+
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
 .app-container {
     position: relative;
     width: 100vw;
@@ -72,4 +96,12 @@
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+}
+
+.app-bg {
+  min-height: 100vh;
+  min-width: 100vw;
+  background: url('../assets/figma/background_slice.png') center center/cover no-repeat;
+  position: relative;
+  overflow: hidden;
 }
