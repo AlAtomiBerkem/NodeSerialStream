@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c02ff8f-d3d3-4900-b105-23876ae56824" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/tupolev_history/src/components/MainContent/MainContentCard.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tupolev_history/src/components/MainContent/SelectContentBtn.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tupolev_history/src/components/MainContent/scgfiel.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tupolev_history/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/tupolev_history/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tupolev_history/src/components/Greetings/ButoonStart.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/tupolev_history/src/components/Greetings/ButoonStart.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tupolev_history/src/components/Greetings/Greetings.css" beforeDir="false" afterPath="$PROJECT_DIR$/tupolev_history/src/components/Greetings/Greetings.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tupolev_history/src/components/Greetings/Greetings.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/tupolev_history/src/components/Greetings/Greetings.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,6 +129,8 @@
       <workItem from="1748239689427" duration="609000" />
       <workItem from="1748261661728" duration="4998000" />
       <workItem from="1750398104688" duration="7590000" />
+      <workItem from="1750433726752" duration="123000" />
+      <workItem from="1750656624753" duration="3040000" />
     </task>
     <servers />
   </component>
