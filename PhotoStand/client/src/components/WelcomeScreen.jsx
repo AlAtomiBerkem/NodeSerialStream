@@ -16,6 +16,7 @@ const WelcomeScreen = ({ onStart }) => {
         style={{ cursor: 'pointer' }}
       />
       <img src={logo} alt="logo" className="welcome-logo" />
+      // добавили что то новое
     </div>
   );
 };
