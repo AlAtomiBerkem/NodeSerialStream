@@ -19,13 +19,13 @@
 .welcome-description,
 .welcome-start-btn {
   width: 55vw;
-  max-width: 594px;
+  max-width: 594px; /* 55% от 1080 */
   min-width: 180px;
   display: block;
 }
 
 .welcome-description {
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 }
 
 .welcome-start-btn {
