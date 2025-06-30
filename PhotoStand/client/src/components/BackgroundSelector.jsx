@@ -30,6 +30,8 @@ export default function BackgroundSelector({ onSelect }) {
       <div className="conteiner-selecct">
         <div className="background-selector-mask-wrapper">
           <img src={fonMask} alt="Маска" className="background-selector-mask" />
+          <img src={backgrounds[currentIndex].url} alt="Фон" className="background-selector-fill-image" />
+          <img src={maskBtmGroup} alt="Маска низ" className="background-selector-mask-btm" />
         </div>
         <img src={text} alt="text" className="background-selector-desc" />
         <button

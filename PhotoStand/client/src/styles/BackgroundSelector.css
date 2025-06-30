@@ -36,3 +36,26 @@
   margin: 0 auto 12px auto;
   margin-top: auto;
 }
+
+.background-selector-mask-btm {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  bottom: 0; 
+  z-index: 2;
+  pointer-events: none;
+  display: block;
+}
+
+.background-selector-fill-image {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 99.5%;
+  height: 99.5%;
+  object-fit: cover;
+  z-index: 1;
+  pointer-events: none;
+  display: block;
+}
