@@ -1,7 +1,7 @@
 import React from "react";
-import logo from "../assets/figma/logo.png";
-import button from "../assets/figma/button.png";
-import description from "../assets/figma/discription.png";
+import logo from "../assets/greeting/logo.png";
+import button from "../assets/greeting/button.png";
+import description from "../assets/greeting/discription.png";
 import "../styles/WelcomeScreen.css";
 
 const WelcomeScreen = ({ onStart }) => {
@@ -16,7 +16,6 @@ const WelcomeScreen = ({ onStart }) => {
         style={{ cursor: 'pointer' }}
       />
       <img src={logo} alt="logo" className="welcome-logo" />
-      // добавили что то новое
     </div>
   );
 };

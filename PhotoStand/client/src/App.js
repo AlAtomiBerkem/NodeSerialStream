@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import BackgroundScreen from './components/Slider';
+import BackgroundSelector from './components/BackgroundSelector';
 import PhotoCapture from './components/PhotoCapture';
 import WelcomeScreen from './components/WelcomeScreen';
 import './styles/App.css';
@@ -21,7 +21,7 @@ function App() {
                 <WelcomeScreen onStart={() => setStep('background')} />
             )}
             {step === 'background' && !selectedBackground && (
-                <BackgroundScreen
+                <BackgroundSelector
                     onSelect={(url, id) => handleBackgroundSelect(url, id)}
                 />
             )}
