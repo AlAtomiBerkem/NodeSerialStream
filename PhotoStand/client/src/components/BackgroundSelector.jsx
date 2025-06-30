@@ -1,12 +1,12 @@
 import { useState } from "react";
 import "../styles/BackgroundSelector.css";
 
-import photoText from "../assets/select_fons/photo_text.png";
 import fonMask from "../assets/select_fons/fonMask.png";
 import selectBtn from "../assets/select_fons/selectBtn.png";
 import radioBtnActive from "../assets/select_fons/radioBtnActive.png";
 import radioBtn from "../assets/select_fons/radionBtn.png";
 import text from "../assets/select_fons/text.png";
+import maskBtmGroup from "../assets/select_fons/mask_btn_group.png";
 
 import background_1 from "../fons/image 1.png";
 import background_2 from "../fons/image 2.png";
@@ -30,24 +30,6 @@ export default function BackgroundSelector({ onSelect }) {
       <div className="conteiner-selecct">
         <div className="background-selector-mask-wrapper">
           <img src={fonMask} alt="Маска" className="background-selector-mask" />
-          <div className="background-selector-image-wrapper">
-            <img
-              src={backgrounds[currentIndex].url}
-              alt={`Фон ${currentIndex + 1}`}
-              className="background-selector-image"
-            />
-            <div className="background-selector-radios">
-              {backgrounds.map((_, idx) => (
-                <img
-                  key={idx}
-                  src={idx === currentIndex ? radioBtnActive : radioBtn}
-                  alt={idx === currentIndex ? "Выбрано" : "Не выбрано"}
-                  className="background-selector-radio"
-                  onClick={() => setCurrentIndex(idx)}
-                />
-              ))}
-            </div>
-          </div>
         </div>
         <img src={text} alt="text" className="background-selector-desc" />
         <button
