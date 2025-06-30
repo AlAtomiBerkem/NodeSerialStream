@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
   width: 1080px;
   height: 1920px;
   max-width: 100vw;
@@ -16,10 +15,7 @@
 .background-selector-mask-wrapper {
   position: relative;
   margin-top: 260px;
-  margin-bottom: 32px;
   display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 
@@ -29,10 +25,6 @@
   top: 83%;
   transform: translateX(-50%);
   margin: 0;
-}
-
-.background-selector-desc span {
-  color: #3ec6ff;
 }
 
 .background-selector-btn {
