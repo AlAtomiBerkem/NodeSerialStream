@@ -2,13 +2,12 @@ import { useState } from "react";
 import "../styles/BackgroundSelector.css";
 
 import fonMask from "../assets/select_fons/fonMask.png";
-import backBtn from "../assets/Photo/BackBtn.png";  
+import backBtn from "../assets/Photo/BackBtn.png";
 import text from "../assets/select_fons/text.png";
 
 import Timer from "./Timer";
 
 export default function BackgroundSelector() {
-
   return (
     <>
       <div className="conteiner-selecct">
@@ -19,12 +18,10 @@ export default function BackgroundSelector() {
           </div>
         </div>
         <img src={text} alt="text" className="background-selector-desc" />
-        
-        <button
-          className="background-selector-btn"
-        >
+
+        <button className="background-selector-btn">
           <div className="background-selector-btn-wrapper">
-            <img src={backBtn} alt="Подтвердить выбор" />
+            <img src={backBtn} alt="вернуться обратно" />
           </div>
         </button>
       </div>
