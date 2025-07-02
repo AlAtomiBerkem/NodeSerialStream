@@ -33,17 +33,22 @@
   padding: 0;
   cursor: pointer;
   display: block;
-  margin: 0 auto 12px auto;
   margin-top: auto;
+  margin-bottom: 62px;
+}
+
+.background-selector-mask-btm-wrapper {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  z-index: 2;
+  pointer-events: none;
+  display: block;
 }
 
 .background-selector-mask-btm {
-  position: absolute;
   width: 100%;
   height: auto;
-  bottom: 0; 
-  z-index: 2;
-  pointer-events: none;
   display: block;
 }
 
@@ -59,3 +64,25 @@
   pointer-events: none;
   display: block;
 }
+
+.background-selector-radio-group {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 16px;
+  z-index: 3;
+  pointer-events: auto;
+}
+
+.background-selector-radio-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+}
+
