@@ -30,9 +30,17 @@ export default function BackgroundSelector({ onSelect }) {
       <div className="conteiner-selecct">
         <div className="background-selector-mask-wrapper">
           <img src={fonMask} alt="Маска" className="background-selector-mask" />
-          <img src={backgrounds[currentIndex].url} alt="Фон" className="background-selector-fill-image" />
+          <img
+            src={backgrounds[currentIndex].url}
+            alt="Фон"
+            className="background-selector-fill-image"
+          />
           <div className="background-selector-mask-btm-wrapper">
-            <img src={maskBtmGroup} alt="Маска низ" className="background-selector-mask-btm" />
+            <img
+              src={maskBtmGroup}
+              alt="Маска низ"
+              className="background-selector-mask-btm"
+            />
             <div className="background-selector-radio-group">
               {backgrounds.map((bg, idx) => (
                 <button
@@ -43,7 +51,7 @@ export default function BackgroundSelector({ onSelect }) {
                 >
                   <img
                     src={currentIndex === idx ? radioBtnActive : radioBtn}
-                    alt={currentIndex === idx ? 'Выбрано' : 'Не выбрано'}
+                    alt={currentIndex === idx ? "Выбрано" : "Не выбрано"}
                   />
                 </button>
               ))}

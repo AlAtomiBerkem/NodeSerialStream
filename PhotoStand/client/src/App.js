@@ -1,6 +1,6 @@
 import { useState } from "react";
 import BackgroundSelector from "./components/BackgroundSelector";
-import PhotoCapture from "./components/PhotoCapture";
+import Photo from "./components/PhotoCapture/Photo.jsx";
 import WelcomeScreen from "./components/WelcomeScreen";
 import "./styles/App.css";
 
@@ -26,13 +26,10 @@ function App() {
         />
       )}
       {step === "photo" && selectedBackground && (
-        <PhotoCapture
-          backgroundId={backgroundId}
-          onBack={() => {
-            setSelectedBackground(null);
-            setStep("background");
-          }}
-        />
+        <Photo onBack={() => {
+          setSelectedBackground(null);
+          setStep("background");
+        }} />
       )}
     </div>
   );
