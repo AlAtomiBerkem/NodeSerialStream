@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import Webcam from "react-webcam";
 
-const WebcamDisplay = ({ onCapture, isLoading }) => {
+const WebcamDisplay = ({ onCapture, isLoading, webcamStyle = {} }) => {
   const webcamRef = useRef(null);
 
   const capture = () => {
@@ -15,8 +15,9 @@ const WebcamDisplay = ({ onCapture, isLoading }) => {
         ref={webcamRef}
         screenshotFormat="image/jpeg"
         className="w-full h-full object-cover"
+        style={webcamStyle}
       />
-      <button
+      {/* <button
         onClick={capture}
         disabled={isLoading}
         className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white px-6 py-2 rounded-full ${
@@ -24,7 +25,7 @@ const WebcamDisplay = ({ onCapture, isLoading }) => {
         }`}
       >
         {isLoading ? "Обработка..." : "Сделать снимок"}
-      </button>
+      </button> */}
     </div>
   );
 };
