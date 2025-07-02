@@ -11,13 +11,11 @@
   background: transparent;
 }
 
-
 .background-selector-mask-wrapper {
   position: relative;
   margin-top: 260px;
   display: flex;
 }
-
 
 .background-selector-desc {
   position: absolute;
@@ -85,4 +83,3 @@
   display: flex;
   align-items: center;
 }
-
