@@ -1,6 +1,6 @@
 import "../../styles/BackgroundSelector.css";
 import fonMask from "../../assets/select_fons/fonMask.png";
-import backBtn from "../../assets/Photo/backBtn.png";
+import backBtn from "../../assets/Photo/BackBtn.png";
 import PhotoText from "../../assets/Photo/PhotoText.png";
 
 import Timer from "./Timer.jsx";
