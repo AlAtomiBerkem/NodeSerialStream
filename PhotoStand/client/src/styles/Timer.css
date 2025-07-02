@@ -26,4 +26,8 @@
 .photo-icon {
   position: relative;
   z-index: 1;
-} 
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}

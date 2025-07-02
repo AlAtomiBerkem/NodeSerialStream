@@ -55,7 +55,9 @@ export const Timer = ({ onFinish }) => {
             style={{ cursor: "pointer" }}
           />
         ) : (
-          count > 0 && <img src={images[count]} alt={count} className="photo-icon" />
+          count > 0 && (
+            <img src={images[count]} alt={count} className="photo-icon" />
+          )
         )}
       </div>
     </div>
