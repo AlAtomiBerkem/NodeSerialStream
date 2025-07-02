@@ -1,6 +1,6 @@
 import "../../styles/BackgroundSelector.css";
 import fonMask from "../../assets/select_fons/fonMask.png";
-import backBtn from "../../assets/Photo/backBtn.png";
+import BackBtn from "../../assets/Photo/BackBtn.png";
 import PhotoText from "../../assets/Photo/PhotoText.png";
 
 import Timer from "./Timer.jsx";
@@ -19,7 +19,7 @@ export default function BackgroundSelector({ onBack }) {
 
         <button className="background-selector-btn" onClick={onBack}>
           <div className="background-selector-btn-wrapper">
-            <img src={backBtn} alt="вернуться обратно" />
+            <img src={BackBtn} alt="вернуться обратно" />
           </div>
         </button>
       </div>
