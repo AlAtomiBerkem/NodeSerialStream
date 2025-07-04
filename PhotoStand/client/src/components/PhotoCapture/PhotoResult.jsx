@@ -9,9 +9,6 @@ import { useEffect, useState } from "react";
 export default function PhotoResult({ photoData, onBack }) {
   const [loading, setLoading] = useState(!photoData);
 
-  // Если photoData есть — показываем фото сразу, иначе — анимацию ожидания
-  // (на случай, если понадобится поддержка старой логики)
-
   return (
     <>
       <div className="conteiner-selecct">
