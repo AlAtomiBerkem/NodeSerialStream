@@ -1,5 +1,6 @@
 import { useRef, forwardRef, useImperativeHandle } from "react";
 import Webcam from "react-webcam";
+import processing from "../../assets/PhotoResult/processing.png";
 
 const WebcamDisplay = forwardRef(
   ({ onCapture, isLoading, webcamStyle = {} }, ref) => {
@@ -16,12 +17,20 @@ const WebcamDisplay = forwardRef(
 
     return (
       <div className="relative w-full max-w-lg h-96">
-        <Webcam
-          ref={webcamRef}
-          screenshotFormat="image/jpeg"
-          className="w-full h-full object-cover"
-          style={webcamStyle}
-        />
+        {isLoading ? (
+          <img
+            src={processing}
+            alt="Загрузка..."
+            style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
+          />
+        ) : (
+          <Webcam
+            ref={webcamRef}
+            screenshotFormat="image/jpeg"
+            className="w-full h-full object-cover"
+            style={webcamStyle}
+          />
+        )}
       </div>
     );
   },

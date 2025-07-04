@@ -7,7 +7,13 @@ import fs from 'fs';
 import path from 'path';
 import { watch } from 'chokidar';
 import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const PORT = 4000;
 const app = express();
@@ -27,6 +33,7 @@ const PROCESSED_DIR = './uploads/processed';
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 async function withRetry(fn, maxRetries = 3, delayMs = 2000) {
     let lastError;
@@ -239,14 +246,18 @@ app.post('/upload', async (req, res) => {
         }
 
         const filename = `[${backgroundId}]photo_${Date.now()}.${imageFormat === 'jpeg' ? 'jpg' : imageFormat}`;
-        const filePath = path.join(UPLOAD_DIR, filename);
+        const filePath = path.join(UPLOAD_DIR, filename); // Сохраняем в raw
         const buffer = Buffer.from(image.split(',')[1], 'base64');
         await fs.promises.writeFile(filePath, buffer);
+
+        // Задержка 2 секунды перед ответом
+        await new Promise(resolve => setTimeout(resolve, 2000));
 
         res.json({
             success: true,
             message: 'File saved to raw directory',
-            filename // Возвращаем имя файла для отслеживания статуса
+            filename,
+            base64: image // Возвращаем base64 обратно
         });
     } catch (error) {
         console.error('Ошибка загрузки:', error);

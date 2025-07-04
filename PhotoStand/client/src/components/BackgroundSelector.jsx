@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "../styles/BackgroundSelector.css";
+import { motion, AnimatePresence } from "framer-motion";
 
+import fonMaskRebuild from "../assets/select_fons/fonMaskRebuild.png";
 import fonMask from "../assets/select_fons/fonMask.png";
 import selectBtn from "../assets/select_fons/selectBtn.png";
 import radioBtnActive from "../assets/select_fons/radioBtnActive.png";
@@ -24,17 +26,70 @@ const backgrounds = [
 
 export default function BackgroundSelector({ onSelect }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+
+  const handleChange = (idx) => {
+    if (idx === currentIndex) return;
+    setDirection(idx > currentIndex ? 1 : -1);
+    setCurrentIndex(idx);
+  };
+
+  const variants = {
+    enter: (dir) => ({
+      x: dir > 0 ? 300 : -300,
+      opacity: 0,
+      position: "absolute"
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      position: "relative"
+    },
+    exit: (dir) => ({
+      x: dir > 0 ? -300 : 300,
+      opacity: 0,
+      position: "absolute"
+    })
+  };
 
   return (
     <>
       <div className="conteiner-selecct">
-        <div className="background-selector-mask-wrapper">
-          <img src={fonMask} alt="Маска" className="background-selector-mask" />
-          <img
-            src={backgrounds[currentIndex].url}
-            alt="Фон"
-            className="background-selector-fill-image"
-          />
+        <div
+          className="background-selector-mask-wrapper"
+          style={{
+            position: 'relative',
+            overflow: 'hidden',
+            width: '720px',
+            height: '1080px',
+            maxWidth: '100vw',
+            maxHeight: '100vh',
+          }}
+        >
+          <AnimatePresence custom={direction} initial={false}>
+            <motion.img
+              key={currentIndex}
+              src={backgrounds[currentIndex].url}
+              alt="Фон"
+              className="background-selector-fill-image"
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              style={{
+                zIndex: 2,
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+              }}
+            />
+          </AnimatePresence>
+          <img src={fonMaskRebuild} alt="Маска" className="background-selector-mask" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', zIndex: 10, pointerEvents: 'none' }} />
           <div className="background-selector-mask-btm-wrapper">
             <img
               src={maskBtmGroup}
@@ -46,7 +101,7 @@ export default function BackgroundSelector({ onSelect }) {
                 <button
                   key={bg.id}
                   className="background-selector-radio-btn"
-                  onClick={() => setCurrentIndex(idx)}
+                  onClick={() => handleChange(idx)}
                   type="button"
                 >
                   <img

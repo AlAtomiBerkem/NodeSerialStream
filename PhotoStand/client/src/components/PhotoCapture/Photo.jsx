@@ -6,47 +6,70 @@ import PhotoText from "../../assets/Photo/PhotoText.png";
 import Timer from "./Timer.jsx";
 import WebcamDisplay from "./WebcamDisplay.jsx";
 import PhotoResult from "../PhotoResult/PhotoResult.jsx";
+import PhotoDone from "../PhotoResult/PhotoDone.jsx";
 import { useRef, useState } from "react";
 
-export default function BackgroundSelector({ onBack }) {
+export default function BackgroundSelector({ backgroundId, onBack, onDone }) {
   const webcamRef = useRef(null);
   const [status, setStatus] = useState("");
-  const [resultFilename, setResultFilename] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [photoData, setPhotoData] = useState(null);
 
   const handleTimerFinish = async () => {
     if (webcamRef.current) {
       const image = webcamRef.current.getScreenshot();
       if (image) {
-        setStatus("Отправка...");
+        setLoading(true);
+        setStatus("");
         try {
           const res = await fetch("http://localhost:4000/upload", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ image, backgroundId: 1 }),
+            body: JSON.stringify({ image, backgroundId })
           });
           const data = await res.json();
-          if (data.success && data.filename) {
-            setResultFilename(data.filename);
-            setStatus("");
+          if (data.success && data.base64) {
+            setLoading(false);
+            if (onDone) onDone(data.base64);
           } else {
             setStatus("Ошибка загрузки: " + (data.error || "unknown"));
+            setLoading(false);
           }
         } catch (e) {
           setStatus("Ошибка соединения с сервером");
+          setLoading(false);
         }
       }
     }
   };
 
-  if (resultFilename) {
+  if (loading) {
     return (
-      <PhotoResult
-        filename={resultFilename}
-        onBack={() => {
-          setResultFilename(null);
-          setStatus("");
-        }}
-      />
+      <div className="conteiner-selecct">
+        <div className="background-selector-mask-wrapper">
+          <img src={fonMask} alt="Маска" className="background-selector-mask" />
+          <div
+            style={{
+              position: "absolute",
+              left: 3,
+              top: 5,
+              width: "99%",
+              height: "98%",
+              zIndex: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <img
+              src={require("../../assets/PhotoResult/processing.png")}
+              alt="Загрузка..."
+              style={{ maxWidth: "60%", maxHeight: "60%", display: "block" }}
+            />
+          </div>
+        </div>
+        <img src={PhotoText} alt="text" className="background-selector-desc" />
+      </div>
     );
   }
 
@@ -68,7 +91,7 @@ export default function BackgroundSelector({ onBack }) {
             <WebcamDisplay
               ref={webcamRef}
               onCapture={() => {}}
-              isLoading={false}
+              isLoading={loading}
               webcamStyle={{
                 width: "100%",
                 height: "100%",
@@ -82,11 +105,7 @@ export default function BackgroundSelector({ onBack }) {
           </div>
         </div>
         <img src={PhotoText} alt="text" className="background-selector-desc" />
-        {status && (
-          <div style={{ color: "white", textAlign: "center", margin: 16 }}>
-            {status}
-          </div>
-        )}
+
         <button className="background-selector-btn" onClick={onBack}>
           <div className="background-selector-btn-wrapper">
             <img src={BackBtn} alt="вернуться обратно" />
