@@ -49,11 +49,13 @@ export default function PhotoResult({ filename, onBack }) {
           </div>
         </div>
         <img src={loading ? processingText : PhotoText} alt="text" className="background-selector-desc" />
-        <button className="background-selector-btn" onClick={onBack}>
-          <div className="background-selector-btn-wrapper">
-            <img src={BackBtn} alt="вернуться обратно" />
-          </div>
-        </button>
+        {!loading && (
+          <button className="background-selector-btn" onClick={onBack}>
+            <div className="background-selector-btn-wrapper">
+              <img src={BackBtn} alt="вернуться обратно" />
+            </div>
+          </button>
+        )}
       </div>
     </>
   );

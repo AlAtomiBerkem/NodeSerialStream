@@ -5,7 +5,7 @@ import PhotoText from "../../assets/Photo/PhotoText.png";
 
 import Timer from "./Timer.jsx";
 import WebcamDisplay from "./WebcamDisplay.jsx";
-import PhotoResult from "./PhotoResult.jsx";
+import PhotoResult from "../PhotoResult/PhotoResult.jsx";
 import { useRef, useState } from "react";
 
 export default function BackgroundSelector({ onBack }) {
