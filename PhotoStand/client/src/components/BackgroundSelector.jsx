@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../styles/BackgroundSelector.css";
 import { motion, AnimatePresence } from "framer-motion";
 
+import fonMaskRebuild from "../assets/select_fons/fonMaskRebuild.png";
 import fonMask from "../assets/select_fons/fonMask.png";
 import selectBtn from "../assets/select_fons/selectBtn.png";
 import radioBtnActive from "../assets/select_fons/radioBtnActive.png";
@@ -65,7 +66,6 @@ export default function BackgroundSelector({ onSelect }) {
             maxHeight: '100vh',
           }}
         >
-          <img src={fonMask} alt="Маска" className="background-selector-mask" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', zIndex: 1, pointerEvents: 'none' }} />
           <AnimatePresence custom={direction} initial={false}>
             <motion.img
               key={currentIndex}
@@ -89,6 +89,7 @@ export default function BackgroundSelector({ onSelect }) {
               }}
             />
           </AnimatePresence>
+          <img src={fonMaskRebuild} alt="Маска" className="background-selector-mask" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', zIndex: 10, pointerEvents: 'none' }} />
           <div className="background-selector-mask-btm-wrapper">
             <img
               src={maskBtmGroup}
