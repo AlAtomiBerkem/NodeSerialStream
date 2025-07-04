@@ -250,6 +250,9 @@ app.post('/upload', async (req, res) => {
         const buffer = Buffer.from(image.split(',')[1], 'base64');
         await fs.promises.writeFile(filePath, buffer);
 
+        // Задержка 2 секунды перед ответом
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
         res.json({
             success: true,
             message: 'File saved to raw directory',

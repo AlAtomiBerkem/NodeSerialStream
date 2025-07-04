@@ -47,6 +47,36 @@ export default function BackgroundSelector({ backgroundId, onBack }) {
     return <PhotoDone photoData={photoData} onBack={() => setPhotoData(null)} />;
   }
 
+  if (loading) {
+    return (
+      <div className="conteiner-selecct">
+        <div className="background-selector-mask-wrapper">
+          <img src={fonMask} alt="Маска" className="background-selector-mask" />
+          <div
+            style={{
+              position: "absolute",
+              left: 3,
+              top: 5,
+              width: "99%",
+              height: "98%",
+              zIndex: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <img
+              src={require("../../assets/PhotoResult/processing.png")}
+              alt="Загрузка..."
+              style={{ maxWidth: "60%", maxHeight: "60%", display: "block" }}
+            />
+          </div>
+        </div>
+        <img src={PhotoText} alt="text" className="background-selector-desc" />
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="conteiner-selecct">
@@ -65,7 +95,7 @@ export default function BackgroundSelector({ backgroundId, onBack }) {
             <WebcamDisplay
               ref={webcamRef}
               onCapture={() => {}}
-              isLoading={false}
+              isLoading={loading}
               webcamStyle={{
                 width: "100%",
                 height: "100%",
