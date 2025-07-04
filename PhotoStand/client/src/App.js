@@ -6,7 +6,6 @@ import { useInactivityRedirect } from "./utils/useInactivityRedirect.js";
 import "./styles/App.css";
 
 function App() {
-  
   const [step, setStep] = useState("welcome"); // 'welcome' | 'background' | 'photo'
   const [selectedBackground, setSelectedBackground] = useState(null);
   const [backgroundId, setBackgroundId] = useState(null);
@@ -26,7 +25,6 @@ function App() {
   };
 
   return (
-    
     <div className="app app-bg">
       {step === "welcome" && (
         <WelcomeScreen onStart={() => setStep("background")} />
@@ -37,10 +35,12 @@ function App() {
         />
       )}
       {step === "photo" && selectedBackground && (
-        <Photo onBack={() => {
-          setSelectedBackground(null);
-          setStep("background");
-        }} />
+        <Photo
+          onBack={() => {
+            setSelectedBackground(null);
+            setStep("background");
+          }}
+        />
       )}
     </div>
   );

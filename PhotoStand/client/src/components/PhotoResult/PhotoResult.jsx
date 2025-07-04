@@ -16,7 +16,9 @@ export default function PhotoResult({ filename, onBack }) {
     let isActive = true;
     const checkStatus = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/check-status/${filename}`);
+        const res = await fetch(
+          `http://localhost:4000/check-status/${filename}`,
+        );
         const data = await res.json();
         if (data.status === "ready" && data.downloadUrl) {
           if (isActive) {
@@ -34,7 +36,9 @@ export default function PhotoResult({ filename, onBack }) {
       }
     };
     checkStatus();
-    return () => { isActive = false; };
+    return () => {
+      isActive = false;
+    };
   }, [filename]);
 
   return (
@@ -42,13 +46,45 @@ export default function PhotoResult({ filename, onBack }) {
       <div className="conteiner-selecct">
         <div className="background-selector-mask-wrapper">
           <img src={fonMask} alt="Маска" className="background-selector-mask" />
-          <div style={{ position: 'absolute', left: 3, top: 5, width: '99%', height: '98%', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            {loading && <img src={processing} alt="Загрузка..." style={{maxWidth: '40%', maxHeight: '40%'}} />}
-            {error && <span style={{color: 'red'}}>{error}</span>}
-            {photoUrl && <img src={photoUrl} alt="Готовое фото" style={{maxWidth: '100%', maxHeight: '100%', borderRadius: 16}} />}
+          <div
+            style={{
+              position: "absolute",
+              left: 3,
+              top: 5,
+              width: "99%",
+              height: "98%",
+              zIndex: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {loading && (
+              <img
+                src={processing}
+                alt="Загрузка..."
+                style={{ maxWidth: "40%", maxHeight: "40%" }}
+              />
+            )}
+            {error && <span style={{ color: "red" }}>{error}</span>}
+            {photoUrl && (
+              <img
+                src={photoUrl}
+                alt="Готовое фото"
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                  borderRadius: 16,
+                }}
+              />
+            )}
           </div>
         </div>
-        <img src={loading ? processingText : PhotoText} alt="text" className="background-selector-desc" />
+        <img
+          src={loading ? processingText : PhotoText}
+          alt="text"
+          className="background-selector-desc"
+        />
         {!loading && (
           <button className="background-selector-btn" onClick={onBack}>
             <div className="background-selector-btn-wrapper">

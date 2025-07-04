@@ -22,7 +22,7 @@ export default function BackgroundSelector({ onBack }) {
           const res = await fetch("http://localhost:4000/upload", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ image, backgroundId: 1 })
+            body: JSON.stringify({ image, backgroundId: 1 }),
           });
           const data = await res.json();
           if (data.success && data.filename) {
@@ -39,10 +39,15 @@ export default function BackgroundSelector({ onBack }) {
   };
 
   if (resultFilename) {
-    return <PhotoResult filename={resultFilename} onBack={() => {
-      setResultFilename(null);
-      setStatus("");
-    }} />;
+    return (
+      <PhotoResult
+        filename={resultFilename}
+        onBack={() => {
+          setResultFilename(null);
+          setStatus("");
+        }}
+      />
+    );
   }
 
   return (
@@ -50,12 +55,26 @@ export default function BackgroundSelector({ onBack }) {
       <div className="conteiner-selecct">
         <div className="background-selector-mask-wrapper">
           <img src={fonMask} alt="Маска" className="background-selector-mask" />
-          <div style={{ position: 'absolute', left: 3, top: 5, width: '99%', height: '98%', zIndex: 1 }}>
+          <div
+            style={{
+              position: "absolute",
+              left: 3,
+              top: 5,
+              width: "99%",
+              height: "98%",
+              zIndex: 1,
+            }}
+          >
             <WebcamDisplay
               ref={webcamRef}
               onCapture={() => {}}
               isLoading={false}
-              webcamStyle={{ width: '100%', height: '100%', objectFit: 'cover', aspectRatio: '10.3/16' }}
+              webcamStyle={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                aspectRatio: "10.3/16",
+              }}
             />
           </div>
           <div className="background-selector-mask-btm-wrapper">
@@ -63,7 +82,11 @@ export default function BackgroundSelector({ onBack }) {
           </div>
         </div>
         <img src={PhotoText} alt="text" className="background-selector-desc" />
-        {status && <div style={{color: 'white', textAlign: 'center', margin: 16}}>{status}</div>}
+        {status && (
+          <div style={{ color: "white", textAlign: "center", margin: 16 }}>
+            {status}
+          </div>
+        )}
         <button className="background-selector-btn" onClick={onBack}>
           <div className="background-selector-btn-wrapper">
             <img src={BackBtn} alt="вернуться обратно" />

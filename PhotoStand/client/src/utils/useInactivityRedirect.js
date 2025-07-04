@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 export const useInactivityRedirect = (onTimeout) => {
   const timerRef = useRef();
@@ -13,7 +13,7 @@ export const useInactivityRedirect = (onTimeout) => {
   };
 
   useEffect(() => {
-    const events = ['mousedown', 'mousemove', 'keydown', 'touchstart', 'click'];
+    const events = ["mousedown", "mousemove", "keydown", "touchstart", "click"];
     events.forEach((e) => window.addEventListener(e, resetTimer));
 
     resetTimer();
