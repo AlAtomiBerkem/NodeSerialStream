@@ -90,6 +90,18 @@
   width: 80px;
 }
 
+.qr-back-btn {
+  position: absolute;
+  left: 50%;
+  bottom: 60px;
+  transform: translateX(-50%);
+  display: block;
+}
+
+.qr-text-img {
+  margin-top: 40px;
+}
+
 @media (max-width: 600px), (max-height: 900px) {
   .welcome-description,
   .welcome-start-btn {

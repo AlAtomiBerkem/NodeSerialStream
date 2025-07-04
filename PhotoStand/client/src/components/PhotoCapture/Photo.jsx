@@ -9,7 +9,7 @@ import PhotoResult from "../PhotoResult/PhotoResult.jsx";
 import PhotoDone from "../PhotoResult/PhotoDone.jsx";
 import { useRef, useState } from "react";
 
-export default function BackgroundSelector({ backgroundId, onBack }) {
+export default function BackgroundSelector({ backgroundId, onBack, onDone }) {
   const webcamRef = useRef(null);
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
@@ -30,7 +30,7 @@ export default function BackgroundSelector({ backgroundId, onBack }) {
           const data = await res.json();
           if (data.success && data.base64) {
             setLoading(false);
-            setPhotoData(data.base64);
+            if (onDone) onDone(data.base64);
           } else {
             setStatus("Ошибка загрузки: " + (data.error || "unknown"));
             setLoading(false);
@@ -42,10 +42,6 @@ export default function BackgroundSelector({ backgroundId, onBack }) {
       }
     }
   };
-
-  if (photoData) {
-    return <PhotoDone photoData={photoData} onBack={() => setPhotoData(null)} />;
-  }
 
   if (loading) {
     return (

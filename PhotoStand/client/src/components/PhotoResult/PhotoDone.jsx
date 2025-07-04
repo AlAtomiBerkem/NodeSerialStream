@@ -2,8 +2,14 @@ import "../../styles/BackgroundSelector.css";
 import fonMask from "../../assets/select_fons/fonMask.png";
 import doneText from "../../assets/PhotoResult/done_text.png";
 import processing from "../../assets/PhotoResult/processing.png";
+import { BtnGroup } from "./BtnGroup.jsx";
+import PhotoQR from "./PhotoQR.jsx";
+import { useState } from "react";
 
-export default function PhotoDone({ photoData, onBack }) {
+export default function PhotoDone({ photoData, onBack, onBackToMenu }) {
+  const [showQR, setShowQR] = useState(false);
+  if (showQR) return <PhotoQR onStart={onBackToMenu} />;
+
   return (
     <>
       <div className="conteiner-selecct">
@@ -40,11 +46,8 @@ export default function PhotoDone({ photoData, onBack }) {
         <img
           src={doneText} alt="text" className="background-selector-desc"
         />
-        {photoData && (
-          <button className="background-selector-btn" onClick={onBack}>
-            Назад
-          </button>
-        )}
+
+        <BtnGroup onAgain={onBack} onAccept={() => setShowQR(true)} />
       </div>
     </>
   );

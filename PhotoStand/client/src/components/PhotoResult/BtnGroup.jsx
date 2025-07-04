@@ -1,20 +1,11 @@
-import againBtn from "../../assets/PhotoResult/againBtn.png";
+import againBtn from "../../assets/PhotoResult/again.png";
 import AcceptBtn from "../../assets/PhotoResult/AcceptBtn.png";
 
-export const BtnGroup = () => {
+export const BtnGroup = ({ onAgain, onAccept }) => {
   return (
-    <div
-      className="btn-group"
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        width: "100%",
-      }}
-    >
-      <img src={againBtn} alt="againBtn" />
-      <img src={AcceptBtn} alt="AcceptBtn" />
+    <div className="btn-group">
+      <img src={againBtn} alt="againBtn" onClick={onAgain} style={{ cursor: 'pointer' }} />
+      <img src={AcceptBtn} alt="AcceptBtn" onClick={onAccept} style={{ cursor: 'pointer' }} />
     </div>
   );
 };
