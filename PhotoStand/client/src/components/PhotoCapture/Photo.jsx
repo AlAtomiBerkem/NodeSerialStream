@@ -5,11 +5,13 @@ import PhotoText from "../../assets/Photo/PhotoText.png";
 
 import Timer from "./Timer.jsx";
 import WebcamDisplay from "./WebcamDisplay.jsx";
+import PhotoResult from "./PhotoResult.jsx";
 import { useRef, useState } from "react";
 
 export default function BackgroundSelector({ onBack }) {
   const webcamRef = useRef(null);
   const [status, setStatus] = useState("");
+  const [resultFilename, setResultFilename] = useState(null);
 
   const handleTimerFinish = async () => {
     if (webcamRef.current) {
@@ -23,8 +25,9 @@ export default function BackgroundSelector({ onBack }) {
             body: JSON.stringify({ image, backgroundId: 1 })
           });
           const data = await res.json();
-          if (data.success) {
-            setStatus("Фото успешно отправлено!");
+          if (data.success && data.filename) {
+            setResultFilename(data.filename);
+            setStatus("");
           } else {
             setStatus("Ошибка загрузки: " + (data.error || "unknown"));
           }
@@ -34,6 +37,13 @@ export default function BackgroundSelector({ onBack }) {
       }
     }
   };
+
+  if (resultFilename) {
+    return <PhotoResult filename={resultFilename} onBack={() => {
+      setResultFilename(null);
+      setStatus("");
+    }} />;
+  }
 
   return (
     <>
@@ -53,7 +63,7 @@ export default function BackgroundSelector({ onBack }) {
           </div>
         </div>
         <img src={PhotoText} alt="text" className="background-selector-desc" />
-        {/* {status && <div style={{color: 'white', textAlign: 'center', margin: 16}}>{status}</div>} */}
+        {status && <div style={{color: 'white', textAlign: 'center', margin: 16}}>{status}</div>}
         <button className="background-selector-btn" onClick={onBack}>
           <div className="background-selector-btn-wrapper">
             <img src={BackBtn} alt="вернуться обратно" />
