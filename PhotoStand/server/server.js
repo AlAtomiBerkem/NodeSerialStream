@@ -6,16 +6,17 @@ import FormData from 'form-data';
 import fs from 'fs';
 import path from 'path';
 import { watch } from 'chokidar';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const PORT = 4000;
 const app = express();
 
-// Хранилище обработанных файлов
 const processedFiles = new Map();
 
-const YANDEX_OAUTH_TOKEN = 'y0_AgAAAAB4NNOlAAxRYwAAAAEOnM6dAACse6JJWJ9F2J6xQ33C6IrNvtEdRw';
-const YANDEX_UPLOAD_URL = 'https://cloud-api.yandex.net/v1/disk/resources/upload';
-const YANDEX_PUBLISH_URL = 'https://cloud-api.yandex.net/v1/disk/resources/publish';
+const YANDEX_OAUTH_TOKEN = process.env.YANDEX_OAUTH_TOKEN;
+const YANDEX_UPLOAD_URL = process.env.YANDEX_UPLOAD_URL;
+const YANDEX_PUBLISH_URL = process.env.YANDEX_PUBLISH_URL;
 
 const UPLOAD_DIR = './uploads/raw';
 const PROCESSED_DIR = './uploads/processed';
@@ -25,7 +26,7 @@ const PROCESSED_DIR = './uploads/processed';
 });
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 
 async function withRetry(fn, maxRetries = 3, delayMs = 2000) {
     let lastError;
