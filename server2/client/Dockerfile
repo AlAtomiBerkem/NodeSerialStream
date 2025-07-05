@@ -1,16 +1,15 @@
 FROM node:18
 
-WORKDIR /client
+WORKDIR /app
 
-COPY package*.json ./
+COPY package.json .
+
+COPY package-lock.json . 
 
 RUN npm install
 
-COPY .. .
+COPY . .
 
-RUN npm run build
+EXPOSE 3000
 
-EXPOSE 80
-
-CMD ["npx", "serve", "-s", "build"]
-
+CMD ["npm", "run", "dev"]

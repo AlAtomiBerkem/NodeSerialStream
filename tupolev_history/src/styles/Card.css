@@ -1,0 +1,209 @@
+.card {
+  width: 100%;
+  height: 62vh;
+  display: flex;
+  /* border: 2px solid aliceblue; */
+  overflow: hidden;
+}
+
+.card-photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 40%;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 30px;
+}
+
+.photo-placeholder {
+  color: #666;
+  font-size: 18px;
+}
+
+.card-content {
+  width: 60%;
+  display: flex;
+  color: white;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  padding: 10px 32px;
+  box-sizing: border-box;
+  background: transparent;
+}
+.card-content,
+.card-content * {
+  touch-action: auto !important;
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+.photo-radio-btn-img:focus,
+.photo-radio-btn-img:active {
+  outline: none !important;
+  box-shadow: none !important;
+  background: none !important;
+}
+
+.card-title {
+  font-family: 'Akrobat', sans-serif;
+  font-size: 2.2rem;
+  margin: 0 0 18px 0;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+}
+
+.card-desc {
+  font-family: 'Akrobat', sans-serif;
+  font-weight: 500;
+  font-size: 32px;
+  color: #e0e0e0;
+  margin: 0;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  white-space: pre-line;
+}
+
+/* Гибкие классы для кастомизации текста */
+.font-xxl {
+  font-size: 3.2rem !important;
+}
+.font-xl {
+  font-size: 2.2rem !important;
+}
+.font-lg {
+  font-size: 1.5rem !important;
+}
+.font-md {
+  font-size: 1.15rem !important;
+}
+.font-sm {
+  font-size: 0.95rem !important;
+}
+.font-xs {
+  font-size: 0.8rem !important;
+}
+.font-bold {
+  font-weight: 700 !important;
+}
+.font-extrabold {
+  font-weight: 800 !important;
+}
+.font-black {
+  font-weight: 900 !important;
+}
+.font-light {
+  font-weight: 300 !important;
+}
+.font-thin {
+  font-weight: 100 !important;
+}
+.text-blue {
+  color: #4ec3ff !important;
+}
+.text-white {
+  color: #fff !important;
+}
+.text-gray {
+  color: #b0b0b0 !important;
+}
+.text-dark {
+  color: #222 !important;
+}
+
+.card-content::-webkit-scrollbar {
+  width: 20px;
+  background: #222;
+}
+.card-content::-webkit-scrollbar-thumb {
+  background: #4ec3ff;
+  border-radius: 4px;
+}
+
+.placeholder {
+  background: url('../UI/scrollBar/track.png');
+}
+
+.photo-placeholder {
+  background: url('../assets/photo_mask.png') no-repeat center center;
+  background-size: contain;
+  width: 550px;
+  height: 550px;
+  position: relative;
+  margin-top: -40px;
+}
+
+.photo-phocus {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #72D8FF;
+}
+
+::-webkit-scrollbar-track {
+  background: url('../UI/scrollBar/track.png') no-repeat center center;
+  background-size: cover;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+.photo-switch {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+.photo-switch.left {
+  left: 0;
+}
+.photo-switch.right {
+  right: 0;
+}
+
+.photo-img {
+  display: block;
+  max-width: 100%;
+  border-radius: 12px;
+}
+
+.card-description.custom-scroll {
+  max-height: 120px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+.card-description.custom-scroll::-webkit-scrollbar {
+  width: 8px;
+  background: url('../UI/scrollBar/track.png');
+}
+.card-description.custom-scroll::-webkit-scrollbar-thumb {
+  background: url('../UI/scrollBar/slider.svg');
+  border-radius: 4px;
+}
+.card-description.custom-scroll::-webkit-scrollbar-track {
+  background: url('../UI/scrollBar/track.png');
+}

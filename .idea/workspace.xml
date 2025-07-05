@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7c02ff8f-d3d3-4900-b105-23876ae56824" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;AlAtomiBerkem&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:AlAtomiBerkem/NodeSerialStream.git&quot;,
+    &quot;accountId&quot;: &quot;b4b63c0d-bfa4-476c-8f69-4c3c0fed42e9&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2viHlN4PX7HXZVVVtnp3bamtgLE" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/annapirz/Desktop/NodeSerialStream/tupolev_history/src/UI&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.stickyLines&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Applications/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tupolev_history/src/UI" />
+      <recent name="$PROJECT_DIR$/PhotoStand/client/src/assets" />
+      <recent name="$PROJECT_DIR$/server2" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tupolev_history/src/components/Greetings" />
+      <recent name="$PROJECT_DIR$/tupolev_history/src/styles" />
+      <recent name="$PROJECT_DIR$/PhotoStand/server/uploads/processed" />
+      <recent name="$PROJECT_DIR$/PhotoStand/client/src/styles" />
+      <recent name="$PROJECT_DIR$/PhotoStand/client/src/components" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JavaScript Debug.index.html">
+    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/NodeSerialStream/server2/client/build/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/server/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.index.html" />
+        <item itemvalue="npm.dev" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.23339.15" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7c02ff8f-d3d3-4900-b105-23876ae56824" name="Changes" comment="" />
+      <created>1744621124990</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1744621124990</updated>
+      <workItem from="1744621126169" duration="13648000" />
+      <workItem from="1744696986721" duration="13253000" />
+      <workItem from="1744726577278" duration="1515000" />
+      <workItem from="1745219582930" duration="657000" />
+      <workItem from="1745220799515" duration="1885000" />
+      <workItem from="1745225074658" duration="3642000" />
+      <workItem from="1745231728827" duration="9852000" />
+      <workItem from="1745299164088" duration="16794000" />
+      <workItem from="1745390842937" duration="7303000" />
+      <workItem from="1745398688959" duration="14437000" />
+      <workItem from="1745423612219" duration="23883000" />
+      <workItem from="1745577856161" duration="517000" />
+      <workItem from="1745846575124" duration="219000" />
+      <workItem from="1746601510051" duration="13000" />
+      <workItem from="1746601530787" duration="7183000" />
+      <workItem from="1746609555036" duration="8289000" />
+      <workItem from="1747216283355" duration="9095000" />
+      <workItem from="1747290752870" duration="20511000" />
+      <workItem from="1747472496739" duration="11019000" />
+      <workItem from="1747722539228" duration="17312000" />
+      <workItem from="1747807991833" duration="5611000" />
+      <workItem from="1747833274433" duration="3328000" />
+      <workItem from="1748082477736" duration="1084000" />
+      <workItem from="1748085971611" duration="308000" />
+      <workItem from="1748239689427" duration="609000" />
+      <workItem from="1748261661728" duration="4998000" />
+      <workItem from="1750398104688" duration="7590000" />
+      <workItem from="1750433726752" duration="123000" />
+      <workItem from="1750656624753" duration="3040000" />
+      <workItem from="1751708021331" duration="773000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

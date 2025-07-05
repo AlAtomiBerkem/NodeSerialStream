@@ -1,0 +1,125 @@
+.welcome-screen {
+  width: 100vw;
+  height: 100vh;
+  min-width: 320px;
+  min-height: 480px;
+  max-width: 1080px;
+  max-height: 1920px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome-description,
+.welcome-start-btn {
+  width: 55vw;
+  max-width: 594px; /* 55% от 1080 */
+  min-width: 180px;
+  display: block;
+}
+
+.welcome-description {
+  margin-bottom: 8px;
+}
+
+.welcome-start-btn {
+  margin-bottom: 0;
+}
+
+.welcome-logo {
+  width: 57.5vw;
+  max-width: 460px;
+  min-width: 120px;
+  height: auto;
+  aspect-ratio: 4/1;
+  position: absolute;
+  left: 50%;
+  bottom: 300px;
+  transform: translateX(-50%);
+  margin-bottom: 0;
+}
+
+.welcome-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.welcome-desc {
+  font-size: 1.2rem;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.welcome-btn {
+  font-size: 1.5rem;
+  padding: 18px 48px;
+  border-radius: 32px;
+  border: none;
+  background: #222;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 40px;
+  transition: background 0.2s;
+}
+.welcome-btn:hover {
+  background: #444;
+}
+
+.welcome-decor {
+  position: absolute;
+  z-index: 0;
+  opacity: 0.7;
+}
+.decor1 {
+  top: 5vh;
+  left: 5vw;
+  width: 80px;
+}
+.decor2 {
+  bottom: 5vh;
+  right: 5vw;
+  width: 80px;
+}
+
+.qr-back-btn {
+  position: absolute;
+  left: 50%;
+  bottom: 60px;
+  transform: translateX(-50%);
+  display: block;
+}
+
+.qr-text-img {
+  margin-top: 40px;
+}
+
+@media (max-width: 600px), (max-height: 900px) {
+  .welcome-description,
+  .welcome-start-btn {
+    width: 80vw;
+    max-width: 320px;
+    min-width: 100px;
+  }
+  .welcome-logo {
+    width: 80vw;
+    max-width: 207px;
+    min-width: 80px;
+    bottom: 140px;
+  }
+  .welcome-title {
+    font-size: 1.5rem;
+  }
+  .welcome-btn {
+    font-size: 1rem;
+    padding: 12px 24px;
+  }
+}

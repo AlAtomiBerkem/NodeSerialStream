@@ -13,9 +13,9 @@ services:
       context: ./server1/server
       dockerfile: Dockerfile
     ports:
-      - "3001:3000"
+      - "0.0.0.0:3001:3000"  # Изменено для прослушивания всех интерфейсов
     volumes:
-      - ./:/app  
+      - ./:/app
     environment:
       - MONGODB_URI=mongodb://mongodb:27017/User
     depends_on:
@@ -39,11 +39,12 @@ services:
       context: ./server2/client
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"  # Хост:Контейнер
+      - "3000:3000"
     volumes:
-      - ./:/app      # Для hot-reload
+      - ./server2/client:/app
+      - /app/node_modules  # Важно!
     environment:
-      - CHOKIDAR_USEPOLLING=true  # Для работы в Docker
+      - CHOKIDAR_USEPOLLING=true
     depends_on:
       - server2
 
