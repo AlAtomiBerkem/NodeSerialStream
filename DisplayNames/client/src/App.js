@@ -15,12 +15,12 @@ function App() {
 
     return (
         <div>
-            <h1>Список пользователей</h1>
-            <ul>
+
+
                 {users.map(user => (
-                    <li key={user._id}>{user.name}</li> // Используй _id или другой уникальный ключ
+                    <p key={user._id}>{user.UserName || ''}</p>
                 ))}
-            </ul>
+
         </div>
     );
 }
