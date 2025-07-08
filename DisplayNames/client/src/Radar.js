@@ -73,8 +73,8 @@ const Radar = () => {
       });
 
       // После SUBSTEPS обновляем sweepAngle
-      sweepAngleRef.current += SWEEP_SPEED;
-      if (sweepAngleRef.current >= 360) sweepAngleRef.current -= 360;
+      sweepAngleRef.current -= SWEEP_SPEED;
+      if (sweepAngleRef.current < 0) sweepAngleRef.current += 360;
       animationFrameId = requestAnimationFrame(draw);
     };
     draw();
