@@ -1,28 +1,27 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
+import Radar from './Radar';
+import radarBg from './assets/radar.png';
 
 function App() {
-    const [users, setUsers] = useState([]);
-
-    useEffect(() => {
-        axios.get('http://localhost:3300/api/users')
-            .then(response => {
-                console.log(response.data); // Проверь данные!
-                setUsers(response.data);
-            })
-            .catch(error => console.error('Ошибка:', error));
-    }, []);
-
-    return (
-        <div>
-
-
-                {users.map(user => (
-                    <p key={user._id}>{user.UserName || ''}</p>
-                ))}
-
-        </div>
-    );
+  return (
+    <div
+      className="App"
+      style={{
+        width: '1920px',
+        height: '1080px',
+        background: `url(${radarBg}) center center / cover no-repeat fixed`,
+        overflow: 'hidden',
+        position: 'relative',
+        margin: '0 auto',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Radar />
+    </div>
+  );
 }
 
 export default App;
