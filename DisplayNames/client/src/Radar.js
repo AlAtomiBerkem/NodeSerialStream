@@ -3,10 +3,10 @@ import radarBg from './assets/radar.png';
 
 const RADAR_WIDTH = 1280;
 const RADAR_HEIGHT = 720;
-const SWEEP_SPEED = 0.5;
+const SWEEP_SPEED = 1;
 const SWEEP_WIDTH = 2;
 const SWEEP_COLOR = 'rgba(0, 180, 255, 0.8)';
-const TRAIL_LENGTH = 30; // длина шлейфа
+const TRAIL_LENGTH = 360; // чтобы trail покрывал весь круг
 
 function degToRad(deg) {
   return (deg * Math.PI) / 180;
@@ -32,7 +32,7 @@ const Radar = () => {
         trailRef.current.shift();
       }
 
-      // Рисуем шлейф
+      // Рисуем шлейф с тремя зонами: синий, пустой, затемняющий
       trailRef.current.forEach((a, i) => {
         ctx.save();
         ctx.translate(RADAR_WIDTH / 2, RADAR_HEIGHT - 10);
@@ -40,13 +40,31 @@ const Radar = () => {
         ctx.beginPath();
         ctx.moveTo(0, 0);
         ctx.lineTo(0, -RADAR_HEIGHT + 85);
-        // Чем старее угол, тем прозрачнее
-        const alpha = ((i + 1) / trailRef.current.length) * 0.4;
-        ctx.strokeStyle = `rgba(0, 180, 255, ${alpha})`;
-        ctx.lineWidth = SWEEP_WIDTH;
-        ctx.shadowColor = SWEEP_COLOR;
-        ctx.shadowBlur = 12;
-        ctx.stroke();
+
+        const n = trailRef.current.length;
+        const blueZone = 8;
+        const darkZone = n - blueZone; // затемнение до самой стрелки
+        // Промежуток между ними — ничего не рисуем
+
+        if (i > n - blueZone) {
+          // 1. Синий шлейф
+          const alpha = 0.4 * ((i - (n - blueZone) + 1) / blueZone);
+          ctx.strokeStyle = `rgba(0, 180, 255, ${alpha})`;
+          ctx.lineWidth = SWEEP_WIDTH;
+          ctx.shadowColor = SWEEP_COLOR;
+          ctx.shadowBlur = 12;
+          ctx.stroke();
+        } else if (i < darkZone) {
+          // 3. Затемнение (очень длинное и тёмное)
+          const alpha = 0.55 * ((darkZone - i) / darkZone);
+          ctx.strokeStyle = `rgba(0,0,0,${alpha})`;
+          ctx.lineWidth = SWEEP_WIDTH + 1;
+          ctx.shadowColor = 'rgba(0,0,0,0.2)';
+          ctx.shadowBlur = 0;
+          ctx.stroke();
+        }
+        // 2. Промежуток — ничего не рисуем
+
         ctx.restore();
       });
 
