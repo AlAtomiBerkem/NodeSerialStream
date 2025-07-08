@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import radarBg from './assets/radar.png';
 
 const RADAR_WIDTH = 1280;
-const RADAR_HEIGHT = 650;
+const RADAR_HEIGHT = 720;
 const SWEEP_SPEED = 0.5;
 const SWEEP_WIDTH = 2;
 const SWEEP_COLOR = 'rgba(0, 180, 255, 0.8)';
@@ -23,13 +23,14 @@ const Radar = () => {
 
     const draw = () => {
       ctx.clearRect(0, 0, RADAR_WIDTH, RADAR_HEIGHT);
+      // Рисуем стрелку радара
       const angle = sweepAngleRef.current;
       ctx.save();
-      ctx.translate(RADAR_WIDTH / 2 + 9, RADAR_HEIGHT + 21);
+      ctx.translate(RADAR_WIDTH / 2, RADAR_HEIGHT - 10);
       ctx.rotate(degToRad(angle - 90));
       ctx.beginPath();
       ctx.moveTo(0, 0);
-      ctx.lineTo(0, -RADAR_HEIGHT);
+      ctx.lineTo(0, -RADAR_HEIGHT + 85);
       ctx.strokeStyle = SWEEP_COLOR;
       ctx.lineWidth = SWEEP_WIDTH;
       ctx.shadowColor = SWEEP_COLOR;
@@ -47,7 +48,6 @@ const Radar = () => {
   return (
     <div
       style={{
-        position: 'relative',
         width: RADAR_WIDTH,
         height: RADAR_HEIGHT,
         margin: '0 auto',
