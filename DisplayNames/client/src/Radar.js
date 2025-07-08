@@ -3,10 +3,10 @@ import radarBg from './assets/radar.png';
 
 const RADAR_WIDTH = 1280;
 const RADAR_HEIGHT = 720;
-const SWEEP_SPEED = 1;
+const SWEEP_SPEED = 2;
 const SWEEP_WIDTH = 2;
 const SWEEP_COLOR = 'rgba(0, 180, 255, 0.8)';
-const TRAIL_LENGTH = 360; // чтобы trail покрывал весь круг
+const TRAIL_LENGTH = 1080; // (360 / SWEEP_SPEED) * SUBSTEPS для полного покрытия круга
 
 function degToRad(deg) {
   return (deg * Math.PI) / 180;
@@ -22,14 +22,18 @@ const Radar = () => {
     const ctx = canvas.getContext('2d');
     let animationFrameId;
 
+    const SUBSTEPS = 6; // эмулируем увеличение FPS
+
     const draw = () => {
       ctx.clearRect(0, 0, RADAR_WIDTH, RADAR_HEIGHT);
 
-      // Обновляем trail
-      const angle = sweepAngleRef.current;
-      trailRef.current.push(angle);
-      if (trailRef.current.length > TRAIL_LENGTH) {
-        trailRef.current.shift();
+      for (let sub = 0; sub < SUBSTEPS; sub++) {
+        // Промежуточный угол для подшага
+        const angle = sweepAngleRef.current + (SWEEP_SPEED * sub) / SUBSTEPS;
+        trailRef.current.push(angle);
+        if (trailRef.current.length > TRAIL_LENGTH) {
+          trailRef.current.shift();
+        }
       }
 
       // Рисуем шлейф с тремя зонами: синий, пустой, затемняющий
@@ -42,7 +46,7 @@ const Radar = () => {
         ctx.lineTo(0, -RADAR_HEIGHT + 85);
 
         const n = trailRef.current.length;
-        const blueZone = 8;
+        const blueZone = 30;
         const darkZone = n - blueZone; // затемнение до самой стрелки
         // Промежуток между ними — ничего не рисуем
 
@@ -68,7 +72,7 @@ const Radar = () => {
         ctx.restore();
       });
 
-      // Обновляем угол
+      // После SUBSTEPS обновляем sweepAngle
       sweepAngleRef.current += SWEEP_SPEED;
       if (sweepAngleRef.current >= 360) sweepAngleRef.current -= 360;
       animationFrameId = requestAnimationFrame(draw);
