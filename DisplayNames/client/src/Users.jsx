@@ -1,29 +1,47 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { usersConfig } from './config/users.config'
 
 const Users = () => {
-    return (
-        <div className='relative'>
-            <div className='border-2 border-red-500 p-5 h-[200px] w-[200px] relative'>  
-                <div 
-                    className='text-white absolute animate-float text-nowrap'
-                    style={{
-                        animation: 'float 20s linear infinite'
-                    }}
-                >
-                    Иван Иванович Иванов
-                </div>  
-            </div>
+    const [users, setUsers] = useState(usersConfig.users)
 
-            <style jsx>{`
-                @keyframes float {
-                    0% { transform: translate(0px, 0px); }
-                    25% { transform: translate(70px, 0px); }
-                    50% { transform: translate(70px, 30px); }
-                    75% { transform: translate(0px, 30px); }
-                    100% { transform: translate(0px, 0px); }
-                }
-            `}</style>
+    useEffect(() => {
+        // Раскомментировать когда бэкенд будет готов
+        // const fetchUsers = async () => {
+        //     try {
+        //         const response = await axios.get('/api/users')
+        //         setUsers(response.data)
+        //     } catch (error) {
+        //         console.error('Error fetching users:', error)
+        //         // Используем мок-данные как fallback
+        //         setUsers(usersConfig.users)
+        //     }
+        // }
+        // fetchUsers()
+    }, [])
+
+    return (
+        <div className='fixed inset-0 w-full h-full overflow-hidden overscroll-none touch-none select-none'>
+            {users.map((user) => {
+                const textColorClass = `text-${user.style.color}`
+                const animationClass = user.style.animation
+                const baseClasses = 'text-nowrap floating-text absolute'
+                
+                return (
+                    <div
+                        key={user.id}
+                        className={`${baseClasses} ${textColorClass} ${animationClass}`}
+                        style={{
+                            top: user.position.top,
+                            left: user.position.left,
+                            fontSize: user.style.fontSize.startsWith('text-') ? undefined : user.style.fontSize,
+                            transform: 'translate(-50%, -50%)'
+                        }}
+                    >
+                        {user.name}
+                    </div>
+                )
+            })}
         </div>
     )
 }
