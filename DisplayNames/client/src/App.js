@@ -1,12 +1,12 @@
-import {useState, useEffect} from 'react';
-import axios from 'axios';
 import Radar from './Radar';
 import radarBg from './assets/radar.png';
+import Users from './Users.jsx';
+import './index.css';
+
 
 function App() {
   return (
     <div
-      className="App"
       style={{
         width: '1920px',
         height: '1080px',
@@ -19,7 +19,7 @@ function App() {
         justifyContent: 'center',
       }}
     >
-      <Radar />
+      <Users />
     </div>
   );
 }
