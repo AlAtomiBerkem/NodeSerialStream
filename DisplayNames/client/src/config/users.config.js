@@ -11,7 +11,7 @@ export const usersConfig = {
             style: {
                 fontSize: "3.5rem",
                 color: "white",
-                animation: "float-1 float-fast"
+                animation: "float-1 float-slow"
             }
         },
         {
@@ -63,7 +63,7 @@ export const usersConfig = {
             style: {
                 fontSize: "2.5rem",
                 color: "white",
-                animation: "float-2 float-fast"
+                animation: "float-2 float-slow"
             }
         },
         {
@@ -102,7 +102,7 @@ export const usersConfig = {
             style: {
                 fontSize: "text-1xl",
                 color: "white",
-                animation: "float-2 float-fast"
+                animation: "float-2 float-slow"
             }
         },
         {
@@ -180,7 +180,7 @@ export const usersConfig = {
             style: {
                 fontSize: "text-5xl",
                 color: "blue-500",
-                animation: "float-2 float-fast"
+                animation: "float-2 float-slow"
             }
         },
         {
@@ -206,7 +206,7 @@ export const usersConfig = {
             style: {
                 fontSize: "3rem",
                 color: "white",
-                animation: "float-2 float-fast"
+                animation: "float-2 float-slow"
             }
         }
     ]
