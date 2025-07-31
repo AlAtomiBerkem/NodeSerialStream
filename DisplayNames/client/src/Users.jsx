@@ -22,26 +22,22 @@ const Users = () => {
 
     return (
         <div className='fixed inset-0 w-full h-full overflow-hidden overscroll-none touch-none select-none'>
-            {users.map((user) => {
-                const textColorClass = `text-${user.style.color}`
-                const animationClass = user.style.animation
-                const baseClasses = 'text-nowrap floating-text absolute'
-                
-                return (
-                    <div
-                        key={user.id}
-                        className={`${baseClasses} ${textColorClass} ${animationClass}`}
-                        style={{
-                            top: user.position.top,
-                            left: user.position.left,
-                            fontSize: user.style.fontSize.startsWith('text-') ? undefined : user.style.fontSize,
-                            transform: 'translate(-50%, -50%)'
-                        }}
-                    >
-                        {user.name}
-                    </div>
-                )
-            })}
+            {users.map((user) => (
+                <div
+                    key={user.id}
+                    className={`font-akrobat font-semibold text-nowrap floating-text absolute ${user.style.animation}`}
+                    style={{
+                        top: user.position.top,
+                        left: user.position.left,
+                        fontSize: user.style.fontSize,
+                        color: user.style.color,
+                        opacity: 0.8, 
+                        transform: 'translate(-50%, -50%)'
+                    }}
+                >
+                    {user.name}
+                </div>
+            ))}
         </div>
     )
 }

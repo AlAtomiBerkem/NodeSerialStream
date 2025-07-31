@@ -5,6 +5,7 @@ module.exports = {
     "./public/index.html"
   ],
   safelist: [
+    ...Array.from({ length: 20 }, (_, i) => `swim-${i + 1}`),
     'text-white',
     'text-blue-500'
   ],
