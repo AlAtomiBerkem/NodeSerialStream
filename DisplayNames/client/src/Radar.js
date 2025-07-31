@@ -1,8 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import radarBg from './assets/radar.png';
 
-const RADAR_WIDTH = 1280;
-const RADAR_HEIGHT = 720;
+const RADAR_WIDTH = window.innerWidth;
+const RADAR_HEIGHT = window.innerHeight - 20;
 const SWEEP_SPEED = 2;
 const SWEEP_WIDTH = 2;
 const SWEEP_COLOR = 'rgba(0, 180, 255, 0.8)';
@@ -39,7 +39,7 @@ const Radar = () => {
       // Рисуем шлейф с тремя зонами: синий, пустой, затемняющий
       trailRef.current.forEach((a, i) => {
         ctx.save();
-        ctx.translate(RADAR_WIDTH / 2, RADAR_HEIGHT - 10);
+        ctx.translate(RADAR_WIDTH / 2, RADAR_HEIGHT);
         ctx.rotate(degToRad(a - 90));
         ctx.beginPath();
         ctx.moveTo(0, 0);
@@ -84,10 +84,16 @@ const Radar = () => {
   return (
     <div
       style={{
-        width: RADAR_WIDTH,
+        // width: RADAR_WIDTH,
+        width: '100vw',
         height: RADAR_HEIGHT,
-        margin: '0 auto',
         overflow: 'hidden',
+        left: '50%',
+        bottom: 0,
+        transform: 'translateY(2%)',
+
+
+        // border: '5px solid red',
       }}
     >
       <canvas
@@ -96,8 +102,6 @@ const Radar = () => {
         height={RADAR_HEIGHT}
         style={{
           position: 'absolute',
-          top: 0,
-          left: 0,
           pointerEvents: 'none',
         }}
       />

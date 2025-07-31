@@ -18,7 +18,7 @@ export const usersConfig = {
             id: 2,
             name: "Петр Петрович",
             position: {
-                top: "30%",
+                top: "20%",
                 left: "40%"
             },
             style: {
