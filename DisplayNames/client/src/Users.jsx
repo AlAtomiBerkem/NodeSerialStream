@@ -25,13 +25,12 @@ const Users = () => {
             {users.map((user) => (
                 <div
                     key={user.id}
-                    className={`font-akrobat font-semibold text-nowrap floating-text absolute ${user.style.animation}`}
-                    style={{
+                    className={`font-akrobat font-semibold text-nowrap floating-text absolute ${user.style.animation} ${user.style.className || ''}`}                    style={{
                         top: user.position.top,
                         left: user.position.left,
                         fontSize: user.style.fontSize,
                         color: user.style.color,
-                        opacity: 0.8, 
+                        opacity: 0.85, 
                         transform: 'translate(-50%, -50%)'
                     }}
                 >

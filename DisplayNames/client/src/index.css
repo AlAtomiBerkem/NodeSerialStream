@@ -140,30 +140,13 @@
   .swim-20 { animation: swim-20 13.68s ease-in-out infinite; }
 }
 
-.floating-text {
-    will-change: transform;
-    animation-duration: 30s;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    
+.blurred-opaque-text {
+  filter: blur(1px); 
+  opacity: 0.65;
+  transition: all 0.3s;
 }
 
-.float-1 {
-    animation-name: float;
-}
-
-.float-2 {
-    animation-name: float2;
-}
-
-.float-3 {
-    animation-name: float3;
-}
-
-.float-fast {
-    animation-duration: 20s;
-}
-
-.float-slow {
-    animation-duration: 40s;
+.glow-text {
+  opacity: 0.97;
+  filter: drop-shadow(0 0 2px #72D8FF) drop-shadow(0 0 25px #72D8FF) ;
 }
