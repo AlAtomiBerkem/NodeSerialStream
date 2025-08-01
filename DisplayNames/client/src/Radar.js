@@ -6,7 +6,7 @@ const RADAR_HEIGHT = window.innerHeight - 20;
 const SWEEP_SPEED = 2;
 const SWEEP_WIDTH = 2;
 const SWEEP_COLOR = 'rgba(0, 180, 255, 0.8)';
-const TRAIL_LENGTH = 3240; // (360 / SWEEP_SPEED) * SUBSTEPS для полного покрытия круга
+const TRAIL_LENGTH = 3240;
 
 function degToRad(deg) {
   return (deg * Math.PI) / 180;
