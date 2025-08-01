@@ -51,18 +51,17 @@ const Users = () => {
                 user => !currentUsersMap.has(user.serverId)
             )
             
-            const updatedUsers = currentUsers.map(user => {
-                const newUser = newUsersMap.get(user.serverId)
-                if (newUser) {
+            const updatedUsers = currentUsers
+                .filter(user => newUsersMap.has(user.serverId)) // Удаляем пользователей, которых нет в новых данных
+                .map(user => {
+                    const newUser = newUsersMap.get(user.serverId)
                     return {
                         ...user,
                         name: newUser.name,
                         style: newUser.style,
                         lastSeen: Date.now()
                     }
-                }
-                return user
-            })
+                })
             
             const finalUsers = [...updatedUsers, ...usersToAdd]
             
@@ -97,7 +96,6 @@ const Users = () => {
         
         return () => clearInterval(interval)
     }, [lastServerData])
-                    user.lastSeen > thirtySecondsAgo
 
     useEffect(() => {
         const cleanupInterval = setInterval(() => {
@@ -106,6 +104,7 @@ const Users = () => {
                 const thirtySecondsAgo = now - 30000
                 
                 const activeUsers = currentUsers.filter(user => 
+                    user.lastSeen > thirtySecondsAgo
                 )
                 
                 if (activeUsers.length !== currentUsers.length) {
@@ -119,21 +118,6 @@ const Users = () => {
         return () => clearInterval(cleanupInterval)
     }, [])
 
-    if (loading) {
-        return (
-            <div className='fixed inset-0 w-full h-full flex items-center justify-center text-white text-2xl'>
-                Загрузка пользователей...
-            </div>
-        )
-    }
-
-    if (error) {
-        return (
-            <div className='fixed inset-0 w-full h-full flex items-center justify-center text-red-500 text-xl'>
-                {error}
-            </div>
-        )
-    }
 
     return (
         <div className='fixed inset-0 w-full h-full overflow-hidden overscroll-none touch-none select-none'>
