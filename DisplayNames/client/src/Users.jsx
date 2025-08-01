@@ -9,18 +9,43 @@ const Users = () => {
     const [lastServerData, setLastServerData] = useState(null)
 
 
+    const truncateName = (name, fontSize) => {
+        const fontSizeNum = parseInt(fontSize)
+        
+        let maxLength
+        if (fontSizeNum >= 80) {
+            maxLength = 14 
+        } else if (fontSizeNum >= 60) {
+            maxLength = 12
+        } else if (fontSizeNum >= 40) {
+            maxLength = 18
+        } else {
+            maxLength = 25
+        }
+        
+        if (name.length <= maxLength) {
+            return name
+        }
+        
+        return name.substring(0, maxLength - 3) + "..."
+    }
+
+
     const transformServerData = (serverUsers) => {
         const positions = usersConfig.users.map(user => user.position)
         
         return serverUsers.map((serverUser, index) => {
             const position = positions[index % positions.length]
+            const fontSize = usersConfig.users[index % usersConfig.users.length].style.fontSize
+            const originalName = serverUser.UserName || `Пользователь ${index + 1}`
             
             return {
                 id: serverUser.idTab || serverUser._id || index + 1,
-                name: serverUser.UserName || `Пользователь ${index + 1}`,
+                name: truncateName(originalName, fontSize),
+                originalName: originalName,
                 position: position,
                 style: {
-                    fontSize: usersConfig.users[index % usersConfig.users.length].style.fontSize,
+                    fontSize: fontSize,
                     color: serverUser.checkingRoomOne?.[0] ? "#72D8FF" : "white",
                     animation: usersConfig.users[index % usersConfig.users.length].style.animation,
                     className: serverUser.checkingRoomTwo?.[0] ? "glow-text" : ""
@@ -58,6 +83,7 @@ const Users = () => {
                     return {
                         ...user,
                         name: newUser.name,
+                        originalName: newUser.originalName,
                         style: newUser.style,
                         lastSeen: Date.now()
                     }
