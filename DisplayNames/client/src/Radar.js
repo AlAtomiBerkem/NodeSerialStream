@@ -6,7 +6,7 @@ const RADAR_HEIGHT = window.innerHeight - 20;
 const SWEEP_SPEED = 2;
 const SWEEP_WIDTH = 2;
 const SWEEP_COLOR = 'rgba(0, 180, 255, 0.8)';
-const TRAIL_LENGTH = 1080; // (360 / SWEEP_SPEED) * SUBSTEPS для полного покрытия круга
+const TRAIL_LENGTH = 3240;
 
 function degToRad(deg) {
   return (deg * Math.PI) / 180;
@@ -22,7 +22,7 @@ const Radar = () => {
     const ctx = canvas.getContext('2d');
     let animationFrameId;
 
-    const SUBSTEPS = 6; // эмулируем увеличение FPS
+    const SUBSTEPS = 18; // эмулируем увеличение FPS
 
     const draw = () => {
       ctx.clearRect(0, 0, RADAR_WIDTH, RADAR_HEIGHT);
@@ -46,13 +46,13 @@ const Radar = () => {
         ctx.lineTo(0, -RADAR_HEIGHT + 85);
 
         const n = trailRef.current.length;
-        const blueZone = 30;
+        const blueZone = 40; // Увеличено с 30 до 80 для более длинного синего шлейфа
         const darkZone = n - blueZone; // затемнение до самой стрелки
         // Промежуток между ними — ничего не рисуем
 
         if (i > n - blueZone) {
           // 1. Синий шлейф
-          const alpha = 0.4 * ((i - (n - blueZone) + 1) / blueZone);
+          const alpha = 0.5 * ((i - (n - blueZone) + 1) / blueZone);
           ctx.strokeStyle = `rgba(0, 180, 255, ${alpha})`;
           ctx.lineWidth = SWEEP_WIDTH;
           ctx.shadowColor = SWEEP_COLOR;
@@ -63,7 +63,7 @@ const Radar = () => {
           const alpha = 0.55 * ((darkZone - i) / darkZone);
           ctx.strokeStyle = `rgba(0,0,0,${alpha})`;
           ctx.lineWidth = SWEEP_WIDTH + 1;
-          ctx.shadowColor = 'rgba(0,0,0,0.2)';
+          ctx.shadowColor = 'rgb(0, 0, 0)';
           ctx.shadowBlur = 0;
           ctx.stroke();
         }

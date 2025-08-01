@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c02ff8f-d3d3-4900-b105-23876ae56824" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DisplayNames/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/DisplayNames/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DisplayNames/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/DisplayNames/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DisplayNames/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/DisplayNames/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DisplayNames/client/src/Users.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/DisplayNames/client/src/Users.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DisplayNames/client/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/DisplayNames/client/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DisplayNames/client/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/DisplayNames/client/tailwind.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,6 +144,8 @@
       <workItem from="1752331441661" duration="5000" />
       <workItem from="1752487748043" duration="325000" />
       <workItem from="1753015263745" duration="378000" />
+      <workItem from="1753699673970" duration="5000" />
+      <workItem from="1753699688945" duration="14000" />
     </task>
     <servers />
   </component>
