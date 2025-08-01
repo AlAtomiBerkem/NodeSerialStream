@@ -9,18 +9,43 @@ const Users = () => {
     const [lastServerData, setLastServerData] = useState(null)
 
 
+    const truncateName = (name, fontSize) => {
+        const fontSizeNum = parseInt(fontSize)
+        
+        let maxLength
+        if (fontSizeNum >= 80) {
+            maxLength = 14 
+        } else if (fontSizeNum >= 60) {
+            maxLength = 12
+        } else if (fontSizeNum >= 40) {
+            maxLength = 18
+        } else {
+            maxLength = 25
+        }
+        
+        if (name.length <= maxLength) {
+            return name
+        }
+        
+        return name.substring(0, maxLength - 3) + "..."
+    }
+
+
     const transformServerData = (serverUsers) => {
         const positions = usersConfig.users.map(user => user.position)
         
         return serverUsers.map((serverUser, index) => {
             const position = positions[index % positions.length]
+            const fontSize = usersConfig.users[index % usersConfig.users.length].style.fontSize
+            const originalName = serverUser.UserName || `Пользователь ${index + 1}`
             
             return {
                 id: serverUser.idTab || serverUser._id || index + 1,
-                name: serverUser.UserName || `Пользователь ${index + 1}`,
+                name: truncateName(originalName, fontSize),
+                originalName: originalName,
                 position: position,
                 style: {
-                    fontSize: usersConfig.users[index % usersConfig.users.length].style.fontSize,
+                    fontSize: fontSize,
                     color: serverUser.checkingRoomOne?.[0] ? "#72D8FF" : "white",
                     animation: usersConfig.users[index % usersConfig.users.length].style.animation,
                     className: serverUser.checkingRoomTwo?.[0] ? "glow-text" : ""
@@ -51,18 +76,18 @@ const Users = () => {
                 user => !currentUsersMap.has(user.serverId)
             )
             
-            const updatedUsers = currentUsers.map(user => {
-                const newUser = newUsersMap.get(user.serverId)
-                if (newUser) {
+            const updatedUsers = currentUsers
+                .filter(user => newUsersMap.has(user.serverId))
+                .map(user => {
+                    const newUser = newUsersMap.get(user.serverId)
                     return {
                         ...user,
                         name: newUser.name,
+                        originalName: newUser.originalName,
                         style: newUser.style,
                         lastSeen: Date.now()
                     }
-                }
-                return user
-            })
+                })
             
             const finalUsers = [...updatedUsers, ...usersToAdd]
             
@@ -97,7 +122,6 @@ const Users = () => {
         
         return () => clearInterval(interval)
     }, [lastServerData])
-                    user.lastSeen > thirtySecondsAgo
 
     useEffect(() => {
         const cleanupInterval = setInterval(() => {
@@ -106,6 +130,7 @@ const Users = () => {
                 const thirtySecondsAgo = now - 30000
                 
                 const activeUsers = currentUsers.filter(user => 
+                    user.lastSeen > thirtySecondsAgo
                 )
                 
                 if (activeUsers.length !== currentUsers.length) {
@@ -114,26 +139,11 @@ const Users = () => {
                 
                 return activeUsers
             })
-        }, 10000) // Проверяем каждые 10 секунд
+        }, 10000)
         
         return () => clearInterval(cleanupInterval)
     }, [])
 
-    if (loading) {
-        return (
-            <div className='fixed inset-0 w-full h-full flex items-center justify-center text-white text-2xl'>
-                Загрузка пользователей...
-            </div>
-        )
-    }
-
-    if (error) {
-        return (
-            <div className='fixed inset-0 w-full h-full flex items-center justify-center text-red-500 text-xl'>
-                {error}
-            </div>
-        )
-    }
 
     return (
         <div className='fixed inset-0 w-full h-full overflow-hidden overscroll-none touch-none select-none'>
