@@ -52,7 +52,7 @@ const Users = () => {
             )
             
             const updatedUsers = currentUsers
-                .filter(user => newUsersMap.has(user.serverId)) // Удаляем пользователей, которых нет в новых данных
+                .filter(user => newUsersMap.has(user.serverId))
                 .map(user => {
                     const newUser = newUsersMap.get(user.serverId)
                     return {
@@ -113,7 +113,7 @@ const Users = () => {
                 
                 return activeUsers
             })
-        }, 10000) // Проверяем каждые 10 секунд
+        }, 10000)
         
         return () => clearInterval(cleanupInterval)
     }, [])
