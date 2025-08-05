@@ -6,13 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="7c02ff8f-d3d3-4900-b105-23876ae56824" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DisplayNames/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/DisplayNames/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DisplayNames/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/DisplayNames/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DisplayNames/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/DisplayNames/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DisplayNames/client/src/Users.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/DisplayNames/client/src/Users.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DisplayNames/client/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/DisplayNames/client/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DisplayNames/client/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/DisplayNames/client/tailwind.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmos" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmos" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmos/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmos/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmos/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmos/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmos/client/public/vite.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmos/client/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmos/client/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmos/client/src/assets/Mask group.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmos/client/src/assets/btn-add-photo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmos/client/src/assets/btn-start.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmos/client/src/assets/ferst-screen.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmos/client/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmos/client/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cosmos/client/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmos/client/vite.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,23 +48,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/annapirz/Desktop/NodeSerialStream/tupolev_history/src/UI&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.stickyLines&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Applications/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JavaScript Debug.index.html.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "kosmos__stand",
+    "last_opened_file_path": "/Users/annapirz/Desktop/NodeSerialStream/tupolev_history/src/UI",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.dev.executor": "Run",
+    "settings.editor.selected.configurable": "editor.stickyLines",
+    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/tupolev_history/src/UI" />
@@ -146,6 +152,7 @@
       <workItem from="1753015263745" duration="378000" />
       <workItem from="1753699673970" duration="5000" />
       <workItem from="1753699688945" duration="14000" />
+      <workItem from="1754393926793" duration="1266000" />
     </task>
     <servers />
   </component>
