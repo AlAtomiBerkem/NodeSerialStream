@@ -75,3 +75,34 @@
 .mask-fit-contain {
   object-fit: contain;
 }
+
+:root {
+  --oval-inner: 40%;  /* до этого процента 100% видимость */
+  --oval-outer: 55%;  /* к этому проценту уходим в полную прозрачность */
+}
+
+/* Мягкая прозрачность по краям овала через маску */
+.feather-oval {
+  /* Для Chromium/Safari */
+  -webkit-mask-image: radial-gradient(
+    ellipse at 50% 50%,
+    #000 var(--oval-inner),
+    rgba(0,0,0,0) var(--oval-outer)
+  );
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+
+  /* Для Firefox */
+  mask-image: radial-gradient(
+    ellipse at 50% 50%,
+    #000 var(--oval-inner),
+    rgba(0,0,0,0) var(--oval-outer)
+  );
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+}
+
+/* Опционально: лёгкая тень по краям овала, чтобы скрыть «лесенку» */
+.oval-soft-shadow {
+  filter: drop-shadow(0 0 10px rgba(0,0,0,0.35));
+}

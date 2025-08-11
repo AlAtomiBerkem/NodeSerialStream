@@ -8,7 +8,6 @@ const SecondScreen = () => {
         <div className="relative w-full h-screen overflow-hidden">
             <div className="kosmo-bg"></div>
 
-            {/* Центрируем вебкамеру под маской */}
             <div className="absolute top-50 inset-0 flex items-center justify-center z-[5]">
                 <WebcamCapture />
             </div>
