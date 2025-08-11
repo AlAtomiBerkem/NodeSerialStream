@@ -1,4 +1,6 @@
 import FadeIn from "./FaidIn";
+import WebcamCapture from '../components//WebcamCapture.jsx';
+
 
 const BlueFrame = () => {
     return (
