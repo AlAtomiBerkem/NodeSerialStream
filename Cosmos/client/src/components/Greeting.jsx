@@ -1,5 +1,5 @@
 import React from 'react';
-import ExitTransition from './ExitTransition';
+// import ExitTransition from './ExitTransition';
 
 const Greeting = ({ onExit }) => {
 

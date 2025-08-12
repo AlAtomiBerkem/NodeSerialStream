@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Greeting from "./components/Greeting";
 import SecondScreen from "./components/Second-screen";
 import ExitTransition from "./components/ExitTransition";
+import { CountdownProvider } from "./context/CountdownContext";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,9 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <RouterProvider router={router} />
+    <CountdownProvider>
+      <RouterProvider router={router} />
+    </CountdownProvider>
   );
 }
 

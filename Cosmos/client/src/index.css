@@ -106,3 +106,37 @@
 /* .oval-soft-shadow {
   filter: drop-shadow(0 0 10px rgba(0,0,0,0.35));
 } */
+
+/* Анимации для цифр отсчета */
+@keyframes countdownPulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  20% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+}
+
+.countdown-number {
+  animation: countdownPulse 1s ease-in-out;
+}
+
+/* Улучшенная анимация пульсации */
+.countdown-pulse {
+  animation: countdownPulse 1s ease-in-out infinite;
+}
+
+/* Эффект свечения для цифр */
+.countdown-glow {
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+}
