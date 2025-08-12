@@ -1,27 +1,47 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const CountdownTimer = ({ isActive = false, onComplete, duration = 1000 }) => {
   const [currentNumber, setCurrentNumber] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
+  const countdownRef = useRef(null);
 
   useEffect(() => {
+
+    if (countdownRef.current) {
+      clearTimeout(countdownRef.current);
+      countdownRef.current = null;
+    }
+
     if (!isActive) {
       setCurrentNumber(null);
       setIsVisible(false);
       return;
     }
 
+
     setCurrentNumber(3);
     setIsVisible(true);
 
     const countdown = async () => {
-      await new Promise(resolve => setTimeout(resolve, duration));
+
+      await new Promise(resolve => {
+        countdownRef.current = setTimeout(resolve, duration);
+      });
+      
+
       setCurrentNumber(2);
-      await new Promise(resolve => setTimeout(resolve, duration));
+      await new Promise(resolve => {
+        countdownRef.current = setTimeout(resolve, duration);
+      });
+      
       setCurrentNumber(1);
-      await new Promise(resolve => setTimeout(resolve, duration));
+      await new Promise(resolve => {
+        countdownRef.current = setTimeout(resolve, duration);
+      });
+      
       setIsVisible(false);
       setCurrentNumber(null);
+      countdownRef.current = null;
       
       if (onComplete) {
         onComplete();
@@ -29,7 +49,13 @@ const CountdownTimer = ({ isActive = false, onComplete, duration = 1000 }) => {
     };
 
     countdown();
-  }, [isActive, duration, onComplete]);
+
+    return () => {
+      if (countdownRef.current) {
+        clearTimeout(countdownRef.current);
+      }
+    };
+  }, [isActive]);
 
   if (!isVisible || !currentNumber) {
     return null;

@@ -12,6 +12,7 @@ export const useCountdown = () => {
 
 export const CountdownProvider = ({ children }) => {
   const [isCountdownActive, setIsCountdownActive] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const startCountdown = () => {
     setIsCountdownActive(true);
@@ -21,10 +22,21 @@ export const CountdownProvider = ({ children }) => {
     setIsCountdownActive(false);
   };
 
+  const startProcessing = () => {
+    setIsProcessing(true);
+  };
+
+  const stopProcessing = () => {
+    setIsProcessing(false);
+  };
+
   const value = {
     isCountdownActive,
+    isProcessing,
     startCountdown,
-    stopCountdown
+    stopCountdown,
+    startProcessing,
+    stopProcessing
   };
 
   return (

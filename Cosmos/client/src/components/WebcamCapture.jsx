@@ -8,12 +8,18 @@ const videoConstraints = {
 
 const WebcamCapture = () => {
   const webcamRef = React.useRef(null);
-  const { isCountdownActive } = useCountdown();
+  const { isCountdownActive, isProcessing } = useCountdown();
 
-  // const handleCountdownComplete = () => {
-  //   const imageSrc = webcamRef.current?.getScreenshot?.();
-  //   console.log('отправили фото на сервер', imageSrc);
-  // };
+  const capturePhoto = () => {
+    const imageSrc = webcamRef.current?.getScreenshot?.();
+    console.log('Снимок сделан:', imageSrc);
+    return imageSrc;
+  };
+
+
+  React.useImperativeHandle(React.useRef(), () => ({
+    capturePhoto
+  }));
 
   return (
     <div className="fixed top-[120px] scale-[1.1] left-[600px] w-[700px] h-[700px]">
