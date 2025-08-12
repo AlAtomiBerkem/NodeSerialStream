@@ -1,18 +1,25 @@
 import React from "react";
 import Webcam from "react-webcam";
+import { useCountdown } from '../context/CountdownContext.jsx';
 
-// Рекомендуемые настройки камеры (можно менять под устройство)
 const videoConstraints = {
   facingMode: "user"
 };
 
 const WebcamCapture = () => {
   const webcamRef = React.useRef(null);
+  const { isCountdownActive, isProcessing } = useCountdown();
 
-  const capture = React.useCallback(() => {
+  const capturePhoto = () => {
     const imageSrc = webcamRef.current?.getScreenshot?.();
-    console.log('отправили фото на сервер')
-  }, []);
+    console.log('Снимок сделан:', imageSrc);
+    return imageSrc;
+  };
+
+
+  React.useImperativeHandle(React.useRef(), () => ({
+    capturePhoto
+  }));
 
   return (
     <div className="fixed top-[120px] scale-[1.1] left-[600px] w-[700px] h-[700px]">
@@ -29,13 +36,6 @@ const WebcamCapture = () => {
         alt="mask"
         className="absolute inset-0 z-10 w-full h-full object-contain pointer-events-none"
       />
-
-      <button
-        onClick={capture}
-        className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 px-4 py-2 rounded bg-white/80 text-black"
-      >
-        Capture photo
-      </button>
     </div>
   );
 };
