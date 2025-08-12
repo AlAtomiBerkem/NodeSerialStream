@@ -11,6 +11,7 @@ const WebcamCapture = () => {
 
   const capture = React.useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot?.();
+    console.log('отправили фото на сервер')
   }, []);
 
   return (

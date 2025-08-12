@@ -103,6 +103,6 @@
 }
 
 /* Опционально: лёгкая тень по краям овала, чтобы скрыть «лесенку» */
-.oval-soft-shadow {
+/* .oval-soft-shadow {
   filter: drop-shadow(0 0 10px rgba(0,0,0,0.35));
-}
+} */

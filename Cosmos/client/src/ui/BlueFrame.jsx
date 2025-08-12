@@ -2,7 +2,7 @@ import FadeIn from "./FaidIn";
 import WebcamCapture from '../components//WebcamCapture.jsx';
 
 
-const BlueFrame = () => {
+const BlueFrame = ({onButtonClick}) => {
     return (
       <div className=" centered w-screen h-screen absolute inset-0 z-20 pointer-events-none">
         <img 
@@ -15,6 +15,7 @@ const BlueFrame = () => {
           <img 
             src="/btn-add-photo.png" 
             className="w-auto h-auto max-w-full max-h-full"
+            onClick={onButtonClick}
           />
         </button>
         </FadeIn>
