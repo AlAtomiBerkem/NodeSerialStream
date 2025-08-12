@@ -22,12 +22,12 @@ function App() {
       <div
         style={{
           position: 'absolute',
-          scale: 1.77,
+          scale: 1.773,
           top: 530,
           left: 0,
           width: '100%',
           height: '100%',
-          background: 'url(/strelka.png) center center / contain no-repeat',
+          background: 'url(/svstrelka.svg) center center / contain no-repeat',
           animation: 'radar-sweep 3s linear infinite',
           pointerEvents: 'none',
           zIndex: 10,
