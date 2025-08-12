@@ -140,6 +140,11 @@
   .swim-20 { animation: swim-20 13.68s ease-in-out infinite; }
 }
 
+@keyframes radar-sweep {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
 .blurred-opaque-text {
   filter: blur(1px); 
   opacity: 0.65;
