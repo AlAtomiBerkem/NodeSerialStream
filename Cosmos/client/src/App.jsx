@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { CountdownProvider } from './context/CountdownContext.jsx';
-import ExitTransition from "./ui/ExitTransition";
+import ExitTransition from "./ui/ExitTransition.jsx";
 import Greeting from './components/Greeting.jsx';
 import SecondScreen from './components/Second-screen.jsx';
 import ThreeScreen from './components/ThreeScreen.jsx';
@@ -33,4 +33,4 @@ function App() {
   );
 }
 
-export default App;
+export default App; 
