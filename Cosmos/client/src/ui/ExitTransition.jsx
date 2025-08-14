@@ -28,7 +28,7 @@ const ExitTransition = ({ children, onExit }) => {
     api.start({
 
       scale: 3.3,
-      opacity: 0.95,
+      // opacity: 0.95,
       transform: 'translateY(47px) translateX(435px)',
       onRest: () => {
         navigate(path);
