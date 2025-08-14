@@ -1,24 +1,19 @@
-import React from "react";
+import React, { forwardRef, useImperativeHandle } from "react";
 import Webcam from "react-webcam";
 import { useCountdown } from '../context/CountdownContext.jsx';
+import { capturePhotoFromWebcam } from '../services/photoService.js';
 
 const videoConstraints = {
   facingMode: "user"
 };
 
-const WebcamCapture = () => {
+const WebcamCapture = forwardRef((props, ref) => {
   const webcamRef = React.useRef(null);
   const { isCountdownActive, isProcessing } = useCountdown();
 
-  const capturePhoto = () => {
-    const imageSrc = webcamRef.current?.getScreenshot?.();
-    console.log('Снимок сделан:', imageSrc);
-    return imageSrc;
-  };
-
-
-  React.useImperativeHandle(React.useRef(), () => ({
-    capturePhoto
+  useImperativeHandle(ref, () => ({
+    capturePhoto: () => capturePhotoFromWebcam(webcamRef),
+    getWebcamRef: () => webcamRef.current
   }));
 
   return (
@@ -38,6 +33,8 @@ const WebcamCapture = () => {
       />
     </div>
   );
-};
+});
+
+WebcamCapture.displayName = 'WebcamCapture';
 
 export default WebcamCapture;

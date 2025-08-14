@@ -1,4 +1,4 @@
-const BlueFrame = () => {
+const WhiteFrame = () => {
     return (
       <div className=" centered w-screen h-screen absolute inset-0 z-20 pointer-events-none">
         <img 
@@ -17,4 +17,4 @@ const BlueFrame = () => {
     )
   }
 
-  export default BlueFrame;
+  export default WhiteFrame;
