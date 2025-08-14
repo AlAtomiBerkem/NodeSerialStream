@@ -1,9 +1,10 @@
 import React from 'react';
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Greeting from "./components/Greeting";
-import SecondScreen from "./components/Second-screen";
-import ExitTransition from "./components/ExitTransition";
-import { CountdownProvider } from "./context/CountdownContext";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { CountdownProvider } from './context/CountdownContext.jsx';
+import ExitTransition from "./ui/ExitTransition";
+import Greeting from './components/Greeting.jsx';
+import SecondScreen from './components/Second-screen.jsx';
+import ThreeScreen from './components/ThreeScreen.jsx';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/second",
     element: <SecondScreen />,
+  },
+  {
+    path: "/three",
+    element: <ThreeScreen />,
   },
 ]);
 
