@@ -71,7 +71,6 @@
   overflow: hidden;
 }
 
-/* Утилита, если нужно ровно вписать, не растягивая PNG */
 .mask-fit-contain {
   object-fit: contain;
 }
@@ -81,9 +80,7 @@
   --oval-outer: 55%;  /* к этому проценту уходим в полную прозрачность */
 }
 
-/* Мягкая прозрачность по краям овала через маску */
 .feather-oval {
-  /* Для Chromium/Safari */
   -webkit-mask-image: radial-gradient(
     ellipse at 50% 50%,
     #000 var(--oval-inner),
@@ -92,7 +89,6 @@
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-size: 100% 100%;
 
-  /* Для Firefox */
   mask-image: radial-gradient(
     ellipse at 50% 50%,
     #000 var(--oval-inner),
@@ -102,12 +98,10 @@
   mask-size: 100% 100%;
 }
 
-/* Опционально: лёгкая тень по краям овала, чтобы скрыть «лесенку» */
-/* .oval-soft-shadow {
+.oval-soft-shadow {
   filter: drop-shadow(0 0 10px rgba(0,0,0,0.35));
-} */
+}
 
-/* Анимации для цифр отсчета */
 @keyframes countdownPulse {
   0% {
     transform: scale(0.8);
@@ -131,12 +125,10 @@
   animation: countdownPulse 1s ease-in-out;
 }
 
-/* Улучшенная анимация пульсации */
 .countdown-pulse {
   animation: countdownPulse 1s ease-in-out infinite;
 }
 
-/* Эффект свечения для цифр */
 .countdown-glow {
   filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
 }
