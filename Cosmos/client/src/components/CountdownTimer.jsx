@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const CountdownTimer = ({ isActive = false, onComplete, duration = 1000 }) => {
+const CountdownTimer = ({ isActive = false, onComplete, duration = 500 }) => {
   const [currentNumber, setCurrentNumber] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
   const countdownRef = useRef(null);

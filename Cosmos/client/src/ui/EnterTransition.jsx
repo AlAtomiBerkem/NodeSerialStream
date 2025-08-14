@@ -3,14 +3,12 @@ import { useSpring, animated } from '@react-spring/web';
 
 const EnterTransition = ({ children }) => {
   
-  // Настройки анимации через react-spring
+
   const [springs, api] = useSpring(() => ({
-    // Начальные значения анимации (реверсивные к ExitTransition)
-    scale: 2,         // Масштаб: начинаем с увеличенного размера
-    // opacity: 0.95,      // Прозрачность: начинаем с небольшой прозрачности
-    transform: 'translateY(75px) translateX(10px)', // Позиция: начинаем с центра
+    scale: 2,
+    // opacity: 0.95,
+    transform: 'translateY(75px) translateX(10px)',
     
-    // Настройки плавности анимации
     config: {
       tension: 810,      // Натяжение пружины (влияет на скорость)
       friction: 1,      // Трение (влияет на плавность)
@@ -18,12 +16,11 @@ const EnterTransition = ({ children }) => {
     }
   }));
 
-  // Запускаем анимацию входа при монтировании компонента
   React.useEffect(() => {
     api.start({
-      scale: 1,           // Уменьшаем до нормального размера
-      opacity: 1,         // Делаем полностью видимым
-      transform: 'translateY(0px) translateX(0px)', // Возвращаем в центр
+      scale: 1,        
+      opacity: 1,     
+      transform: 'translateY(0px) translateX(0px)',
     });
   }, [api]);
 

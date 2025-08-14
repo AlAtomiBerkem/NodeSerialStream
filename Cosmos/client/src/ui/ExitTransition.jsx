@@ -5,25 +5,18 @@ import { useNavigate } from 'react-router-dom';
 const ExitTransition = ({ children, onExit }) => {
   const navigate = useNavigate();
   
-  // Настройки анимации через react-spring
   const [springs, api] = useSpring(() => ({
-    // Начальные значения анимации
-    scale: 1,           // Масштаб: 1 = нормальный размер
-    opacity: 1,          // Прозрачность: 1 = полностью видимый
-    transform: 'translateY(0px) translateX(0px)', // Позиция: центр экрана
+    scale: 1,        
+    opacity: 1,        
+    transform: 'translateY(0px) translateX(0px)',
     
-    // Настройки плавности анимации
     config: {
-      tension: 510,      // Натяжение пружины (влияет на скорость)
-      friction: 5,      // Трение (влияет на плавность)
-      duration: 2200     // Длительность анимации в миллисекундах
+      tension: 510,
+      friction: 5,
+      duration: 2200
     }
   }));
 
-  /**
-   * handleExit - функция для запуска анимации выхода
-   * @param {string} path - путь для перехода (например, '/second')
-   */
   const handleExit = (path) => {
     api.start({
 
