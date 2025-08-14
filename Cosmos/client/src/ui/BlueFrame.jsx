@@ -51,8 +51,6 @@ const BlueFrame = ({ webcamRef }) => {
     console.log('Обработка завершена!');
     stopProcessing();
     stopUploading();
-    
-    // Переходим к ThreeScreen
     navigate('/three');
   };
 

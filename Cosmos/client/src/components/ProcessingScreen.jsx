@@ -1,22 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-/**
- * ProcessingScreen - компонент для отображения экрана обработки
- * 
- * Показывает "ОБРАБОТКА" с анимированными точками
- * 
- * Параметры:
- * - isVisible: флаг для показа/скрытия экрана
- * - onComplete: функция, вызываемая после завершения обработки
- * - duration: длительность показа экрана (в мс)
- */
-const ProcessingScreen = ({ isVisible = false, onComplete, duration = 3000 }) => {
+const ProcessingScreen = ({ isVisible = false, onComplete, duration = 500 }) => {
   const [dots, setDots] = useState(0);
   const dotIntervalRef = useRef(null);
   const completeTimerRef = useRef(null);
 
   useEffect(() => {
-    // Очищаем предыдущие таймеры
     if (dotIntervalRef.current) {
       clearInterval(dotIntervalRef.current);
       dotIntervalRef.current = null;
@@ -31,10 +20,9 @@ const ProcessingScreen = ({ isVisible = false, onComplete, duration = 3000 }) =>
       return;
     }
 
-    // Анимация точек
     dotIntervalRef.current = setInterval(() => {
-      setDots(prev => (prev + 1) % 4);
-    }, 500);
+      setDots(prev => (prev + 1) % 3);
+    }, 400);
 
     // Таймер для завершения обработки
     completeTimerRef.current = setTimeout(() => {
@@ -43,7 +31,6 @@ const ProcessingScreen = ({ isVisible = false, onComplete, duration = 3000 }) =>
       }
     }, duration);
 
-    // Очистка при размонтировании
     return () => {
       if (dotIntervalRef.current) {
         clearInterval(dotIntervalRef.current);
@@ -52,7 +39,7 @@ const ProcessingScreen = ({ isVisible = false, onComplete, duration = 3000 }) =>
         clearTimeout(completeTimerRef.current);
       }
     };
-  }, [isVisible]); // Убираем duration и onComplete из зависимостей
+  }, [isVisible]);
 
   if (!isVisible) {
     return null;
@@ -67,7 +54,6 @@ const ProcessingScreen = ({ isVisible = false, onComplete, duration = 3000 }) =>
           className="w-64 h-32 object-contain"
         />
         
-        {/* Анимированные точки */}
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
           {[0, 1, 2].map((index) => (
             <div
