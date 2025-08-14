@@ -1,6 +1,9 @@
+import FadeIn from "./FaidIn";
+
 const WhiteFrame = () => {
     return (
-      <div className=" centered w-screen h-screen absolute inset-0 z-20 pointer-events-none">
+      <FadeIn delay={1.5}>
+        <div className=" centered w-screen h-screen absolute inset-0 z-20 pointer-events-none">
         <img 
           src="/white-frame.png" 
           className=" w-full h-full max-w-[95%] max-h-[95%] object-contain"
@@ -14,6 +17,7 @@ const WhiteFrame = () => {
           />
         </button>
       </div>
+      </FadeIn>
     )
   }
 
