@@ -72,8 +72,7 @@ const ThreeScreen = () => {
                         <img
                             src={qrCode}
                             alt="QR для загрузки"
-                            className="absolute top-40 right-6 bottom-6 w-40 h-40 z-20 bg-white/10 p-2 rounded"
-                        />
+                            className="absolute  opacity-[0.5] scale-[0.57] top-[620px] left-[890px] transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 z-20 bg-white/10 p-2 rounded"                        />
                     )}
                 </FaidIn>
             )}
