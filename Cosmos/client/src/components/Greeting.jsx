@@ -1,6 +1,12 @@
 import React from 'react';
+import { useInactivityRedirect } from '../utils/useInactivityRedirect.js';
 
 const Greeting = ({ onExit }) => {
+  useInactivityRedirect(() => {
+    if (onExit) {
+      onExit('/');
+    }
+  });
 
   const handleStart = () => {
     if (onExit) {

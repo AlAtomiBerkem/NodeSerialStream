@@ -2,36 +2,49 @@ import React, { useState, useEffect } from 'react';
 import WhiteFrame from '../ui/WhiteFrame.jsx';
 import FaidIn from '../ui/FaidIn.jsx';
 import { useCountdown } from '../context/CountdownContext.jsx';
+import { useInactivityRedirect } from '../utils/useInactivityRedirect.js';
 
 const ThreeScreen = () => {
     const [showProcessedImage, setShowProcessedImage] = useState(false);
     const [processedImageUrl, setProcessedImageUrl] = useState(null);
+    const [qrCode, setQrCode] = useState(null);
     const { uploadResult } = useCountdown();
 
-    useEffect(() => {
-        const timer = setTimeout(async () => {
-            if (uploadResult && uploadResult.filename) {
-                try {
-                    const response = await fetch(`http://localhost:4500/check-status/${uploadResult.filename}`);
-                    const data = await response.json();
-                    
-                    if (data.status === 'ready') {
-                        setProcessedImageUrl(`http://localhost:4500/uploads/processed/${uploadResult.filename}`);
-                        setShowProcessedImage(true);
-                    } else {
-                        console.log('Файл еще обрабатывается...');
-                    }
-                } catch (error) {
-                    console.error('Ошибка при проверке статуса:', error);
-                }
-            } else {
-                setProcessedImageUrl('http://localhost:4500/uploads/processed/image.png');
-                setShowProcessedImage(true);
-            }
-        },2000);
 
-        return () => clearTimeout(timer);
-    }, [uploadResult]);
+    useInactivityRedirect(() => {
+        window.location.href = '/';
+    });
+
+    useEffect(() => {
+        let isMounted = true;
+        let intervalId;
+
+        const pollNext = async () => {
+            try {
+                const response = await fetch('http://localhost:4500/processed/next');
+                const data = await response.json();
+
+                if (!isMounted) return;
+
+                if (data.status === 'ready' && data.filename) {
+                    setProcessedImageUrl(`http://localhost:4500/uploads/processed/${data.filename}`);
+                    if (data.qrCode) setQrCode(data.qrCode);
+                    setShowProcessedImage(true);
+                    clearInterval(intervalId);
+                }
+            } catch (error) {
+                console.error('Ошибка запроса обработанного файла:', error);
+            }
+        };
+
+        pollNext();
+        intervalId = setInterval(pollNext, 1500);
+
+        return () => {
+            isMounted = false;
+            if (intervalId) clearInterval(intervalId);
+        };
+    }, []);
 
     return (
         <div className="relative w-full h-screen overflow-hidden">
@@ -43,11 +56,29 @@ const ThreeScreen = () => {
                         src={processedImageUrl}
                         alt="Обработанное изображение"
                         className="absolute inset-0 w-full h-full object-cover z-10"
+                        onLoad={async () => {
+                            try {
+                                const url = new URL(processedImageUrl);
+                                const parts = url.pathname.split('/');
+                                const filename = parts[parts.length - 1];
+                                setTimeout(async () => {
+                                    await fetch(`http://localhost:4500/processed/${filename}`, { method: 'DELETE' });
+                                }, 3000);
+                            } catch (e) {
+                                console.error('Ошибка удаления файла после показа:', e);
+                            }
+                        }}
                         onError={(e) => {
                             console.error('Ошибка загрузки изображения:', e);
                             setShowProcessedImage(false);
                         }}
                     />
+                    {qrCode && (
+                        <img
+                            src={qrCode}
+                            alt="QR для загрузки"
+                            className="absolute  opacity-[0.5] scale-[0.57] top-[620px] left-[890px] transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 z-20 bg-white/10 p-2 rounded"                        />
+                    )}
                 </FaidIn>
             )}
             <FaidIn> 

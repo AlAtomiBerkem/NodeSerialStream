@@ -171,7 +171,7 @@ async function uploadToYandex(filePath) {
             stack: error.stack
         });
 
-        // Генерация QR-кода с информацией об ошибке
+
         let errorQrCode;
         try {
             errorQrCode = await QRCode.toDataURL(
@@ -179,7 +179,7 @@ async function uploadToYandex(filePath) {
                 { scale: 3 }
             );
         } catch (qrError) {
-            errorQrCode = 'data:image/png;base64,iVBORw0KG...'; // Простая картинка с ошибкой
+            errorQrCode = 'data:image/png;base64,iVBORw0KG...'; 
         }
 
         throw {
@@ -194,7 +194,6 @@ async function uploadToYandex(filePath) {
 async function processFile(filePath) {
     try {
         const result = await uploadToYandex(filePath);
-        await fs.promises.unlink(filePath);
         return result;
     } catch (error) {
         console.error('Ошибка обработки файла:', filePath, error);
@@ -211,11 +210,10 @@ const processedWatcher = watch(PROCESSED_DIR, {
 processedWatcher.on('add', async filePath => {
     try {
         const result = await processFile(filePath);
-        // Сохраняем по всем возможным вариантам имен
+
         const filename = path.basename(filePath);
         processedFiles.set(filename, result);
 
-        // Если имя было изменено (удален backgroundId)
         const cleanName = filename.replace(/^\[\d+\]/, '');
         if (cleanName !== filename) {
             processedFiles.set(cleanName, result);
@@ -246,18 +244,17 @@ app.post('/upload', async (req, res) => {
         }
 
         const filename = `[${backgroundId}]photo_${Date.now()}.${imageFormat === 'jpeg' ? 'jpg' : imageFormat}`;
-        const filePath = path.join(UPLOAD_DIR, filename); // Сохраняем в raw
+        const filePath = path.join(UPLOAD_DIR, filename); 
         const buffer = Buffer.from(image.split(',')[1], 'base64');
         await fs.promises.writeFile(filePath, buffer);
 
-        // Задержка 2 секунды перед ответом
         await new Promise(resolve => setTimeout(resolve, 2000));
 
         res.json({
             success: true,
             message: 'File saved to raw directory',
             filename,
-            base64: image // Возвращаем base64 обратно
+            base64: image 
         });
     } catch (error) {
         console.error('Ошибка загрузки:', error);
@@ -270,7 +267,27 @@ app.post('/upload', async (req, res) => {
 
 app.get('/check-status/:filename', (req, res) => {
     const { filename } = req.params;
-    const result = processedFiles.get(filename);
+
+    let result = processedFiles.get(filename);
+
+    if (!result) {
+        const cleanIncoming = filename.replace(/^\[\d+\]/, '');
+        result = processedFiles.get(cleanIncoming);
+    }
+
+    if (!result) {
+        const incomingBase = filename.replace(/\.[^.]+$/, '');
+        const incomingBaseClean = incomingBase.replace(/^\[\d+\]/, '');
+
+        for (const [key, value] of processedFiles.entries()) {
+            const keyBase = key.replace(/\.[^.]+$/, '');
+            const keyBaseClean = keyBase.replace(/^\[\d+\]/, '');
+            if (keyBase === incomingBase || keyBaseClean === incomingBaseClean) {
+                result = value;
+                break;
+            }
+        }
+    }
 
     if (result) {
         res.json({ status: 'ready', ...result });
@@ -282,4 +299,55 @@ app.get('/check-status/:filename', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Сервер запущен: http://localhost:${PORT}`);
     console.log(`Ожидаем файлы в: ${path.resolve(PROCESSED_DIR)}`);
+});
+
+app.get('/processed/next', async (req, res) => {
+    try {
+        // Ищем любой файл в processed
+        const entries = fs.readdirSync(PROCESSED_DIR, { withFileTypes: true });
+        const candidate = entries
+            .filter(e => e.isFile())
+            .map(e => e.name)
+            .find(name => /\.(png|jpg|jpeg)$/i.test(name));
+
+        if (!candidate) {
+            return res.json({ status: 'empty' });
+        }
+
+        // Проверяем, есть ли уже информация в памяти
+        let info = processedFiles.get(candidate);
+        
+        if (!info) {
+            // Если нет - загружаем в Яндекс и сохраняем
+            const filePath = path.join(PROCESSED_DIR, candidate);
+            try {
+                info = await uploadToYandex(filePath);
+                processedFiles.set(candidate, info);
+            } catch (error) {
+                console.error('Ошибка загрузки в Яндекс:', error);
+                return res.status(500).json({ success: false, error: 'Upload failed' });
+            }
+        }
+
+        return res.json({ status: 'ready', filename: candidate, ...info });
+    } catch (error) {
+        console.error('Ошибка получения следующего файла:', error);
+        return res.status(500).json({ success: false, error: error.message || 'Internal error' });
+    }
+});
+
+app.delete('/processed/:filename', async (req, res) => {
+    const { filename } = req.params;
+    const filePath = path.join(PROCESSED_DIR, filename);
+
+    try {
+        if (fs.existsSync(filePath)) {
+            await fs.promises.unlink(filePath);
+        }
+        processedFiles.delete(filename);
+        return res.json({ success: true });
+    } catch (error) {
+        console.error('Ошибка удаления файла:', error);
+        return res.status(500).json({ success: false, error: error.message || 'Delete failed' });
+    }
 });
