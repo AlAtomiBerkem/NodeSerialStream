@@ -3,10 +3,15 @@ import BlueFrame from '../ui/BlueFrame.jsx';
 import FaidIn from '../ui/FaidIn.jsx';
 import WebcamCapture from './WebcamCapture.jsx';
 import { useCountdown } from '../context/CountdownContext.jsx';
+import { useInactivityRedirect } from '../utils/useInactivityRedirect.js';
 
 const SecondScreen = () => {
     const webcamRef = useRef(null);
     const { resetState } = useCountdown();
+
+    useInactivityRedirect(() => {
+        window.location.href = '/';
+    });
 
     useEffect(() => {
         resetState();

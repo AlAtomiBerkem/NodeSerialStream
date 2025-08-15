@@ -2,12 +2,18 @@ import React, { useState, useEffect } from 'react';
 import WhiteFrame from '../ui/WhiteFrame.jsx';
 import FaidIn from '../ui/FaidIn.jsx';
 import { useCountdown } from '../context/CountdownContext.jsx';
+import { useInactivityRedirect } from '../utils/useInactivityRedirect.js';
 
 const ThreeScreen = () => {
     const [showProcessedImage, setShowProcessedImage] = useState(false);
     const [processedImageUrl, setProcessedImageUrl] = useState(null);
     const [qrCode, setQrCode] = useState(null);
     const { uploadResult } = useCountdown();
+
+
+    useInactivityRedirect(() => {
+        window.location.href = '/';
+    });
 
     useEffect(() => {
         let isMounted = true;
