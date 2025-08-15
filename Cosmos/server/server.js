@@ -301,26 +301,35 @@ app.listen(PORT, () => {
     console.log(`Ожидаем файлы в: ${path.resolve(PROCESSED_DIR)}`);
 });
 
-app.get('/processed/next', (req, res) => {
+app.get('/processed/next', async (req, res) => {
     try {
-        for (const [filename, info] of processedFiles.entries()) {
-            const filePath = path.join(PROCESSED_DIR, filename);
-            if (fs.existsSync(filePath)) {
-                return res.json({ status: 'ready', filename, ...info });
-            }
-        }
-
+        // Ищем любой файл в processed
         const entries = fs.readdirSync(PROCESSED_DIR, { withFileTypes: true });
         const candidate = entries
             .filter(e => e.isFile())
             .map(e => e.name)
             .find(name => /\.(png|jpg|jpeg)$/i.test(name));
 
-        if (candidate) {
-            return res.json({ status: 'ready', filename: candidate });
+        if (!candidate) {
+            return res.json({ status: 'empty' });
         }
 
-        return res.json({ status: 'empty' });
+        // Проверяем, есть ли уже информация в памяти
+        let info = processedFiles.get(candidate);
+        
+        if (!info) {
+            // Если нет - загружаем в Яндекс и сохраняем
+            const filePath = path.join(PROCESSED_DIR, candidate);
+            try {
+                info = await uploadToYandex(filePath);
+                processedFiles.set(candidate, info);
+            } catch (error) {
+                console.error('Ошибка загрузки в Яндекс:', error);
+                return res.status(500).json({ success: false, error: 'Upload failed' });
+            }
+        }
+
+        return res.json({ status: 'ready', filename: candidate, ...info });
     } catch (error) {
         console.error('Ошибка получения следующего файла:', error);
         return res.status(500).json({ success: false, error: error.message || 'Internal error' });

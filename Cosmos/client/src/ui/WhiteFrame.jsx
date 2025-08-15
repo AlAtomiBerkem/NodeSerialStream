@@ -9,7 +9,7 @@ const WhiteFrame = () => {
           className=" w-full h-full max-w-[95%] max-h-[95%] object-contain"/>
               <FadeIn delay={1.8}>
                 <button 
-                  className="absolute p-0 border-none bg-transparent cursor-pointer pointer-events-auto top-[77.5%] left-[24%]">
+                  className="absolute p-0 border-none bg-transparent cursor-pointer button-hover pointer-events-auto top-[77.5%] left-[24%]">
                   <img 
                     src="/btn-done.png" 
                     className="w-auto h-auto max-w-full max-h-full"
