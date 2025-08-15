@@ -9,29 +9,34 @@ const ThreeScreen = () => {
     const { uploadResult } = useCountdown();
 
     useEffect(() => {
-        const timer = setTimeout(async () => {
-            if (uploadResult && uploadResult.filename) {
-                try {
-                    const response = await fetch(`http://localhost:4500/check-status/${uploadResult.filename}`);
-                    const data = await response.json();
-                    
-                    if (data.status === 'ready') {
-                        setProcessedImageUrl(`http://localhost:4500/uploads/processed/${uploadResult.filename}`);
-                        setShowProcessedImage(true);
-                    } else {
-                        console.log('Файл еще обрабатывается...');
-                    }
-                } catch (error) {
-                    console.error('Ошибка при проверке статуса:', error);
-                }
-            } else {
-                setProcessedImageUrl('http://localhost:4500/uploads/processed/image.png');
-                setShowProcessedImage(true);
-            }
-        },2000);
+        let isMounted = true;
+        let intervalId;
 
-        return () => clearTimeout(timer);
-    }, [uploadResult]);
+        const pollNext = async () => {
+            try {
+                const response = await fetch('http://localhost:4500/processed/next');
+                const data = await response.json();
+
+                if (!isMounted) return;
+
+                if (data.status === 'ready' && data.filename) {
+                    setProcessedImageUrl(`http://localhost:4500/uploads/processed/${data.filename}`);
+                    setShowProcessedImage(true);
+                    clearInterval(intervalId);
+                }
+            } catch (error) {
+                console.error('Ошибка запроса обработанного файла:', error);
+            }
+        };
+
+        pollNext();
+        intervalId = setInterval(pollNext, 1500);
+
+        return () => {
+            isMounted = false;
+            if (intervalId) clearInterval(intervalId);
+        };
+    }, []);
 
     return (
         <div className="relative w-full h-screen overflow-hidden">
@@ -43,6 +48,16 @@ const ThreeScreen = () => {
                         src={processedImageUrl}
                         alt="Обработанное изображение"
                         className="absolute inset-0 w-full h-full object-cover z-10"
+                        onLoad={async () => {
+                            try {
+                                const url = new URL(processedImageUrl);
+                                const parts = url.pathname.split('/');
+                                const filename = parts[parts.length - 1];
+                                await fetch(`http://localhost:4500/processed/${filename}`, { method: 'DELETE' });
+                            } catch (e) {
+                                console.error('Ошибка удаления файла после показа:', e);
+                            }
+                        }}
                         onError={(e) => {
                             console.error('Ошибка загрузки изображения:', e);
                             setShowProcessedImage(false);
