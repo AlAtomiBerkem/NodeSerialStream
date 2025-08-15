@@ -55,7 +55,6 @@ const ThreeScreen = () => {
                                 const url = new URL(processedImageUrl);
                                 const parts = url.pathname.split('/');
                                 const filename = parts[parts.length - 1];
-                                // Небольшая задержка, чтобы успели отсканировать QR
                                 setTimeout(async () => {
                                     await fetch(`http://localhost:4500/processed/${filename}`, { method: 'DELETE' });
                                 }, 3000);
