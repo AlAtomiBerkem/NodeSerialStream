@@ -1,7 +1,9 @@
 import { useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 
 export const useInactivityRedirect = (onTimeout) => {
   const timerRef = useRef();
+  const location = useLocation();
 
   const resetTimer = () => {
     if (timerRef.current) {
@@ -9,10 +11,13 @@ export const useInactivityRedirect = (onTimeout) => {
     }
     timerRef.current = setTimeout(() => {
       onTimeout();
-    }, 120000);
+    }, 120000); // 120 000
   };
 
   useEffect(() => {
+    if (location.pathname === "/") {
+      return;
+    }
     const events = ["mousedown", "mousemove", "keydown", "touchstart", "click"];
     events.forEach((e) => window.addEventListener(e, resetTimer));
 
@@ -22,5 +27,5 @@ export const useInactivityRedirect = (onTimeout) => {
       events.forEach((e) => window.removeEventListener(e, resetTimer));
       clearTimeout(timerRef.current);
     };
-  }, [onTimeout]);
+  }, [onTimeout, location.pathname]);
 };
