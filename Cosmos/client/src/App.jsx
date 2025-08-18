@@ -1,3 +1,7 @@
+import('./components/Second-screen.jsx');
+import('./components/Greeting.jsx'); 
+import('./components/ThreeScreen.jsx');
+
 import React, { Suspense, lazy } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { CountdownProvider } from './context/CountdownContext.jsx';
@@ -6,6 +10,8 @@ import EnterTransition from "./ui/EnterTransition.jsx";
 const Greeting = lazy(() => import('./components/Greeting.jsx'));
 const SecondScreen = lazy(() => import('./components/Second-screen.jsx'));
 const ThreeScreen = lazy(() => import('./components/ThreeScreen.jsx'));
+
+
 
 const router = createBrowserRouter([
   {
