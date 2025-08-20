@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+* {
+  padding: 0;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* стили для скролбара */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #72d8ff;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: url('./assets/scrollBar/track.png') no-repeat center center;
+  background-size: cover;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #72d8ff transparent;
+}
+
+*:before,
+*:after {
+  touch-action: none !important;
+}
+
