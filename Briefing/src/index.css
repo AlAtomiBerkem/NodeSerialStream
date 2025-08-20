@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Akrobat";
+  src: url("./Fonts/Acrobat/akrobat-regular.woff2") format("woff2"),
+       url("./Fonts/Acrobat/akrobat-regular.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Akrobat";
+  src: url("./Fonts/Acrobat/akrobat-semibold.woff2") format("woff2"),
+       url("./Fonts/Acrobat/akrobat-semibold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Akrobat";
+  src: url("./Fonts/Acrobat/akrobat-bold.woff2") format("woff2"),
+       url("./Fonts/Acrobat/akrobat-bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: "Akrobat", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+* {
+  padding: 0;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* стили для скролбара */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #72d8ff;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: url('./assets/scrollBar/track.png') no-repeat center center;
+  background-size: cover;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #72d8ff transparent;
+}
+
+*:before,
+*:after {
+  touch-action: none !important;
+}
+
+.text {
+  color: rgb(255 255 255 / 0.8);
+  font-weight: 500;
+  font-size: 40px;
+}

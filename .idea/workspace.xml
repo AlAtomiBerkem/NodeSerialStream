@@ -5,20 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c02ff8f-d3d3-4900-b105-23876ae56824" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmos" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmos" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmos/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmos/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmos/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmos/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmos/client/public/vite.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmos/client/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmos/client/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmos/client/src/assets/Mask group.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmos/client/src/assets/btn-add-photo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmos/client/src/assets/btn-start.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmos/client/src/assets/ferst-screen.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmos/client/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmos/client/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cosmos/client/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/Cosmos/client/vite.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Briefing/src/components/Fuselage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Briefing/src/components/Fuselage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Briefing/src/components/Start.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Briefing/src/components/Start.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Briefing/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/Briefing/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Briefing/src/ui/AnimatedLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Briefing/src/ui/AnimatedLayout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Briefing/src/utils/useInactivityRedirect.js" beforeDir="false" afterPath="$PROJECT_DIR$/Briefing/src/utils/useInactivityRedirect.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,8 +44,8 @@
   "keyToString": {
     "JavaScript Debug.index.html.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "kosmos__stand",
-    "last_opened_file_path": "/Users/annapirz/Desktop/NodeSerialStream/tupolev_history/src/UI",
+    "git-widget-placeholder": "Briefing",
+    "last_opened_file_path": "/Users/annapirz/Desktop/NodeSerialStream",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -153,6 +145,7 @@
       <workItem from="1753699673970" duration="5000" />
       <workItem from="1753699688945" duration="14000" />
       <workItem from="1754393926793" duration="1266000" />
+      <workItem from="1755675872919" duration="11956000" />
     </task>
     <servers />
   </component>
