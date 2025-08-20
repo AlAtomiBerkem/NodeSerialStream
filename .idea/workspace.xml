@@ -5,6 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c02ff8f-d3d3-4900-b105-23876ae56824" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Briefing/src/components/Fuselage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Briefing/src/components/Fuselage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Briefing/src/components/Start.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Briefing/src/components/Start.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Briefing/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/Briefing/src/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Briefing/src/ui/AnimatedLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Briefing/src/ui/AnimatedLayout.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Briefing/src/utils/useInactivityRedirect.js" beforeDir="false" afterPath="$PROJECT_DIR$/Briefing/src/utils/useInactivityRedirect.js" afterDir="false" />
     </list>
@@ -141,7 +145,7 @@
       <workItem from="1753699673970" duration="5000" />
       <workItem from="1753699688945" duration="14000" />
       <workItem from="1754393926793" duration="1266000" />
-      <workItem from="1755675872919" duration="9935000" />
+      <workItem from="1755675872919" duration="11956000" />
     </task>
     <servers />
   </component>

@@ -24,7 +24,7 @@ const Start = () => {
 
     <Link to="/airplane">
       <ImageButton
-        className='absolute top-[49%] left-[13%] p-0'
+        className='absolute top-[49.5%] left-[13%] p-0'
         type="temporary"
         defaultImg={btnExhibition}
         activeImg={btnExhibitionPushed}

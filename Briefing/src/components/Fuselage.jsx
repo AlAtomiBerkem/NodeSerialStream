@@ -5,17 +5,26 @@ import { Link } from 'react-router-dom';
 
 const Fuselage = () => {
   return (
-    <div className="relative">
-        <div className="bg-[url(/fuselage.png)] h-screen w-screen bg-center bg-cover"></div>
+    <div className="relative flex">
+        <div className="bg-[url(/fuselage.png)] flex-row h-screen w-screen bg-center bg-cover">
+            
 
-    <Link to="/">
-      <ImageButton
-        className='absolute top-[91%] left-[44%] p-0'
-        type="temporary"
-        defaultImg={backBtn}
-        activeImg={backBtn}
-        />
-    </Link>
+            <div className=' border-2 border-solid flex flex-row border-red-500 w-100 h-150 text'>
+
+            </div>   
+
+        
+        <Link to="/">
+        <ImageButton
+            className='absolute top-[91%] left-[44%] p-0'
+            type="temporary"
+            defaultImg={backBtn}
+            activeImg={backBtn}
+            />
+        </Link>
+        
+        </div>
+
     </div>
   )
 }
