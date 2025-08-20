@@ -1,10 +1,15 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import { Outlet, useLocation, useOutlet } from 'react-router-dom'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { Outlet, useLocation, useNavigate, useOutlet } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useInactivityRedirect } from '../utils/useInactivityRedirect.js'
 
 function AnimatedLayout() {
   const location = useLocation()
   const outlet = useOutlet()
+  const navigate = useNavigate()
+
+  const handleTimeout = useCallback(() => navigate('/'), [navigate])
+  useInactivityRedirect(handleTimeout)
 
   const [renderedOutlet, setRenderedOutlet] = useState(outlet)
   const [displayPath, setDisplayPath] = useState(location.pathname)
