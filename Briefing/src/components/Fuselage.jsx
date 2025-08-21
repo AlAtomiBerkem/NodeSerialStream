@@ -15,7 +15,7 @@ const Fuselage = () => {
             </div>   
             
             <div className='absolute flex flex-row top-[53%] left-[10%] border-2 border-gray-500 border-solid w-226 h-150'>
-              <p className='text'> хуетень</p>
+
             </div>
 
             <RadionbtnGroup className='absolute border-2 flex flex-row top-[83%] left-[42%]'/>
