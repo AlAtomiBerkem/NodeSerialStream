@@ -7,10 +7,7 @@
     <list default="true" id="7c02ff8f-d3d3-4900-b105-23876ae56824" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Briefing/src/components/Fuselage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Briefing/src/components/Fuselage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Briefing/src/components/Start.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Briefing/src/components/Start.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Briefing/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/Briefing/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Briefing/src/ui/AnimatedLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Briefing/src/ui/AnimatedLayout.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Briefing/src/utils/useInactivityRedirect.js" beforeDir="false" afterPath="$PROJECT_DIR$/Briefing/src/utils/useInactivityRedirect.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,23 +37,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "JavaScript Debug.index.html.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Briefing",
-    "last_opened_file_path": "/Users/annapirz/Desktop/NodeSerialStream",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.dev.executor": "Run",
-    "settings.editor.selected.configurable": "editor.stickyLines",
-    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Briefing&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/annapirz/Desktop/NodeSerialStream&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.stickyLines&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Applications/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/tupolev_history/src/UI" />
@@ -146,6 +143,7 @@
       <workItem from="1753699688945" duration="14000" />
       <workItem from="1754393926793" duration="1266000" />
       <workItem from="1755675872919" duration="11956000" />
+      <workItem from="1755696571105" duration="2583000" />
     </task>
     <servers />
   </component>

@@ -35,6 +35,9 @@ body {
   padding: 0;
   margin: 0 auto;
   box-sizing: border-box;
+  overflow-x: hidden;
+  overscroll-behavior: none !important;
+  -webkit-overflow-scrolling: auto !important;
 }
 
 /* стили для скролбара */
@@ -53,6 +56,9 @@ body {
   background: url('./assets/scrollBar/track.png') no-repeat center center;
   background-size: cover;
 }
+*::placeholder {
+  background: url('../UI/scrollBar/track.png');
+}
 
 ::-webkit-scrollbar-button {
   display: none;
@@ -68,8 +74,18 @@ body {
   touch-action: none !important;
 }
 
+*::-webkit-scrollbar {
+  width: 20px;
+  background: #222;
+}
+*::-webkit-scrollbar-thumb {
+  background: #4ec3ff;
+  border-radius: 4px;
+}
+
 .text {
   color: rgb(255 255 255 / 0.8);
   font-weight: 500;
-  font-size: 40px;
+  font-size: 50px;
 }
+
