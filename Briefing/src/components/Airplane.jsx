@@ -1,10 +1,23 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import { activateButton } from '../store/buttonStore';
 import ImageButton from '../ui/ImageBtn'
 import backBtn from '../assets/Btn/backBtn.png';
 import { Link } from 'react-router-dom';
 import AccordionGroup from '../components/AccordionGroup.jsx'
+import DiabondBtn from './DiabondBtn.jsx';
 
 const Airplane = () => {
+  const dispatch = useDispatch();
+  const { activeButton, buttonStates } = useSelector((state) => state.buttons);
+
+  console.log('Airplane render:', { activeButton, buttonStates });
+
+  const handleButtonClick = (buttonId) => {
+    console.log('Button clicked:', buttonId);
+    dispatch(activateButton(buttonId));
+  };
+
   return (
     <div className="relative">
     <div className="bg-[url(/airplane-route.png)] h-screen w-screen bg-center bg-cover">
@@ -73,10 +86,123 @@ const Airplane = () => {
             description: ' Симулятор полёта на Ту-144 предоставляет  возможность почувствовать себя настоящим  пилотом и совершить полет над городом Казань',
           },
         ]}
+        onButtonClick={handleButtonClick}
       />
 
   </div>  
-  
+
+
+
+  {/* Кнопка 01 - Экспозиционный стенд */}
+  <div className="diabond-btn-container" style={{ top: '60%', left: '18%', transform: 'scale(1.5)' }}>
+    <DiabondBtn 
+      number="01"
+      pushed={buttonStates['01'] || false}
+      onClick={() => handleButtonClick('01')}
+    />
+  </div>
+
+  {/* Кнопка 02 - Мультимедийная стена */}
+  <div className="diabond-btn-container" style={{ top: '58.8%', left: '24.5%', transform: 'scale(1.5)' }}>
+    <DiabondBtn 
+      number="02"
+      pushed={buttonStates['02'] || false}
+      onClick={() => handleButtonClick('02')}
+    />
+  </div>
+
+  {/* Кнопка 03 - Интерактивный стенд */}
+  <div className="diabond-btn-container" style={{ top: '53%', left: '18%', transform: 'scale(1.5)' }}>
+    <DiabondBtn 
+      number="03"
+      pushed={buttonStates['03'] || false}
+      onClick={() => handleButtonClick('03')}
+    />
+  </div>
+
+  {/* Кнопка 04 - Воспоминания пилота */}
+  <div className="diabond-btn-container" style={{ top: '53%', left: '25%', transform: 'scale(1.5)' }}>
+    <DiabondBtn 
+      number="04"
+      pushed={buttonStates['04'] || false}
+      onClick={() => handleButtonClick('04')}
+    />
+  </div>
+
+  {/* Кнопка 05 - Таймлайн */}
+  <div className="diabond-btn-container" style={{ top: '47.5%', left: '17%', transform: 'scale(1.5)' }}>
+    <DiabondBtn 
+      number="05"
+      pushed={buttonStates['05'] || false}
+      onClick={() => handleButtonClick('05')}
+    />
+  </div>
+
+  {/* Кнопка 06 - X-ray */}
+  <div className="diabond-btn-container" style={{ top: '47.5%', left: '26%', transform: 'scale(1.5)' }}>
+    <DiabondBtn 
+      number="06"
+      pushed={buttonStates['06'] || false}
+      onClick={() => handleButtonClick('06')}
+    />
+  </div>
+
+  {/* Кнопка 07 - Мультимедийная инсталяция */}
+  <div className="diabond-btn-container" style={{ top: '39%', left: '22%', transform: 'scale(1.5)' }}>
+    <DiabondBtn 
+      number="07"
+      pushed={buttonStates['07'] || false}
+      onClick={() => handleButtonClick('07')}
+    />
+  </div>
+
+  {/* Кнопка 08 - Интерактивный макет */}
+  <div className="diabond-btn-container" style={{ top: '31%', left: '18%', transform: 'scale(1.5)' }}>
+    <DiabondBtn 
+      number="08"
+      pushed={buttonStates['08'] || false}
+      onClick={() => handleButtonClick('08')}
+    />
+  </div>
+
+  {/* Кнопка 09 - Ретрозал */}
+  <div className="diabond-btn-container" style={{ top: '26.7%', left: '19.3%', transform: 'scale(1.5)' }}>
+    <DiabondBtn 
+      number="09"
+      pushed={buttonStates['09'] || false}
+      onClick={() => handleButtonClick('09')}
+    />
+  </div>
+
+  {/* Кнопка 10 - ТУ-144 в массовой культуре */}
+  <div className="diabond-btn-container" style={{ top: '26.7%', left: '25.7%', transform: 'scale(1.5)' }}>
+    <DiabondBtn 
+      number="10"
+      pushed={buttonStates['10'] || false}
+      onClick={() => handleButtonClick('10')}
+    />
+  </div>
+
+  {/* Кнопка 11 - Кухонный блок */}
+  <div className="diabond-btn-container" style={{ top: '21.3%', left: '21.8%', transform: 'scale(1.5)' }}>
+    <DiabondBtn 
+      number="11"
+      pushed={buttonStates['11'] || false}
+      onClick={() => handleButtonClick('11')}
+    />
+  </div>
+
+  {/* Кнопка 12 - Симулятор полета */}
+  <div className="diabond-btn-container" style={{ top: '14%', left: '21.6%', transform: 'scale(1.5)' }}>
+    <DiabondBtn 
+      number="12"
+      pushed={buttonStates['12'] || false}
+      onClick={() => handleButtonClick('12')}
+    />
+  </div>
+
+
+    </div>
     
     
     <Link to="/">
@@ -88,7 +214,7 @@ const Airplane = () => {
         />
     </Link>
     </div>
-  </div>
+
   )
 }
 

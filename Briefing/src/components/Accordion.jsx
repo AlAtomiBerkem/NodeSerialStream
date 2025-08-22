@@ -8,6 +8,7 @@ const Accordion = ({
   defaultOpen = false,
   isOpen: controlledIsOpen,
   onToggle,
+  onButtonClick,
 }) => {
   const [internalOpen, setInternalOpen] = useState(defaultOpen);
   const isOpen = controlledIsOpen !== undefined ? controlledIsOpen : internalOpen;
@@ -33,14 +34,23 @@ const Accordion = ({
 
   return (
     <div className="flex items-start gap-4">
-      <div className="w-[42px] h-[42px] flex-shrink-0 flex items-center justify-center">
-        <DiabondBtn number={number} pushed={isOpen} />
+      <div className="w-[60px] h-[60px] flex-shrink-0 flex items-center justify-center overflow-visible">
+        <DiabondBtn 
+          number={number} 
+          pushed={isOpen}
+          noScale={true}
+        />
       </div>
 
       <div className="flex flex-col flex-1 min-w-0">
         <button
           type="button"
-          onClick={toggle}
+          onClick={() => {
+            toggle();
+            if (onButtonClick) {
+              onButtonClick(number);
+            }
+          }}
           aria-expanded={isOpen}
           className="text-left w-full"
         >

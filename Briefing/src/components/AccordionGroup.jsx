@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Accordion from "./Accordion";
 
-const AccordionGroup = ({ items = [] }) => {
+const AccordionGroup = ({ items = [], onButtonClick }) => {
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
@@ -16,6 +16,7 @@ const AccordionGroup = ({ items = [] }) => {
           description={item.description}
           isOpen={openIndex === index}
           onToggle={(next) => setOpenIndex(next ? index : null)}
+          onButtonClick={onButtonClick}
         />
       ))}
     </div>

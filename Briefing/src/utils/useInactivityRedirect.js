@@ -11,7 +11,7 @@ export const useInactivityRedirect = (onTimeout) => {
     }
     timerRef.current = setTimeout(() => {
       onTimeout();
-    }, 6120000);
+    }, 120000);
   };
 
   useEffect(() => {
