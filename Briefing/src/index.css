@@ -89,3 +89,12 @@ body {
   font-size: 50px;
 }
 
+
+/* ::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none; 
+} */
