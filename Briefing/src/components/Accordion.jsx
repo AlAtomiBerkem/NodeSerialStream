@@ -34,7 +34,7 @@ const Accordion = ({
 
   return (
     <div className="flex items-start gap-4">
-      <div className="w-[60px] h-[60px] flex-shrink-0 flex items-center justify-center overflow-visible">
+      <div className="w-[60px] h-[60px] flex-shrink-0 flex items-start justify-center overflow-visible pt-0">
         <DiabondBtn 
           number={number} 
           pushed={isOpen}
@@ -69,9 +69,9 @@ const Accordion = ({
           style={{ maxHeight }}
           className="overflow-hidden transition-all duration-300 ease-in-out"
         >
-          <div className="mt-3">
-            <hr className="border-t border-gray-600" />
-            <div className="mt-3 text-[18px] sm:text-[20px] leading-snug font-medium text-gray-300 break-words whitespace-normal">
+          <div className="mt-8">
+            <hr className="border-t border-gray-400" />
+            <div className="mt-6 text-[18px] sm:text-[20px] leading-snug font-medium text-gray-300 break-words whitespace-normal">
               {description || "\u00A0"}
             </div>
           </div>
