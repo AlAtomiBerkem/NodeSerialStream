@@ -10,15 +10,15 @@ const Fuselage = () => {
         <div className="relative bg-[url(/fuselage.png)] flex-row h-screen w-screen bg-center  bg-cover">
             
 
-            <div className='absolute top-[16%] left-[10%] flex flex-row border-red-500 w-226 h-170 overflow-scroll text'>
+            <div className='absolute top-[16%] left-[10%] flex flex-row border-red-500 w-226 h-170 overflow-scroll text' style={{ lineHeight: '1' }}>
             Фюзеляж Ту-144 представляет собой прочную и аэродинамически выверенную конструкцию, разработанную для сверхзвуковых полётов на скорости до 2 500 км/ч. Его форма и структура обеспечивали минимальное сопротивление воздуха, устойчивость при высоких скоростях и комфорт для пассажиров. Корпус был выполнен из алюминиевых сплавов, способных выдерживать значительные термические и механические нагрузки, возникающие при полётах на больших высотах и скоростях. Особое внимание уделялось прочности силового каркаса и герметичности кабины.
             </div>   
             
             <div className='absolute flex flex-row top-[53%] left-[10%] border-2 border-gray-500 border-solid w-226 h-150'>
-              <p className='text'> хуетень</p>
+
             </div>
 
-            <RadionbtnGroup className='absolute border-2 flex flex-row top-[83%] left-[42%]'/>
+            <RadionbtnGroup className='absolute border-2 flex flex-row top-[85%] left-[42%]'/>
         
             
         <Link to="/">

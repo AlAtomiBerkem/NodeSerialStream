@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c02ff8f-d3d3-4900-b105-23876ae56824" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Briefing/src/components/Fuselage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Briefing/src/components/Fuselage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Briefing/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/Briefing/src/index.css" afterDir="false" />
-    </list>
+    <list default="true" id="7c02ff8f-d3d3-4900-b105-23876ae56824" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -144,6 +140,7 @@
       <workItem from="1754393926793" duration="1266000" />
       <workItem from="1755675872919" duration="11956000" />
       <workItem from="1755696571105" duration="2583000" />
+      <workItem from="1755773763304" duration="18000" />
     </task>
     <servers />
   </component>
