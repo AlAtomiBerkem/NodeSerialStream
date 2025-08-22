@@ -6,7 +6,7 @@ const AccordionGroup = ({ items = [], onButtonClick }) => {
 
   return (
     <div
-      className="flex flex-col gap-6 w-full max-w-[550px] max-h-screen overflow-y-auto"
+      className="flex flex-col gap-6 w-full aling-center max-w-[550px] max-h-screen overflow-y-auto"
     >
       {items.map((item, index) => (
         <Accordion

@@ -52,7 +52,7 @@ const Accordion = ({
             }
           }}
           aria-expanded={isOpen}
-          className="text-left w-full"
+          className="text-left w-full "
         >
           <span
             className={`text-[24px] sm:text-[28px] leading-snug text-white transition-colors duration-300 break-words whitespace-normal ${

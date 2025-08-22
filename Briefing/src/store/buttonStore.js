@@ -11,12 +11,10 @@ const buttonSlice = createSlice({
       const buttonId = action.payload;
       console.log(`Redux: Активирую кнопку ${buttonId}`);
       
-      // Деактивируем все кнопки
       Object.keys(state.buttonStates).forEach(key => {
         state.buttonStates[key] = false;
       });
       
-      // Активируем только выбранную кнопку
       state.activeButton = buttonId;
       state.buttonStates[buttonId] = true;
       

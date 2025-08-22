@@ -91,9 +91,6 @@ const Airplane = () => {
 
   </div>  
 
-
-
-  {/* Кнопка 01 - Экспозиционный стенд */}
   <div className="diabond-btn-container" style={{ top: '60%', left: '18%', transform: 'scale(1.5)' }}>
     <DiabondBtn 
       number="01"
@@ -102,7 +99,6 @@ const Airplane = () => {
     />
   </div>
 
-  {/* Кнопка 02 - Мультимедийная стена */}
   <div className="diabond-btn-container" style={{ top: '58.8%', left: '24.5%', transform: 'scale(1.5)' }}>
     <DiabondBtn 
       number="02"
@@ -111,7 +107,6 @@ const Airplane = () => {
     />
   </div>
 
-  {/* Кнопка 03 - Интерактивный стенд */}
   <div className="diabond-btn-container" style={{ top: '53%', left: '18%', transform: 'scale(1.5)' }}>
     <DiabondBtn 
       number="03"
@@ -120,7 +115,6 @@ const Airplane = () => {
     />
   </div>
 
-  {/* Кнопка 04 - Воспоминания пилота */}
   <div className="diabond-btn-container" style={{ top: '53%', left: '25%', transform: 'scale(1.5)' }}>
     <DiabondBtn 
       number="04"
@@ -129,7 +123,6 @@ const Airplane = () => {
     />
   </div>
 
-  {/* Кнопка 05 - Таймлайн */}
   <div className="diabond-btn-container" style={{ top: '47.5%', left: '17%', transform: 'scale(1.5)' }}>
     <DiabondBtn 
       number="05"
@@ -138,7 +131,6 @@ const Airplane = () => {
     />
   </div>
 
-  {/* Кнопка 06 - X-ray */}
   <div className="diabond-btn-container" style={{ top: '47.5%', left: '26%', transform: 'scale(1.5)' }}>
     <DiabondBtn 
       number="06"
@@ -147,7 +139,6 @@ const Airplane = () => {
     />
   </div>
 
-  {/* Кнопка 07 - Мультимедийная инсталяция */}
   <div className="diabond-btn-container" style={{ top: '39%', left: '22%', transform: 'scale(1.5)' }}>
     <DiabondBtn 
       number="07"
@@ -156,7 +147,6 @@ const Airplane = () => {
     />
   </div>
 
-  {/* Кнопка 08 - Интерактивный макет */}
   <div className="diabond-btn-container" style={{ top: '31%', left: '18%', transform: 'scale(1.5)' }}>
     <DiabondBtn 
       number="08"
@@ -165,7 +155,6 @@ const Airplane = () => {
     />
   </div>
 
-  {/* Кнопка 09 - Ретрозал */}
   <div className="diabond-btn-container" style={{ top: '26.7%', left: '19.3%', transform: 'scale(1.5)' }}>
     <DiabondBtn 
       number="09"
@@ -174,7 +163,6 @@ const Airplane = () => {
     />
   </div>
 
-  {/* Кнопка 10 - ТУ-144 в массовой культуре */}
   <div className="diabond-btn-container" style={{ top: '26.7%', left: '25.7%', transform: 'scale(1.5)' }}>
     <DiabondBtn 
       number="10"
@@ -183,7 +171,6 @@ const Airplane = () => {
     />
   </div>
 
-  {/* Кнопка 11 - Кухонный блок */}
   <div className="diabond-btn-container" style={{ top: '21.3%', left: '21.8%', transform: 'scale(1.5)' }}>
     <DiabondBtn 
       number="11"
@@ -192,7 +179,6 @@ const Airplane = () => {
     />
   </div>
 
-  {/* Кнопка 12 - Симулятор полета */}
   <div className="diabond-btn-container" style={{ top: '14%', left: '21.6%', transform: 'scale(1.5)' }}>
     <DiabondBtn 
       number="12"
