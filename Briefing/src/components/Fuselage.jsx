@@ -18,7 +18,7 @@ const Fuselage = () => {
 
             </div>
 
-            <RadionbtnGroup className='absolute border-2 flex flex-row top-[83%] left-[42%]'/>
+            <RadionbtnGroup className='absolute border-2 flex flex-row top-[85%] left-[42%]'/>
         
             
         <Link to="/">

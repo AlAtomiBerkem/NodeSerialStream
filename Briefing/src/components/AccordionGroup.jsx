@@ -6,12 +6,7 @@ const AccordionGroup = ({ items = [] }) => {
 
   return (
     <div
-      className="
-        flex flex-col gap-6 
-        w-full max-w-[580px]     /* ширина контейнера */
-        max-h-screen
-        overflow-y-auto          /* если аккордеонов слишком много */
-      "
+      className="flex flex-col gap-6 w-full max-w-[550px] max-h-screen overflow-y-auto"
     >
       {items.map((item, index) => (
         <Accordion
