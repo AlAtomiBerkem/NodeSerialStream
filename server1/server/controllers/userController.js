@@ -3,11 +3,11 @@ const { logError, logSuccess } = require('./log-page/logError');
 
 exports.createUser = async (req, res) => {
     try {
-        const { UserName, idTab } = req.body;
+        const { UserName, UserLastName, UserEmail, idTab } = req.body;
         const existingUser = await User.findOne({ $or: [{ idTab: idTab }] });
- 
-        if (!UserName || !idTab) {
-            return res.status(400).json({ message: 'Поля UserName и idTab обязательны для заполнения' });
+
+        if (!UserName || !UserLastName || !UserEmail || !idTab) {
+            return res.status(400).json({ message: 'Поля UserName, UserLastName, UserEmail и idTab обязательны' });
         }
 
         if (existingUser) {
@@ -15,10 +15,11 @@ exports.createUser = async (req, res) => {
             return res.status(400).json({ message: "idTab уже существует в сети" });
         }
 
-        const newUser = new User({ UserName, idTab });
+        const newUser = new User({ UserName, UserLastName, UserEmail, idTab });
         await newUser.save();
+
         res.status(201).json(newUser);
-        logSuccess(`POST - [SUCCESS пользователь ${UserName} создан ${res.statusCode}]`);
+        logSuccess(`POST - [SUCCESS пользователь ${UserName} ${UserLastName} ${UserEmail} создан ${res.statusCode}]`);
     } catch (err) {
         logError(`POST - [ERROR ошибка при создании нового пользователя | ${err.message} | ${400}]`);
         res.status(400).json({ message: err.message });
@@ -95,3 +96,15 @@ exports.testResult = async (req, res) => {
         res.status(500).json({ error: "Ошибка сервера при получении данных" });
     }
 };
+
+
+exports.deleteAllUsers = async (req, res) => {
+    try {
+        await User.deleteMany({});
+        logSuccess(`DELETE - [SUCCESS] Все пользователи успешно удалены`);
+        return res.status(200).json({ message: "Все пользователи успешно удалены" });
+    } catch (e) {
+        console.error(`DELETE /api/users/all - [ERROR]:`, e.message);
+        return res.status(500).json({ error: "Ошибка сервера при удалении всех пользователей" });
+    }
+}
