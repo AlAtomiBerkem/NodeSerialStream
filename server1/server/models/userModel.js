@@ -8,6 +8,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         require: true
     },
+    UserLastName: {
+        type: String,
+        require: true
+    },
+    UserEmail: {
+        type: String,
+        require: true
+    },
     generateID: {
         type: Number,
         default: () => Math.floor(Math.random() * 10000)
