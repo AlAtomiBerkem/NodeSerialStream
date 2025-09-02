@@ -13,7 +13,8 @@ const cors = require('cors');
 
 app.use(express.json());
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3100'],
+  origin: '*',
+  // origin: ['http://localhost:3000', 'http://localhost:3100'], // Закомментировано
 }));
 
 const { initSocket, emitData, emitError } = require('./middleware/com-port-logick/socketManager');
@@ -35,13 +36,6 @@ async function listPorts() {
         });
     }
 }
-
-
-app.use(express.json());
-app.use(cors({
-    origin: 'http://localhost:3000',
-}));
-
 
 
 app.use('/api/users', userRoutes);
@@ -72,8 +66,9 @@ async function connectToDB() {
 }
 
 
-server.listen(config.SERVER.PORT, async () => {
-    console.log(`✅ Сервер запущен на http://localhost:${config.SERVER.PORT}`);
+server.listen(config.SERVER.PORT, config.SERVER.HOST, async () => {
+    console.log(`✅ Сервер запущен на http://${config.SERVER.HOST}:${config.SERVER.PORT}`);
+    console.log(`🌐 Доступен по WiFi: http://[IP_КОМПЬЮТЕРА]:${config.SERVER.PORT}`);
     await connectToDB();
     await listPorts();
 });

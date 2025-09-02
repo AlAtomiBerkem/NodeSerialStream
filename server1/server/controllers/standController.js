@@ -7,7 +7,7 @@ const axios = require ("axios");
 exports.standState = async (req, res) => {
     const { idTab, room, IndexStand } = req.body;
 
-    if (!validateIdTabAndIndexStand(idTab, IndexStand, res)) {
+    if (!validateIdTabAndIndexStand({ idTab, IndexStand, res })) {
         return;
     }
 
