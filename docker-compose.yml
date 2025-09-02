@@ -13,7 +13,7 @@ services:
       context: ./server1/server
       dockerfile: Dockerfile
     ports:
-      - "0.0.0.0:3001:3000"  # Изменено для прослушивания всех интерфейсов
+      - "3001:3001"  # Внешний:Внутренний
     volumes:
       - ./:/app
     environment:
