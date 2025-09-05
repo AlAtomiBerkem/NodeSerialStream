@@ -1,7 +1,5 @@
 const User = require('../models/userModel');
 const { logError, logSuccess } = require('./log-page/logError');
-const { Request, Response } = require('express');
-const { Users, DeleteUserParams } = require('../types/index');
 
 
 
@@ -26,7 +24,7 @@ exports.createUser = async (req, res) => {
 
         res.status(201).json(newUser);
         logSuccess(`POST - [SUCCESS пользователь ${UserName} ${UserLastName} ${UserEmail} создан ${res.statusCode}]`);
-    } catch (err: unknown) {
+    } catch (err) {
         const error = err instanceof Error ? err : new Error("Unknown error");
         logError(`POST - [ERROR ошибка при создании нового пользователя | ${error.message} | 400]`);
         res.status(400).json({ message: error.message });
@@ -39,7 +37,7 @@ exports.getAllUsers = async (req, res) => {
         const users = await User.find();
         res.status(200).json(users);
         logSuccess(`GET - [SUCCESS успешный запрос: таблица пользователей ${res.statusCode}]`);
-    } catch (err: unknown) {
+    } catch (err) {
         const error = err instanceof Error ? err : new Error("Unknown error");
         logError(`GET - [ERROR ошибка при получении пользователей | ${error.message}]`);
         res.status(500).json({ message: error.message });
@@ -60,7 +58,7 @@ exports.getOneUser = async (req, res) => {
             return;
         }
         res.status(200).json(user);
-    } catch (err: unknown) {
+    } catch (err) {
         const error = err instanceof Error ? err : new Error("Unknown error");
         res.status(500).json({ message: error.message });
     }
@@ -82,7 +80,7 @@ exports.deleteUser = async (req, res) => {
         }
         logSuccess(`DELETE - [SUCCESS] Пользователь с idTab ${idTabNum} успешно удален`);
         res.json({ message: 'Пользователь успешно удален' });
-    } catch (err: unknown) {
+    } catch (err) {
         const error = err instanceof Error ? err : new Error("Unknown error");
         logError(`DELETE - [ERROR] Произошла ошибка на стороне сервера для idTab - ${idTabNum}: ${error.message}`);
         res.status(500).json({ message: 'Произошла ошибка на стороне сервера' });
@@ -107,7 +105,7 @@ exports.testResult = async (req, res) => {
             idTab: result.idTab,
             resultTest: result.resultTest
         });
-    } catch (err: unknown) {
+    } catch (err) {
         const error = err instanceof Error ? err : new Error("Unknown error");
         console.error(`GET /api/test/${idTabNum} - [ERROR]:`, error.message);
         res.status(500).json({ message: "Ошибка сервера при получении данных" });
@@ -119,7 +117,7 @@ exports.deleteAllUsers = async (req, res) => {
         await User.deleteMany({});
         logSuccess(`DELETE - [SUCCESS] пользователи успешно удалены`);
         res.status(200).json({ message: "пользователи успешно удалены" });
-    } catch (err: unknown) {
+    } catch (err) {
         const error = err instanceof Error ? err : new Error("Unknown error");
         console.error(`DELETE /api/users/all - [ERROR]:`, error.message);
         res.status(500).json({ message: "Ошибка сервера при удалении всех пользователей" });

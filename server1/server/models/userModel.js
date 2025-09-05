@@ -6,15 +6,15 @@ const generateDefaultArray = (size) => Array(size).fill(false)
 const userSchema = new mongoose.Schema({
     UserName: {
         type: String,
-        require: true
+        required: true
     },
     UserLastName: {
         type: String,
-        require: true
+        required: true
     },
     UserEmail: {
         type: String,
-        require: true
+        required: true
     },
     generateID: {
         type: Number,
@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     },
     idTab: {
         type: Number,
-        require: true
+        required: true
     },
     checkingRoomOne: {
         type: [Boolean],
@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
     },
     resultTest: {
         type: [Number],
-        default: () => generateDefaultArray(config.STAND_CONFIG.resultTest)
+        default: () => Array(config.STAND_CONFIG.resultTest).fill(0)
     }
     })
 
