@@ -4,7 +4,7 @@ export interface Users {
     UserName: string;
     UserLastName: string;
     UserEmail: string;
-    idTab: number;
+    idTab: string;
 }
 
 export type DeleteUserParams = {
