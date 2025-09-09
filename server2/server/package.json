@@ -9,6 +9,7 @@
   "private": true,
   "dependencies": {
     "@serialport/parser-readline": "^10.5.0",
+    "axios": "^1.11.0",
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
