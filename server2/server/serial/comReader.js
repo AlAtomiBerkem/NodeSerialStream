@@ -6,6 +6,7 @@ class ComReader {
         this.portPath = options.portPath || 'COM6';
         this.baudRate = options.baudRate || 9600;
         this.currentIdTab = null;
+        this.onIdTabChange = options.onIdTabChange;
         this.connected = false;
         this.logIntervalMs = options.logIntervalMs || 3000;
         this.disconnectTimeoutMs = options.disconnectTimeoutMs || 20000;
@@ -43,9 +44,13 @@ class ComReader {
         this._parser.on('data', (line) => {
             const raw = String(line).trim();
             if (!raw) return;
+            const previous = this.currentIdTab;
             this.currentIdTab = raw;
             this.connected = true;
             this._armDisconnectTimer();
+            if (previous !== this.currentIdTab && typeof this.onIdTabChange === 'function') {
+                try { this.onIdTabChange(this.currentIdTab); } catch (_) {}
+            }
             console.log(`[COM] Считан idTab: ${this.currentIdTab}`);
         });
 

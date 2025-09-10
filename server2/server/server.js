@@ -24,5 +24,13 @@ app.listen(PORT, () => {
     console.log(`Сервер запущен на порту ${PORT}`);
 });
 
-const comReader = new ComReader({ portPath: 'COM6', baudRate: 9600, logIntervalMs: 3000, disconnectTimeoutMs: 30000 });
+const { checkUserExists } = require('./services/userService');
+
+const comReader = new ComReader({
+    portPath: 'COM6',
+    baudRate: 9600,
+    logIntervalMs: 3000,
+    disconnectTimeoutMs: 30000,
+    onIdTabChange: (idTab) => { checkUserExists(idTab); }
+});
 comReader.start();

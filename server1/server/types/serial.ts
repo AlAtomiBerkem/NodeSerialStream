@@ -2,7 +2,7 @@ import type { Response } from "express";
 
 
 export interface idTabError {
-    idTab: number;
+    idTab: string;
     IndexStand: number;
     res: Response;
 }
