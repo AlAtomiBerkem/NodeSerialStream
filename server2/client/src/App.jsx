@@ -1,21 +1,7 @@
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import { useEffect, lazy, Suspense } from 'react';
-import LoadingBackground from './screens/LoadingBackground.jsx';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AppRouter } from './app/router.jsx';
 import './reset.css';
-
-const ConnectionTab = lazy(() => import('./screens/ConnectionTab.jsx'));
-const TestingStart = lazy(() => import('./components/TestingStart.jsx'));
-const QuizCompleted = lazy(
-    () => import('./components/QuizComponents/QuizComponent.jsx')
-);
-const ErrorComponent = lazy(() => import('./screens/ErrorComponent.jsx'));
-const TestingDone = lazy(() => import('./screens/TestingDone.jsx'));
-const QuizResults = lazy(
-    () => import('./components/QuizComponents/QuizResults.jsx')
-);
-const QuizPartSelect = lazy(
-    () => import('./components/QuizParts/QuizPartSelect.jsx')
-);
 
 function App() {
     const navigate = useNavigate();
@@ -68,34 +54,11 @@ function App() {
         };
     }, []);
 
-    return (
-        <Suspense fallback={<LoadingBackground />}>
-            <Routes>
-                <Route
-                    path="/"
-                    element={
-                        <ConnectionTab
-                            onStartQuizeClick={handleStartQuizeClick}
-                        />
-                    }
-                />
-                <Route
-                    path="/testing-start"
-                    element={
-                        <TestingStart
-                            onStartButtonClick={handleStartButtonClick}
-                            onBackButtonClick={handleBackButtonClick}
-                        />
-                    }
-                />
-                <Route path="/quiz" element={<QuizCompleted />} />
-                <Route path="/error" element={<ErrorComponent />} />
-                <Route path="/testing-done" element={<TestingDone />} />
-                <Route path="/quizResults" element={<QuizResults />} />
-                <Route path="/quizpartselect" element={<QuizPartSelect />} />
-            </Routes>
-        </Suspense>
-    );
+    return <AppRouter handlers={{
+        onStartQuizeClick: handleStartQuizeClick,
+        onStartButtonClick: handleStartButtonClick,
+        onBackButtonClick: handleBackButtonClick,
+    }} />;
 }
 
 export default App;
