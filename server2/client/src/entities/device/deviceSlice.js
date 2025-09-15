@@ -32,3 +32,4 @@ export const { wsConnected, wsDisconnected, setIdTab, setRegistered } = deviceSl
 export default deviceSlice.reducer;
 
 
+

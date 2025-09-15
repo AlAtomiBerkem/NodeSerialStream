@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { WSClient } from '../../services/ws/index.js';
+import { WSClientMock } from '../../services/ws/mock.js';
+import { WS_MOCK } from '../../shared/config/env.js';
 import { useDispatch } from 'react-redux';
 import { wsConnected, wsDisconnected, setIdTab, setRegistered } from '../../entities/device/deviceSlice.js';
 
@@ -7,7 +9,7 @@ export function WSBootstrap({ children }) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const client = new WSClient();
+        const client = WS_MOCK ? new WSClientMock() : new WSClient();
         const offOpen = client.on('open', () => dispatch(wsConnected()));
         const offClose = client.on('close', () => dispatch(wsDisconnected()));
         const offMsg = client.on('message', (msg) => {
@@ -22,5 +24,6 @@ export function WSBootstrap({ children }) {
 
     return children;
 }
+
 
 

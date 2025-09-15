@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppRouter } from './app/router.jsx';
+import { ConnectionStatus } from './widgets/connection-status/ConnectionStatus.jsx';
 import './reset.css';
 
 function App() {
@@ -54,11 +55,14 @@ function App() {
         };
     }, []);
 
-    return <AppRouter handlers={{
+    return <>
+        <AppRouter handlers={{
         onStartQuizeClick: handleStartQuizeClick,
         onStartButtonClick: handleStartButtonClick,
         onBackButtonClick: handleBackButtonClick,
-    }} />;
+    }} />
+        <ConnectionStatus />
+    </>;
 }
 
 export default App;
