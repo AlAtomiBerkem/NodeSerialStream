@@ -1,6 +1,5 @@
 const axios = require('axios');
-
-const USER_SERVICE_BASE = process.env.USER_SERVICE_BASE || 'http://10.0.0.128:3001';
+const USER_SERVICE_BASE = process.env.USER_SERVICE_BASE || 'http://192.168.1.128:3001';
 
 async function checkUserExists(idTab) {
     try {
