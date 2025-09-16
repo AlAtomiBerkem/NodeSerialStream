@@ -4,6 +4,8 @@ const config = require('./config/config');
 const cors = require('cors');
 const { ComReader } = require('./serial/comReader');
 const { WSServer } = require('./services/wsServer');
+const { fetchUser, computeReadinessByRoom } = require('./services/userService');
+const STAND_ROOM = require('./config/config').STAND.ROOM;
 
 const app = express();
 
@@ -26,6 +28,21 @@ const httpServer = app.listen(PORT, () => {
 });
 const wsServer = new WSServer(httpServer);
 
+let lastIdTab = null;
+let lastRegistered = undefined;
+let lastReadiness = undefined;
+wsServer.wss.on('connection', (ws) => {
+    if (lastIdTab) {
+        try { ws.send(JSON.stringify({ type: 'device/idTab', idTab: lastIdTab })); } catch {}
+    }
+    if (typeof lastRegistered !== 'undefined') {
+        try { ws.send(JSON.stringify({ type: 'device/registered', registered: !!lastRegistered })); } catch {}
+    }
+    if (typeof lastReadiness !== 'undefined') {
+        try { ws.send(JSON.stringify({ type: 'device/readiness', readiness: lastReadiness })); } catch {}
+    }
+});
+
 const { checkUserExists } = require('./services/userService');
 
 const comReader = new ComReader({
@@ -34,8 +51,21 @@ const comReader = new ComReader({
     logIntervalMs: 3000,
     disconnectTimeoutMs: 30000,
     onIdTabChange: (idTab) => {
+        lastIdTab = idTab;
         wsServer.broadcast({ type: 'device/idTab', idTab });
-        checkUserExists(idTab).then((ok) => wsServer.broadcast({ type: 'device/registered', registered: !!ok }));
+        checkUserExists(idTab).then((ok) => {
+            lastRegistered = !!ok;
+            wsServer.broadcast({ type: 'device/registered', registered: lastRegistered });
+            if (lastRegistered) {
+                fetchUser(idTab)
+                    .then((user) => computeReadinessByRoom(user, STAND_ROOM))
+                    .then((r) => { lastReadiness = r; wsServer.broadcast({ type: 'device/readiness', readiness: r }); })
+                    .catch(() => {});
+            } else {
+                lastReadiness = { ready: false, reason: 'unregistered' };
+                wsServer.broadcast({ type: 'device/readiness', readiness: lastReadiness });
+            }
+        });
     }
 });
 comReader.start();

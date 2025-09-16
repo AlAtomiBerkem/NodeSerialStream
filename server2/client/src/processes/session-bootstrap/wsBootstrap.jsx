@@ -3,7 +3,7 @@ import { WSClient } from '../../services/ws/index.js';
 import { WSClientMock } from '../../services/ws/mock.js';
 import { WS_MOCK } from '../../shared/config/env.js';
 import { useDispatch } from 'react-redux';
-import { wsConnected, wsDisconnected, setIdTab, setRegistered } from '../../entities/device/deviceSlice.js';
+import { wsConnected, wsDisconnected, setIdTab, setRegistered, setReadiness } from '../../entities/device/deviceSlice.js';
 
 export function WSBootstrap({ children }) {
     const dispatch = useDispatch();
@@ -16,6 +16,7 @@ export function WSBootstrap({ children }) {
             if (msg && typeof msg === 'object') {
                 if (msg.type === 'device/idTab' && msg.idTab) dispatch(setIdTab(msg.idTab));
                 if (msg.type === 'device/registered' && 'registered' in msg) dispatch(setRegistered(msg.registered));
+                if (msg.type === 'device/readiness' && msg.readiness) dispatch(setReadiness(msg.readiness));
             }
         });
         client.connect();
