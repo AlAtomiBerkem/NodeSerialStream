@@ -34,6 +34,7 @@ let lastReadiness = undefined;
 let lastOverall = undefined;
 let lastComConnected = undefined;
 let lastTagPlaced = undefined;
+let _tagRemovalClearTimer = null;
 wsServer.wss.on('connection', (ws) => {
     if (lastIdTab) {
         try { ws.send(JSON.stringify({ type: 'device/idTab', idTab: lastIdTab })); } catch {}
@@ -73,6 +74,7 @@ const comReader = new ComReader({
                     .then((user) => {
                         const room = computeReadinessByRoom(user, STAND_ROOM);
                         const all = computeReadinessOverall(user);
+                        try { console.log('[READY]', { room: STAND_ROOM, roomReady: room, overall: all }); } catch {}
                         lastReadiness = room;
                         lastOverall = all;
                         wsServer.broadcast({ type: 'device/readiness', readiness: room });
@@ -90,8 +92,20 @@ const comReader = new ComReader({
     onTagStatusChange: (placed) => {
         lastTagPlaced = !!placed;
         wsServer.broadcast({ type: 'device/tag', placed: lastTagPlaced });
-        if (!lastTagPlaced) {
-            // метка снята — можно инициировать обратный отсчёт, но очистка idTab делается по таймауту disconnect
+        if (lastTagPlaced) {
+            if (_tagRemovalClearTimer) { clearTimeout(_tagRemovalClearTimer); _tagRemovalClearTimer = null; }
+        } else {
+            if (_tagRemovalClearTimer) { clearTimeout(_tagRemovalClearTimer); }
+            _tagRemovalClearTimer = setTimeout(() => {
+                if (lastTagPlaced === false) {
+                    lastIdTab = null;
+                    lastRegistered = false;
+                    lastReadiness = { ready: false, reason: 'tag_removed_timeout' };
+                    wsServer.broadcast({ type: 'device/idTab', idTab: null });
+                    wsServer.broadcast({ type: 'device/registered', registered: false });
+                    wsServer.broadcast({ type: 'device/readiness', readiness: lastReadiness });
+                }
+            }, 30000);
         }
     },
     onConnectionChange: (isConnected) => {
