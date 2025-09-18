@@ -4,6 +4,7 @@ const initialState = {
     idTab: null,
     connected: false,
     comConnected: null,
+    tagPlaced: null,
     registered: null,
     readiness: null,
     overall: null,
@@ -22,6 +23,10 @@ const deviceSlice = createSlice({
         },
         setComConnected(state, action) {
             state.comConnected = action.payload;
+            state.lastUpdateAt = Date.now();
+        },
+        setTagPlaced(state, action) {
+            state.tagPlaced = action.payload;
             state.lastUpdateAt = Date.now();
         },
         setIdTab(state, action) {
@@ -43,7 +48,7 @@ const deviceSlice = createSlice({
     },
 });
 
-export const { wsConnected, wsDisconnected, setIdTab, setRegistered, setReadiness, setOverall, setComConnected } = deviceSlice.actions;
+export const { wsConnected, wsDisconnected, setIdTab, setRegistered, setReadiness, setOverall, setComConnected, setTagPlaced } = deviceSlice.actions;
 export default deviceSlice.reducer;
 
 

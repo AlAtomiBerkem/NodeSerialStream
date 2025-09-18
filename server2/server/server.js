@@ -33,6 +33,7 @@ let lastRegistered = undefined;
 let lastReadiness = undefined;
 let lastOverall = undefined;
 let lastComConnected = undefined;
+let lastTagPlaced = undefined;
 wsServer.wss.on('connection', (ws) => {
     if (lastIdTab) {
         try { ws.send(JSON.stringify({ type: 'device/idTab', idTab: lastIdTab })); } catch {}
@@ -48,6 +49,9 @@ wsServer.wss.on('connection', (ws) => {
     }
     if (typeof lastComConnected !== 'undefined') {
         try { ws.send(JSON.stringify({ type: 'device/com', connected: lastComConnected })); } catch {}
+    }
+    if (typeof lastTagPlaced !== 'undefined') {
+        try { ws.send(JSON.stringify({ type: 'device/tag', placed: lastTagPlaced })); } catch {}
     }
 });
 
@@ -82,6 +86,13 @@ const comReader = new ComReader({
                 wsServer.broadcast({ type: 'device/overall', overall: lastOverall });
             }
         });
+    },
+    onTagStatusChange: (placed) => {
+        lastTagPlaced = !!placed;
+        wsServer.broadcast({ type: 'device/tag', placed: lastTagPlaced });
+        if (!lastTagPlaced) {
+            // метка снята — можно инициировать обратный отсчёт, но очистка idTab делается по таймауту disconnect
+        }
     },
     onConnectionChange: (isConnected) => {
         lastComConnected = !!isConnected;

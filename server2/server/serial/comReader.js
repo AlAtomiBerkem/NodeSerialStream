@@ -13,6 +13,7 @@ class ComReader {
         this.disconnectTimeoutMs = options.disconnectTimeoutMs || 20000;
         this._logTimer = null;
         this._disconnectTimer = null;
+        this._tagTimer = null;
         this._port = null;
         this._parser = null;
     }
@@ -58,8 +59,12 @@ class ComReader {
             this.currentIdTab = raw;
             this.connected = true;
             this._armDisconnectTimer();
+            this._armTagTimer();
             if (previous !== this.currentIdTab && typeof this.onIdTabChange === 'function') {
                 try { this.onIdTabChange(this.currentIdTab); } catch (_) {}
+            }
+            if (typeof this.onConnectionChange === 'function') {
+                try { this.onConnectionChange(true); } catch (_) {}
             }
             console.log(`[COM] Считан idTab: ${this.currentIdTab}`);
         });
@@ -90,6 +95,18 @@ class ComReader {
         this._disconnectTimer = setTimeout(() => {
             this._handleDisconnect(true);
         }, this.disconnectTimeoutMs);
+    }
+
+    _armTagTimer() {
+        if (this._tagTimer) clearTimeout(this._tagTimer);
+        this._tagTimer = setTimeout(() => {
+            if (typeof this.onTagStatusChange === 'function') {
+                try { this.onTagStatusChange(false); } catch (_) {}
+            }
+        }, 1000);
+        if (typeof this.onTagStatusChange === 'function') {
+            try { this.onTagStatusChange(true); } catch (_) {}
+        }
     }
 
     _handleDisconnect(fromTimeout = false) {

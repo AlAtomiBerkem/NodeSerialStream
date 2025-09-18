@@ -3,7 +3,7 @@ import { WSClient } from '../../services/ws/index.js';
 import { WSClientMock } from '../../services/ws/mock.js';
 import { WS_MOCK } from '../../shared/config/env.js';
 import { useDispatch } from 'react-redux';
-import { wsConnected, wsDisconnected, setIdTab, setRegistered, setReadiness, setOverall, setComConnected } from '../../entities/device/deviceSlice.js';
+import { wsConnected, wsDisconnected, setIdTab, setRegistered, setReadiness, setOverall, setComConnected, setTagPlaced } from '../../entities/device/deviceSlice.js';
 
 export function WSBootstrap({ children }) {
     const dispatch = useDispatch();
@@ -19,6 +19,7 @@ export function WSBootstrap({ children }) {
                 if (msg.type === 'device/readiness' && msg.readiness) dispatch(setReadiness(msg.readiness));
                 if (msg.type === 'device/overall' && msg.overall) dispatch(setOverall(msg.overall));
                 if (msg.type === 'device/com' && 'connected' in msg) dispatch(setComConnected(!!msg.connected));
+                if (msg.type === 'device/tag' && 'placed' in msg) dispatch(setTagPlaced(!!msg.placed));
             }
         });
         client.connect();

@@ -48,6 +48,5 @@ function computeReadinessOverall(user) {
 }
 
 module.exports = { checkUserExists, fetchUser, computeReadinessByRoom, computeReadinessOverall };
-module.exports = { checkUserExists };
 
 
