@@ -39,8 +39,15 @@ function computeReadinessByRoom(user, roomIndex /* 1-based */) {
     return { ready, reason: ready ? 'ok' : 'not_all_stands_passed', details: { key, total: arr.length, passed: arr.filter(Boolean).length } };
 }
 
-module.exports = { checkUserExists, fetchUser, computeReadinessByRoom };
+function computeReadinessOverall(user) {
+    if (!user) return { ready: false, reason: 'no_user' };
+    const keys = ['checkingRoomOne', 'checkingRoomTwo', 'checkingRoomThree'];
+    const parts = keys.map((k) => Array.isArray(user[k]) ? user[k].every(Boolean) : false);
+    const ready = parts.every(Boolean);
+    return { ready, reason: ready ? 'ok' : 'not_all_rooms_passed' };
+}
 
+module.exports = { checkUserExists, fetchUser, computeReadinessByRoom, computeReadinessOverall };
 module.exports = { checkUserExists };
 
 

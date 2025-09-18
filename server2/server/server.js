@@ -4,7 +4,7 @@ const config = require('./config/config');
 const cors = require('cors');
 const { ComReader } = require('./serial/comReader');
 const { WSServer } = require('./services/wsServer');
-const { fetchUser, computeReadinessByRoom } = require('./services/userService');
+const { fetchUser, computeReadinessByRoom, computeReadinessOverall } = require('./services/userService');
 const STAND_ROOM = require('./config/config').STAND.ROOM;
 
 const app = express();
@@ -31,6 +31,8 @@ const wsServer = new WSServer(httpServer);
 let lastIdTab = null;
 let lastRegistered = undefined;
 let lastReadiness = undefined;
+let lastOverall = undefined;
+let lastComConnected = undefined;
 wsServer.wss.on('connection', (ws) => {
     if (lastIdTab) {
         try { ws.send(JSON.stringify({ type: 'device/idTab', idTab: lastIdTab })); } catch {}
@@ -40,6 +42,12 @@ wsServer.wss.on('connection', (ws) => {
     }
     if (typeof lastReadiness !== 'undefined') {
         try { ws.send(JSON.stringify({ type: 'device/readiness', readiness: lastReadiness })); } catch {}
+    }
+    if (typeof lastOverall !== 'undefined') {
+        try { ws.send(JSON.stringify({ type: 'device/overall', overall: lastOverall })); } catch {}
+    }
+    if (typeof lastComConnected !== 'undefined') {
+        try { ws.send(JSON.stringify({ type: 'device/com', connected: lastComConnected })); } catch {}
     }
 });
 
@@ -58,14 +66,30 @@ const comReader = new ComReader({
             wsServer.broadcast({ type: 'device/registered', registered: lastRegistered });
             if (lastRegistered) {
                 fetchUser(idTab)
-                    .then((user) => computeReadinessByRoom(user, STAND_ROOM))
-                    .then((r) => { lastReadiness = r; wsServer.broadcast({ type: 'device/readiness', readiness: r }); })
+                    .then((user) => {
+                        const room = computeReadinessByRoom(user, STAND_ROOM);
+                        const all = computeReadinessOverall(user);
+                        lastReadiness = room;
+                        lastOverall = all;
+                        wsServer.broadcast({ type: 'device/readiness', readiness: room });
+                        wsServer.broadcast({ type: 'device/overall', overall: all });
+                    })
                     .catch(() => {});
             } else {
                 lastReadiness = { ready: false, reason: 'unregistered' };
                 wsServer.broadcast({ type: 'device/readiness', readiness: lastReadiness });
+                lastOverall = { ready: false, reason: 'unregistered' };
+                wsServer.broadcast({ type: 'device/overall', overall: lastOverall });
             }
         });
+    },
+    onConnectionChange: (isConnected) => {
+        lastComConnected = !!isConnected;
+        wsServer.broadcast({ type: 'device/com', connected: lastComConnected });
+        if (!lastComConnected) {
+            lastIdTab = null;
+            wsServer.broadcast({ type: 'device/idTab', idTab: null });
+        }
     }
 });
 comReader.start();

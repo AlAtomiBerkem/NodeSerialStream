@@ -7,6 +7,7 @@ class ComReader {
         this.baudRate = options.baudRate || 9600;
         this.currentIdTab = null;
         this.onIdTabChange = options.onIdTabChange;
+        this.onConnectionChange = options.onConnectionChange;
         this.connected = false;
         this.logIntervalMs = options.logIntervalMs || 3000;
         this.disconnectTimeoutMs = options.disconnectTimeoutMs || 20000;
@@ -25,6 +26,9 @@ class ComReader {
             this._startLogging();
             this._armDisconnectTimer();
             console.log(`[COM] Порт ${this.portPath} открыт, скорость ${this.baudRate}`);
+            if (typeof this.onConnectionChange === 'function') {
+                try { this.onConnectionChange(true); } catch (_) {}
+            }
         });
 
         this._port.on('error', (err) => {
@@ -32,6 +36,9 @@ class ComReader {
             // Не очищаем сразу idTab — ждём 20 секунд восстановления
             this.connected = false;
             this._armDisconnectTimer();
+            if (typeof this.onConnectionChange === 'function') {
+                try { this.onConnectionChange(false); } catch (_) {}
+            }
         });
 
         this._port.on('close', () => {
@@ -39,6 +46,9 @@ class ComReader {
             // Не очищаем сразу idTab — ждём 20 секунд восстановления
             this.connected = false;
             this._armDisconnectTimer();
+            if (typeof this.onConnectionChange === 'function') {
+                try { this.onConnectionChange(false); } catch (_) {}
+            }
         });
 
         this._parser.on('data', (line) => {
@@ -94,6 +104,9 @@ class ComReader {
         }
         this.connected = false;
         this.currentIdTab = null;
+        if (typeof this.onConnectionChange === 'function') {
+            try { this.onConnectionChange(false); } catch (_) {}
+        }
     }
 
     stop() {

@@ -3,8 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     idTab: null,
     connected: false,
+    comConnected: null,
     registered: null,
     readiness: null,
+    overall: null,
     lastUpdateAt: null,
 };
 
@@ -18,6 +20,10 @@ const deviceSlice = createSlice({
         wsDisconnected(state) {
             state.connected = false;
         },
+        setComConnected(state, action) {
+            state.comConnected = action.payload;
+            state.lastUpdateAt = Date.now();
+        },
         setIdTab(state, action) {
             state.idTab = action.payload;
             state.lastUpdateAt = Date.now();
@@ -30,10 +36,14 @@ const deviceSlice = createSlice({
             state.readiness = action.payload;
             state.lastUpdateAt = Date.now();
         },
+        setOverall(state, action) {
+            state.overall = action.payload;
+            state.lastUpdateAt = Date.now();
+        },
     },
 });
 
-export const { wsConnected, wsDisconnected, setIdTab, setRegistered, setReadiness } = deviceSlice.actions;
+export const { wsConnected, wsDisconnected, setIdTab, setRegistered, setReadiness, setOverall, setComConnected } = deviceSlice.actions;
 export default deviceSlice.reducer;
 
 
