@@ -7,11 +7,13 @@ class ComReader {
         this.baudRate = options.baudRate || 9600;
         this.currentIdTab = null;
         this.onIdTabChange = options.onIdTabChange;
+        this.onConnectionChange = options.onConnectionChange;
         this.connected = false;
         this.logIntervalMs = options.logIntervalMs || 3000;
         this.disconnectTimeoutMs = options.disconnectTimeoutMs || 20000;
         this._logTimer = null;
         this._disconnectTimer = null;
+        this._tagTimer = null;
         this._port = null;
         this._parser = null;
     }
@@ -25,6 +27,9 @@ class ComReader {
             this._startLogging();
             this._armDisconnectTimer();
             console.log(`[COM] Порт ${this.portPath} открыт, скорость ${this.baudRate}`);
+            if (typeof this.onConnectionChange === 'function') {
+                try { this.onConnectionChange(true); } catch (_) {}
+            }
         });
 
         this._port.on('error', (err) => {
@@ -32,6 +37,9 @@ class ComReader {
             // Не очищаем сразу idTab — ждём 20 секунд восстановления
             this.connected = false;
             this._armDisconnectTimer();
+            if (typeof this.onConnectionChange === 'function') {
+                try { this.onConnectionChange(false); } catch (_) {}
+            }
         });
 
         this._port.on('close', () => {
@@ -39,6 +47,9 @@ class ComReader {
             // Не очищаем сразу idTab — ждём 20 секунд восстановления
             this.connected = false;
             this._armDisconnectTimer();
+            if (typeof this.onConnectionChange === 'function') {
+                try { this.onConnectionChange(false); } catch (_) {}
+            }
         });
 
         this._parser.on('data', (line) => {
@@ -48,8 +59,12 @@ class ComReader {
             this.currentIdTab = raw;
             this.connected = true;
             this._armDisconnectTimer();
+            this._armTagTimer();
             if (previous !== this.currentIdTab && typeof this.onIdTabChange === 'function') {
                 try { this.onIdTabChange(this.currentIdTab); } catch (_) {}
+            }
+            if (typeof this.onConnectionChange === 'function') {
+                try { this.onConnectionChange(true); } catch (_) {}
             }
             console.log(`[COM] Считан idTab: ${this.currentIdTab}`);
         });
@@ -82,6 +97,18 @@ class ComReader {
         }, this.disconnectTimeoutMs);
     }
 
+    _armTagTimer() {
+        if (this._tagTimer) clearTimeout(this._tagTimer);
+        this._tagTimer = setTimeout(() => {
+            if (typeof this.onTagStatusChange === 'function') {
+                try { this.onTagStatusChange(false); } catch (_) {}
+            }
+        }, 1000);
+        if (typeof this.onTagStatusChange === 'function') {
+            try { this.onTagStatusChange(true); } catch (_) {}
+        }
+    }
+
     _handleDisconnect(fromTimeout = false) {
         if (fromTimeout) {
             if (this.currentIdTab) {
@@ -94,6 +121,9 @@ class ComReader {
         }
         this.connected = false;
         this.currentIdTab = null;
+        if (typeof this.onConnectionChange === 'function') {
+            try { this.onConnectionChange(false); } catch (_) {}
+        }
     }
 
     stop() {
