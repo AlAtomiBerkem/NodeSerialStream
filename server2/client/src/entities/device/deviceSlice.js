@@ -8,6 +8,7 @@ const initialState = {
     registered: null,
     readiness: null,
     overall: null,
+    test: null,
     lastUpdateAt: null,
 };
 
@@ -45,10 +46,14 @@ const deviceSlice = createSlice({
             state.overall = action.payload;
             state.lastUpdateAt = Date.now();
         },
+        setTest(state, action) {
+            state.test = action.payload;
+            state.lastUpdateAt = Date.now();
+        },
     },
 });
 
-export const { wsConnected, wsDisconnected, setIdTab, setRegistered, setReadiness, setOverall, setComConnected, setTagPlaced } = deviceSlice.actions;
+export const { wsConnected, wsDisconnected, setIdTab, setRegistered, setReadiness, setOverall, setComConnected, setTagPlaced, setTest } = deviceSlice.actions;
 export default deviceSlice.reducer;
 
 

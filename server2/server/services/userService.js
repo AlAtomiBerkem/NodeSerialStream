@@ -47,6 +47,13 @@ function computeReadinessOverall(user) {
     return { ready, reason: ready ? 'ok' : 'not_all_rooms_passed' };
 }
 
-module.exports = { checkUserExists, fetchUser, computeReadinessByRoom, computeReadinessOverall };
+function computeTestStatus(user, roomIndex /* 1-based */) {
+    if (!user || !Array.isArray(user.resultTest)) return { passed: false };
+    const idx = Math.max(0, Math.min(user.resultTest.length - 1, roomIndex - 1));
+    const val = Number(user.resultTest[idx] || 0);
+    return { passed: val !== 0, model: val };
+}
+
+module.exports = { checkUserExists, fetchUser, computeReadinessByRoom, computeReadinessOverall, computeTestStatus };
 
 

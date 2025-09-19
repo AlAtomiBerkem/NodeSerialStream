@@ -4,7 +4,7 @@ const config = require('./config/config');
 const cors = require('cors');
 const { ComReader } = require('./serial/comReader');
 const { WSServer } = require('./services/wsServer');
-const { fetchUser, computeReadinessByRoom, computeReadinessOverall } = require('./services/userService');
+const { fetchUser, computeReadinessByRoom, computeReadinessOverall, computeTestStatus } = require('./services/userService');
 const STAND_ROOM = require('./config/config').STAND.ROOM;
 
 const app = express();
@@ -35,6 +35,7 @@ let lastOverall = undefined;
 let lastComConnected = undefined;
 let lastTagPlaced = undefined;
 let _tagRemovalClearTimer = null;
+let lastTestStatus = undefined;
 wsServer.wss.on('connection', (ws) => {
     if (lastIdTab) {
         try { ws.send(JSON.stringify({ type: 'device/idTab', idTab: lastIdTab })); } catch {}
@@ -53,6 +54,9 @@ wsServer.wss.on('connection', (ws) => {
     }
     if (typeof lastTagPlaced !== 'undefined') {
         try { ws.send(JSON.stringify({ type: 'device/tag', placed: lastTagPlaced })); } catch {}
+    }
+    if (typeof lastTestStatus !== 'undefined') {
+        try { ws.send(JSON.stringify({ type: 'device/test', test: lastTestStatus })); } catch {}
     }
 });
 
@@ -74,11 +78,14 @@ const comReader = new ComReader({
                     .then((user) => {
                         const room = computeReadinessByRoom(user, STAND_ROOM);
                         const all = computeReadinessOverall(user);
+                        const test = computeTestStatus(user, STAND_ROOM);
                         try { console.log('[READY]', { room: STAND_ROOM, roomReady: room, overall: all }); } catch {}
                         lastReadiness = room;
                         lastOverall = all;
+                        lastTestStatus = test;
                         wsServer.broadcast({ type: 'device/readiness', readiness: room });
                         wsServer.broadcast({ type: 'device/overall', overall: all });
+                        wsServer.broadcast({ type: 'device/test', test });
                     })
                     .catch(() => {});
             } else {
@@ -112,6 +119,8 @@ const comReader = new ComReader({
         lastComConnected = !!isConnected;
         wsServer.broadcast({ type: 'device/com', connected: lastComConnected });
         if (!lastComConnected) {
+            lastTagPlaced = false;
+            wsServer.broadcast({ type: 'device/tag', placed: false });
             lastIdTab = null;
             wsServer.broadcast({ type: 'device/idTab', idTab: null });
         }

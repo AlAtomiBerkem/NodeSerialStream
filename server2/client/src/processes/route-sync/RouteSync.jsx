@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 export function RouteSync({ children }) {
     const navigate = useNavigate();
     const location = useLocation();
-    const { idTab, registered, readiness, tagPlaced } = useSelector((s) => s.device);
+    const { idTab, registered, readiness, tagPlaced, test } = useSelector((s) => s.device);
 
     useEffect(() => {
         if (tagPlaced === false) {
@@ -17,10 +17,14 @@ export function RouteSync({ children }) {
             return;
         }
         if (registered === true && readiness && readiness.ready === true) {
-            if (location.pathname !== '/testing-done') navigate('/testing-done', { replace: true });
+            if (test && test.passed) {
+                if (location.pathname !== '/testing-done') navigate('/testing-done', { replace: true });
+            } else {
+                if (location.pathname !== '/testing-start') navigate('/testing-start', { replace: true });
+            }
             return;
         }
-        if (location.pathname === '/testing-done' && !(registered === true && readiness && readiness.ready === true)) {
+        if ((location.pathname === '/testing-done' || location.pathname === '/testing-start') && !(registered === true && readiness && readiness.ready === true)) {
             navigate('/', { replace: true });
         }
     }, [idTab, registered, readiness, tagPlaced, location.pathname, navigate]);
