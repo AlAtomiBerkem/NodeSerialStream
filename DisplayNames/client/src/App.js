@@ -22,8 +22,8 @@ function App() {
       <div
         style={{
           position: 'absolute',
-          scale: 1.773,
-          top: 530,
+          scale: 1.83,
+          top: 540,
           left: 0,
           width: '100%',
           height: '100%',
