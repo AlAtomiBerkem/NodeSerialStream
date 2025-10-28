@@ -24,7 +24,6 @@ initSocket(server);
 const { connectToPort, getSerialData, closePort } = require('./middleware/com-port-logick/serial');
 connectToPort();
 
-
 async function listPorts() {
     const ports = await SerialPort.list();
     console.log('Доступные порты:');
@@ -37,13 +36,11 @@ async function listPorts() {
     }
 }
 
-
 app.use('/api/users', userRoutes);
 app.use('/api/stand', standRoutes);
 app.get('/api/serial', (req, res) => {
     res.json(getSerialData());
 });
-
 
 app.get('/api/serial/ports', async (req, res) => {
     try {
@@ -64,7 +61,6 @@ async function connectToDB() {
         process.exit(1);
     }
 }
-
 
 server.listen(config.SERVER.PORT, config.SERVER.HOST, async () => {
     console.log(`✅ Сервер запущен на http://${config.SERVER.HOST}:${config.SERVER.PORT}`);

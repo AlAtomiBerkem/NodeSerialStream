@@ -1,5 +1,5 @@
 const User = require('../models/userModel');
-const { logError, logSuccess } = require('./log-page/logError');
+const { logError, logSuccess } = require('./log-page/logError'); // Импортируем функции из logger.js
 const { validateIdTabAndIndexStand } = require('./log-page/idTabErrors');
 const axios = require ("axios");
 

@@ -46,15 +46,15 @@ exports.getAllUsers = async (req, res) => {
     }
 };
 
-exports.getOneUser = async (req, res) => {
-    const idTabNum = Number(req.params.idTab);
-    if (isNaN(idTabNum)) {
-        res.status(400).json({ message: "idTab должен быть числом" });
+exports.getOneUser = async (req: Request<DeleteUserParams>, res: Response): Promise<void> => {
+    const { idTab } = req.params;
+    if (!idTab) {
+        res.status(400).json({ message: "idTab обязателен" });
         return;
     }
 
     try {
-        const user = await User.findOne({ idTab: idTabNum });
+        const user = await User.findOne({ idTab });
         if (!user) {
             res.status(404).json({ message: 'Пользователь не найден' });
             return;
@@ -66,40 +66,40 @@ exports.getOneUser = async (req, res) => {
     }
 };
 
-exports.deleteUser = async (req, res) => {
-    const idTabNum = Number(req.params.idTab);
-    if (isNaN(idTabNum)) {
-        res.status(400).json({ message: "idTab должен быть числом" });
+exports.deleteUser = async (req: Request<DeleteUserParams>, res: Response): Promise<void> => {
+    const { idTab } = req.params;
+    if (!idTab) {
+        res.status(400).json({ message: "idTab обязателен" });
         return;
     }
 
     try {
-        const user = await User.findOneAndDelete({ idTab: idTabNum });
+        const user = await User.findOneAndDelete({ idTab });
         if (!user) {
-            logError(`Пользователь с таким IdTab не найден: ${idTabNum}`);
+            logError(`Пользователь с таким IdTab не найден: ${idTab}`);
             res.status(404).send({ error: 'Пользователь с таким IdTab не найден' });
             return;
         }
-        logSuccess(`DELETE - [SUCCESS] Пользователь с idTab ${idTabNum} успешно удален`);
+        logSuccess(`DELETE - [SUCCESS] Пользователь с idTab ${idTab} успешно удален`);
         res.json({ message: 'Пользователь успешно удален' });
     } catch (err: unknown) {
         const error = err instanceof Error ? err : new Error("Unknown error");
-        logError(`DELETE - [ERROR] Произошла ошибка на стороне сервера для idTab - ${idTabNum}: ${error.message}`);
+        logError(`DELETE - [ERROR] Произошла ошибка на стороне сервера для idTab - ${idTab}: ${error.message}`);
         res.status(500).json({ message: 'Произошла ошибка на стороне сервера' });
     }
 };
 
-exports.testResult = async (req, res) => {
-    const idTabNum = Number(req.params.idTab);
-    if (isNaN(idTabNum)) {
-        res.status(400).json({ message: "idTab должен быть числом" });
+exports.testResult = async (req: Request<DeleteUserParams>, res: Response): Promise<void> => {
+    const { idTab } = req.params;
+    if (!idTab) {
+        res.status(400).json({ message: "idTab обязателен" });
         return;
     }
 
     try {
-        const result = await User.findOne({ idTab: idTabNum });
+        const result = await User.findOne({ idTab });
         if (!result) {
-            res.status(404).json({ error: `Данные для idTab "${idTabNum}" не найдены` });
+            res.status(404).json({ error: `Данные для idTab "${idTab}" не найдены` });
             return;
         }
 
@@ -109,7 +109,7 @@ exports.testResult = async (req, res) => {
         });
     } catch (err: unknown) {
         const error = err instanceof Error ? err : new Error("Unknown error");
-        console.error(`GET /api/test/${idTabNum} - [ERROR]:`, error.message);
+        console.error(`GET /api/test/${idTab} - [ERROR]:`, error.message);
         res.status(500).json({ message: "Ошибка сервера при получении данных" });
     }
 };

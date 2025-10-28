@@ -21,8 +21,8 @@ const userSchema = new mongoose.Schema({
         default: () => Math.floor(Math.random() * 10000)
     },
     idTab: {
-        type: Number,
-        required: true
+        type: String,
+        require: true
     },
     checkingRoomOne: {
         type: [Boolean],

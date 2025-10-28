@@ -1,14 +1,16 @@
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
-import { store } from './store/store.js';
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { AppProviders } from './app/providers.jsx';
+import { WSBootstrap } from './processes/session-bootstrap/wsBootstrap.jsx';
+import { RouteSync } from './processes/route-sync/RouteSync.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <Provider store={store}>
-        <Router>
-            <App />
-        </Router>
-    </Provider>
+    <AppProviders>
+        <WSBootstrap>
+            <RouteSync>
+                <App />
+            </RouteSync>
+        </WSBootstrap>
+    </AppProviders>
 );
