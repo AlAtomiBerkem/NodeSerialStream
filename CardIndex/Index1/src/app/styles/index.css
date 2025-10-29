@@ -1,0 +1,32 @@
+@import 'reset.css';
+
+:root {
+    --scrollbar-width: 14px;
+    --scrollbar-color: #72D8FF;
+    --scrollbar-track: url('../../shared/assets/track.png');
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-color) transparent;
+}
+
+
+::-webkit-scrollbar {
+    width: var(--scrollbar-width);
+    height: var(--scrollbar-width);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-color);
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track) no-repeat center center;
+    background-size: cover;
+}
+
+::-webkit-scrollbar-button {
+    display: none;
+}
