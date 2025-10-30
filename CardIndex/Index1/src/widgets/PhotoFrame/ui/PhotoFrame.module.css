@@ -1,0 +1,22 @@
+.RadioBtnScaler {
+    scale: 67%;
+}
+
+.PhotoFrame {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.PhotoFrame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.RadioBtnBottom {
+  position: absolute;
+  left: 50%;
+  bottom: 0.3%;
+  transform: translateX(-50%);
+}

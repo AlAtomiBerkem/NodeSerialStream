@@ -12,7 +12,6 @@ interface RadioBtnGroupProps {
 export const RadioBtnGroup = ({className}: RadioBtnGroupProps) => {
 
 return (
-    <div className={cls.RadioBtnScaler}>
         <div className={classNames(cls.RadioBtnGroup, {}, [className])}>
             <img src={radiWrapper} alt="radiowrapper"/>
             <div className={cls.RadioBtnGroupButtons}>
@@ -22,6 +21,5 @@ return (
                 <RadioButton  activeImage={btnUnActive} defaultImage={btn}/>
             </div>
         </div>
-    </div>
     );
 };

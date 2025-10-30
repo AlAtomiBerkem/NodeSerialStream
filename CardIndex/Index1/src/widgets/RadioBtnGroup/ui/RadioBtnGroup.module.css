@@ -1,7 +1,4 @@
 /* Контейнер выравниваем по центру */
-.RadioBtnScaler {
-    scale: 0.7
-}
 .RadioBtnGroup {
   position: relative;
   width: fit-content;
