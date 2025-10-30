@@ -7,18 +7,26 @@ import radiWrapper from 'shared/assets/icons/radiobtnwrapper.png'
 
 interface RadioBtnGroupProps {
     className?: string;
+    count: number;
+    activeIndex: number;
+    onChange: (idx: number) => void;
 }
 
-export const RadioBtnGroup = ({className}: RadioBtnGroupProps) => {
-
-return (
+export const RadioBtnGroup = ({className, count, activeIndex, onChange}: RadioBtnGroupProps) => {
+    return (
         <div className={classNames(cls.RadioBtnGroup, {}, [className])}>
             <img src={radiWrapper} alt="radiowrapper"/>
             <div className={cls.RadioBtnGroupButtons}>
-                <RadioButton  activeImage={btnUnActive} defaultImage={btn}/>
-                <RadioButton  activeImage={btnUnActive} defaultImage={btn}/>
-                <RadioButton  activeImage={btnUnActive} defaultImage={btn}/>
-                <RadioButton  activeImage={btnUnActive} defaultImage={btn}/>
+                {Array.from({ length: count }, (_, i) => (
+                    <RadioButton
+                        key={i}
+                        activeImage={btnUnActive}
+                        defaultImage={btn}
+                        isActive={i === activeIndex}
+                        index={i}
+                        onButtonClick={onChange}
+                    />
+                ))}
             </div>
         </div>
     );

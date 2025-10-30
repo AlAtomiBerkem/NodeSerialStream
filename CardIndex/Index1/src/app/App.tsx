@@ -8,6 +8,7 @@ function App() {
       <BackgroundScreen>
           <div className='app'>
               <AppRouter/>
+              
           </div>
       </BackgroundScreen>
   )
