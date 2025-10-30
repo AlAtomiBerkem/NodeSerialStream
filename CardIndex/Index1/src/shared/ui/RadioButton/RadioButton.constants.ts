@@ -5,7 +5,12 @@ export enum ButtonSliderTheme {
     ACTIVE = "active",
 }
 
+export enum ThemeStyle {
+    CLEAR = 'clear'
+}
+
 export interface ButtonSliderProps  extends ButtonHTMLAttributes<HTMLButtonElement> {
+    styleTheme?: ThemeStyle;
     className?: string;
     theme?: ButtonSliderTheme;
     isActive?: boolean;

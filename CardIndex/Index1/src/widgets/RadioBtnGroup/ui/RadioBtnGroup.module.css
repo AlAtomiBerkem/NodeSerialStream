@@ -1,0 +1,32 @@
+/* Контейнер выравниваем по центру */
+.RadioBtnScaler {
+    scale: 0.7
+}
+.RadioBtnGroup {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.RadioBtnGroup img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.RadioBtnGroupButtons {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24.5%;
+  /* pointer-events: none; чтобы клик проходил только по кнопкам, не по контейнеру */
+}
+.RadioBtnGroupButtons > * {
+  pointer-events: auto;
+}

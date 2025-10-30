@@ -1,8 +1,8 @@
-import cls from './ButtonSlider.module.css';
+import cls from './RadioButton.module.css';
 import { classNames } from "shared/lib/classNames";
 import type { FC } from "react";
 import type {ButtonSliderProps} from './RadioButton.constants.ts'
-import {ButtonSliderTheme} from './RadioButton.constants.ts'
+import {ButtonSliderTheme, ThemeStyle} from './RadioButton.constants.ts'
 
 export const RadioButton: FC<ButtonSliderProps> = (props) => {
     const {
@@ -10,6 +10,7 @@ export const RadioButton: FC<ButtonSliderProps> = (props) => {
         theme = ButtonSliderTheme.DEFAULT,
         isActive = false,
         defaultImage,
+        styleTheme = ThemeStyle.CLEAR, 
         activeImage,
         alt = "Кнопка слайдера",
         index = 0,
@@ -27,7 +28,7 @@ export const RadioButton: FC<ButtonSliderProps> = (props) => {
             className={classNames(
                 cls.ButtonSlider,
                 {},
-                [className, cls[theme], isActive ? cls.active : '']
+                [className, cls[theme], cls[styleTheme], isActive ? cls.active : '']
             )}
             onClick={handleClick}
             aria-pressed={isActive}
