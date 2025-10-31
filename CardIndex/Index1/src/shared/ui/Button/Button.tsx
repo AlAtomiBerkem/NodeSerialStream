@@ -1,40 +1,39 @@
-import cls from './Button.module.css'
-import { classNames } from "../../lib/classNames.ts";
+import { useState } from 'react';
+import cls from './Button.module.css';
 
-interface ButtonProps {
+interface ClickButtonProps {
     className?: string;
-    label?: string;
-    isActive?: boolean;
-    onClick?: () => void;
+    normalImage?: string;
+    clickedImage: string;
+    alt?: string;
 }
 
-export const Button = (props: ButtonProps) => {
-    const {
-        className,
-        label,
-        isActive,
-        onClick,
-    } = props;
+export const ClickButton = ({ 
+    normalImage, 
+    clickedImage, 
+    alt = "button" 
+}: ClickButtonProps) => {
+    const [isClicked, setIsClicked] = useState(false);
 
-return (
-    <div className={classNames(cls.Button, {}, [className])}>
+    const handleClick = () => {
+        setIsClicked(true);
+        
+        setTimeout(() => {
+            setIsClicked(false);
+        }, 300);
+    };
 
-    </div>
+    return (
+        <button 
+            onClick={handleClick} 
+            className={cls.button}
+            disabled={isClicked}
+        >
+            <img 
+                src={isClicked ? clickedImage : normalImage} 
+                alt={alt}
+                className={cls.image}
+            />
+        </button>
     );
 };
-
-// export const SelectContentBtn = ({ label, isActive, onClick }) => {
-//   return (
-//     <button onClick={onClick}>
-//       <div>
-//         <img
-//           src={isActive ? SelectBtn : UnSelectBtn}
-//           alt={isActive ? 'selected' : 'unselected'}
-//         />
-//         <span>
-//           {label}
-//         </span>
-//       </div>
-//     </button>
-//   );
-// };

@@ -4,6 +4,13 @@
     --scrollbar-width: 14px;
     --scrollbar-color: #72D8FF;
     --scrollbar-track: url('../../shared/assets/track.png');
+    --font-akrobat: 'Akrobat', Arial, sans-serif;
+
+    --text-button-font-weight: 500;
+    --text-button-font-size: 30px;
+    --text-button-line-height: 100%;
+    --text-button-letter-spacing: 0%;
+    --text-button-text-transform: uppercase;
 }
 
 * {

@@ -1,0 +1,31 @@
+.scaller {
+    scale: 100%;
+}
+
+.imgname {
+    display: flex;
+    position: absolute;
+    top: 60px;
+    left: 105px;
+}
+
+.startphoto {
+    display: flex;
+    position: absolute;
+    top: 210px;
+    left: 120px;
+}
+
+.label {
+    display: flex;
+    position: absolute;
+    top: 220px;
+    right: 150px;
+}
+
+.goupbtn {
+    display: flex;
+    position: absolute;
+    top: 400px;
+    right: 110px;
+}

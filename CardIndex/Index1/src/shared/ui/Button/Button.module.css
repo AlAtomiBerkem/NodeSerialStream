@@ -1,0 +1,21 @@
+.button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.button:active {
+    transform: scale(0.95);
+}
+
+.button:disabled {
+    cursor: not-allowed;
+}
+
+.image {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
