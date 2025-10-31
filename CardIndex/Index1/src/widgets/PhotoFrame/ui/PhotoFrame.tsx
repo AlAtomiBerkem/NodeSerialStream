@@ -15,19 +15,25 @@ export const PhotoFrame = ({className, images, currentIndex, onChange}: PhotoFra
     if (!images || typeof currentIndex !== 'number' || !onChange) {
         return null;
     }
+    const currentPhoto = images[currentIndex];
+
     return (
         <div className={cls.RadioBtnScaler}>
             <div className={classNames(cls.PhotoFrame, {}, [className])}>
-                <img src={photoFrame} alt="photo-frame"/>
-                {images[currentIndex] && (
-                    <ScrollAnimation
-                        photoUrl={images[currentIndex]}
-                        alt={`Фото ${currentIndex + 1}`}
-                        className={cls.PhotoInsideFrame}
-                        uniqueKey={String(currentIndex)}
-                        duration={0.5}
-                    />
-                )}
+                <div className={cls.PhotoWindow}>
+                    {currentPhoto && (
+                        <ScrollAnimation
+                            photoUrl={currentPhoto}
+                            alt={`Фото ${currentIndex + 1}`}
+                            className={cls.PhotoInsideFrame}
+                            uniqueKey={String(currentIndex)}
+                            duration={0.5}
+                        />
+                    )}
+                </div>
+
+                <img src={photoFrame} alt="photo-frame" className={cls.FrameImage}/>
+
                 <div className={cls.RadioBtnBottom}>
                     <RadioBtnGroup 
                         count={images.length} 
