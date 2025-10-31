@@ -1,0 +1,37 @@
+.FirstPage {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Две равные колонки */
+    width: 100%;
+    max-width: 1920px; /* Максимальная ширина контента */
+    margin: 0 auto; /* Центрируем */
+    padding: 50px; /* Отступы со всех сторон */
+    box-sizing: border-box;
+    height: 100vh;
+    max-height: 1080px;
+    position: relative;
+}
+
+.photoSection {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.textSection {
+    margin-top: 120px;
+    height: 75%;
+    max-height: 1080px;
+    overflow-y: auto;
+    display: block;
+    align-items: flex-start;
+    padding-right: 20px;
+}
+
+.backButtonOverlay {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    z-index: 100;
+}

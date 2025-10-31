@@ -3,6 +3,7 @@ import {Route, Routes} from "react-router-dom";
 import {routeConfig} from "shared/config/routeConfig.tsx";
 import 'app/styles/index.css'
 import {LoadingScreen} from "src/widgets/LoadingScreen";
+import {PageAnimation} from "shared/ui"
 
 export const AppRouter = () => {
   return (
@@ -12,7 +13,11 @@ export const AppRouter = () => {
           <Route
             key={path}
             path={path}
-            element={element}
+            element={
+              <PageAnimation>
+                {element}
+              </PageAnimation>
+            }
           />
         ))}
       </Routes>

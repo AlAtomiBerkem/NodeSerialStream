@@ -16,8 +16,9 @@
 * {
     scrollbar-width: thin;
     scrollbar-color: var(--scrollbar-color) transparent;
+    word-spacing: 3px;
+    line-height: 1.3;
 }
-
 
 ::-webkit-scrollbar {
     width: var(--scrollbar-width);
