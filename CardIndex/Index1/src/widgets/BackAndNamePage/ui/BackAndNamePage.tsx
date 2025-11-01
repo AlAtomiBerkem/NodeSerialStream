@@ -3,14 +3,17 @@ import { classNames } from "shared/lib/classNames";
 import { ClickButton } from 'shared/ui'
 import BtnActive from 'shared/assets/btn/BackBtnPushed.svg?url'
 import BtnUiActive from 'shared/assets/btn/BackBtnPushed.svg?url'
-import FirsPageName from 'shared/assets/icons/FirstPageName.svg?url'
 
 interface BackAndNamePageProps {
     className?: string;
+    NamePageLabel: string;
 }
 
-export const BackAndNamePage = ({className}: BackAndNamePageProps) => {
-
+export const BackAndNamePage = (props: BackAndNamePageProps) => {
+    const {
+        className,
+        NamePageLabel,
+    } = props;
 return (
     <div className={classNames(cls.BackAndNamePage, {}, [className])}>
         <div className={cls.backbtn}>
@@ -20,7 +23,7 @@ return (
                 normalImage={BtnActive}
             />
         </div>
-        <img src={FirsPageName} alt="firsPageName"/>
+        <img src={NamePageLabel} alt="firsPageName"/>
     </div>
     );
 };
