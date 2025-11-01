@@ -1,0 +1,22 @@
+.BackAndNamePage {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin-top: 15px;
+    margin-left: 60px;
+}
+
+.backbtn {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: -130px;
+}
+
+.BackAndNamePage img {
+    position: relative;
+    z-index: 1;
+    display: block;
+    height: auto;
+    left: 130px;
+}

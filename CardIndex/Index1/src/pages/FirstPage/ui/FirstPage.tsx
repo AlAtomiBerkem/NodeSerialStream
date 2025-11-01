@@ -18,7 +18,7 @@ export const FirstPage = ({className}: FirstPageProps) => {
                 <PhotoScroller/>
             </div>
             <div className={cls.textSection}>
-                    <TextInformation/>
+                <TextInformation/>
             </div>
         </div>
     );

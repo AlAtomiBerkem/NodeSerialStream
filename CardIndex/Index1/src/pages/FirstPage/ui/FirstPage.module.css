@@ -1,10 +1,10 @@
 .FirstPage {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Две равные колонки */
+    grid-template-columns: 1fr 1fr;
     width: 100%;
-    max-width: 1920px; /* Максимальная ширина контента */
-    margin: 0 auto; /* Центрируем */
-    padding: 50px; /* Отступы со всех сторон */
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 50px;
     box-sizing: border-box;
     height: 100vh;
     max-height: 1080px;

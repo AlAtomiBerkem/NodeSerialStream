@@ -13,7 +13,13 @@ export const BackAndNamePage = ({className}: BackAndNamePageProps) => {
 
 return (
     <div className={classNames(cls.BackAndNamePage, {}, [className])}>
-        <ClickButton link={'/'} clickedImage={BtnUiActive} normalImage={BtnActive}/>
+        <div className={cls.backbtn}>
+            <ClickButton
+                link={'/'}
+                clickedImage={BtnUiActive}
+                normalImage={BtnActive}
+            />
+        </div>
         <img src={FirsPageName} alt="firsPageName"/>
     </div>
     );
