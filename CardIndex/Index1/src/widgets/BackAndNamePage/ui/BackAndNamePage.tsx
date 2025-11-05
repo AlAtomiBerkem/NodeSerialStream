@@ -1,8 +1,8 @@
 import cls from './BackAndNamePage.module.css'
 import { classNames } from "shared/lib/classNames";
 import { ClickButton } from 'shared/ui'
-import BtnActive from 'shared/assets/btn/BackBtnPushed.svg?url'
-import BtnUiActive from 'shared/assets/btn/BackBtnPushed.svg?url'
+import BackBtn from 'shared/assets/btn/BackBtn.svg?url'
+import BackBtnPushed from 'shared/assets/btn/BackBtnPushed.svg?url'
 
 interface BackAndNamePageProps {
     className?: string;
@@ -18,9 +18,9 @@ return (
     <div className={classNames(cls.BackAndNamePage, {}, [className])}>
         <div className={cls.backbtn}>
             <ClickButton
-                link={'/'}
-                clickedImage={BtnUiActive}
-                normalImage={BtnActive}
+                link={'/' }
+                clickedImage={BackBtnPushed}
+                normalImage={BackBtn}
             />
         </div>
         <img src={NamePageLabel} alt="firsPageName"/>

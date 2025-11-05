@@ -24,26 +24,26 @@ export const ClickButton = ({
     const WrapperComponent = link ? Link : 'div';
     const wrapperProps = link ? { to: link } : { onClick };
 
-    const handleClick = () => {
+    const handlePointerDown = () => {
         setIsClicked(true);
+    };
 
-        setTimeout(() => {
-            setIsClicked(false);
-        }, 200);
+    const handlePointerUpOrLeave = () => {
+        setIsClicked(false);
     };
 
     return (
         <WrapperComponent {...wrapperProps}>
             <button
-                onClick={handleClick}
+                onPointerDown={handlePointerDown}
+                onPointerUp={handlePointerUpOrLeave}
+                onPointerLeave={handlePointerUpOrLeave}
                 className={cls.button}
-                disabled={isClicked}
             >
                 <img
                     src={isClicked ? clickedImage : normalImage}
                     alt={alt}
                     className={cls.image}
-                    link={link}
                 />
             </button>
         </WrapperComponent>

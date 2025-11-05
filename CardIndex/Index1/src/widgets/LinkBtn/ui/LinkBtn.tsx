@@ -31,7 +31,6 @@ export const LinkButton = (props: LinkBtnProps) => {
                         <ClickButton
                             clickedImage={LinkBtnClicked}
                             normalImage={LinkBtn}
-                            link={link}
                         />
                     </div>
                 </div>
