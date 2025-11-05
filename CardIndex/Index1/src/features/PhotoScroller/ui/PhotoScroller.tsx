@@ -1,23 +1,26 @@
 import {PhotoFrame} from 'widgets/PhotoFrame'
-import img1 from '../assets/img1.png';
-import img2 from '../assets/img2.png';
-import img3 from '../assets/img3.png';
-import img4 from '../assets/img4.png';
 import { useState } from 'react';
 
-export const PhotoScroller = () => {
+interface PhotoScrollerProps {
+    photos?: string[];
+}
 
-    const images = [img1, img2, img3, img4];
+export const PhotoScroller = (props: PhotoScrollerProps) => {
+    const { photos } = props;
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const handleRadioChange = (idx: number) => {
         setCurrentIndex(idx);
     };
 
+    if (!photos || photos.length === 0) {
+        return null;
+    }
+
     return (
         <div>
             <PhotoFrame
-                images={images}
+                images={photos}
                 currentIndex={currentIndex}
                 onChange={handleRadioChange}
             />
