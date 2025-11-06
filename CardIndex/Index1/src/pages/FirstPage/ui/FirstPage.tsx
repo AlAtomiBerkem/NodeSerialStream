@@ -1,9 +1,9 @@
 import cls from './FirstPage.module.css'
 import { classNames } from "shared/lib/classNames";
 import { PhotoScroller } from 'features/PhotoScroller';
-import { TextInformation } from 'features/TextInformation';
+import { TextInformation1 } from 'src/features/TextInformation1';
 import { BackAndNamePage } from "widgets/BackAndNamePage";
-import FirsPageName from 'shared/assets/icons/FirstPageName.svg?url'
+import FirstPageLabel from 'shared/assets/icons/FirstPagreLabel.svg?url'
 import img1 from 'shared/assets/photos/img1.png';
 import img2 from 'shared/assets/photos/img2.png';
 import img3 from 'shared/assets/photos/img3.png';
@@ -18,13 +18,13 @@ export const FirstPage = ({className}: FirstPageProps) => {
     return (
         <div className={classNames(cls.FirstPage, {}, [className])}>
             <div className={cls.backButtonOverlay}>
-                <BackAndNamePage NamePageLabel={FirsPageName}/>
+                <BackAndNamePage NamePageLabel={FirstPageLabel}/>
             </div>
             <div className={cls.photoSection}>
                 <PhotoScroller photos={photos}/>
             </div>
             <div className={cls.textSection}>
-                <TextInformation/>
+                <TextInformation1/>
             </div>
         </div>
     );

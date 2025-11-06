@@ -1,9 +1,9 @@
-import { TextInformation } from 'features/TextInformation';
+import { TextInformation3 } from 'src/features/TextInformation3';
 import cls from './LastPage.module.css'
 import { classNames } from "shared/lib/classNames";
 import { BackAndNamePage } from 'widgets/BackAndNamePage';
 import { PhotoScroller } from 'features/PhotoScroller';
-import LastLabelName from 'shared/assets/icons/LastLabelName.svg?url'
+import LastPageLabel from 'shared/assets/icons/LastPageLabel.svg?url'
 import img1 from 'shared/assets/photos/img1.png';
 import img2 from 'shared/assets/photos/img2.png';
 import img3 from 'shared/assets/photos/img3.png';
@@ -18,13 +18,13 @@ export const LastPage = ({className}: LastPageProps) => {
 return (
     <div className={classNames(cls.LastPage, {}, [className])}>
             <div className={cls.backButtonOverlay}>
-                <BackAndNamePage NamePageLabel={LastLabelName}/>
+                <BackAndNamePage NamePageLabel={LastPageLabel}/>
             </div>
             <div className={cls.photoSection}>
                 <PhotoScroller photos={photos}/>
             </div>
             <div className={cls.textSection}>
-                <TextInformation/>
+                <TextInformation3/>
             </div>
         </div>
     );

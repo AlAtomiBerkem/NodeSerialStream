@@ -1,8 +1,8 @@
-import { TextInformation } from 'features/TextInformation';
+import { TextInformation2 } from 'src/features/TextInformatiion2';
 import cls from './SecondPage.module.css'
 import { classNames } from "shared/lib/classNames";
 import { PhotoScroller } from 'features/PhotoScroller';
-import SecondPageName from 'shared/assets/icons/SecondLabelName.svg?url'
+import SecondPageLabel from 'shared/assets/icons/SecondPageLabel.svg?url'
 import { BackAndNamePage } from "widgets/BackAndNamePage";
 import img1 from 'shared/assets/photos/img1.png';
 import img2 from 'shared/assets/photos/img2.png';
@@ -20,13 +20,13 @@ export const SecondPage = ({className}: SecondPageProps) => {
 return (
     <div className={classNames(cls.SecondPage, {}, [className])}>
             <div className={cls.backButtonOverlay}>
-                <BackAndNamePage NamePageLabel={SecondPageName}/>
+                <BackAndNamePage NamePageLabel={SecondPageLabel}/>
             </div>
             <div className={cls.photoSection}>
                 <PhotoScroller photos={photos}/>
             </div>
             <div className={cls.textSection}>
-                <TextInformation/>
+                <TextInformation2/>
             </div>
     </div>
     );
