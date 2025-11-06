@@ -1,0 +1,39 @@
+@import 'reset.css';
+
+:root {
+    --scrollbar-width: 14px;
+    --scrollbar-color: #72D8FF;
+    --scrollbar-track: url('../../shared/assets/track.png');
+    --font-akrobat: 'Akrobat', Arial, sans-serif;
+    --text-button-font-weight: 500;
+    --text-button-font-size: 30px;
+    --text-button-line-height: 100%;
+    --text-button-letter-spacing: 0%;
+    --text-button-text-transform: uppercase;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-color) transparent;
+    word-spacing: 3px;
+    line-height: 1.3;
+}
+
+::-webkit-scrollbar {
+    width: var(--scrollbar-width);
+    height: var(--scrollbar-width);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-color);
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track) no-repeat center center;
+    background-size: cover;
+}
+
+::-webkit-scrollbar-button {
+    display: none;
+}
