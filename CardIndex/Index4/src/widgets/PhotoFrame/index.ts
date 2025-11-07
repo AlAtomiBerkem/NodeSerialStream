@@ -1,0 +1,1 @@
+export {PhotoFrame} from './ui/PhotoFrame.tsx'

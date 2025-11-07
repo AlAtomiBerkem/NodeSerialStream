@@ -1,0 +1,45 @@
+.nameButton {
+    color: var(--scrollbar-color);
+    font-family: var(--font-akrobat), cursive;
+    font-weight: var(--text-button-font-weight);
+    font-size: var(--text-button-font-size);
+    line-height: var(--text-button-line-height);
+    letter-spacing: var(--text-button-letter-spacing);
+    text-transform: var(--text-button-text-transform);
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    z-index: 2;
+}
+
+.container {
+    position: relative;
+    display: inline-block;
+}
+
+.backgroundWrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.backgroundImage {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.buttonWrapper {
+    position: absolute;
+    bottom: 0.5px;
+    right: 0.5px;
+    z-index: 2;
+}
+
+/*.shadowWrapper {*/
+/*    position: relative;*/
+/*    display: inline-block;*/
+/*    filter: drop-shadow(0 0 8px #72D8FF)*/
+/*    drop-shadow(0 0 12px #72D8FF)*/
+/*    drop-shadow(0 0 16px #72D8FF);*/
+/*    opacity: 0.7; !* Прозрачность всей тени и содержимого *!*/
+/*}*/

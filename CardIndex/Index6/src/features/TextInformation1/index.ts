@@ -1,0 +1,1 @@
+export {TextInformation1} from './ui/TextInformation1.tsx'
