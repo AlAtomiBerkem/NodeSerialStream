@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { Outlet, useLocation, useNavigate, useOutlet } from 'react-router-dom'
+import React, { useCallback, useEffect, useState } from 'react'
+import { useLocation, useNavigate, useOutlet } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useInactivityRedirect } from '../utils/useInactivityRedirect.js'
 

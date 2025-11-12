@@ -3,14 +3,20 @@ import { useLocation } from "react-router-dom";
 
 export const useInactivityRedirect = (onTimeout) => {
   const timerRef = useRef();
+  const onTimeoutRef = useRef(onTimeout);
   const location = useLocation();
+
+  // Обновляем ref при изменении onTimeout
+  useEffect(() => {
+    onTimeoutRef.current = onTimeout;
+  }, [onTimeout]);
 
   const resetTimer = () => {
     if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
     timerRef.current = setTimeout(() => {
-      onTimeout();
+      onTimeoutRef.current();
     }, 120000);
   };
 
@@ -25,7 +31,9 @@ export const useInactivityRedirect = (onTimeout) => {
 
     return () => {
       events.forEach((e) => window.removeEventListener(e, resetTimer));
-      clearTimeout(timerRef.current);
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
     };
-  }, [onTimeout, location.pathname]);
+  }, [location.pathname]);
 };

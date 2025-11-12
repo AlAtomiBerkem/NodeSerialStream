@@ -1,6 +1,3 @@
-import './components/Airplane.jsx'
-import './components/Fuselage.jsx'
-
 import React, { Suspense, lazy } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import AnimatedLayout from './ui/AnimatedLayout.jsx';
