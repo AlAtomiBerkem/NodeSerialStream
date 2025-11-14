@@ -4,10 +4,10 @@ import { classNames } from "shared/lib/classNames";
 import { BackAndNamePage } from 'widgets/BackAndNamePage';
 import { PhotoScroller } from 'features/PhotoScroller';
 import LastPageLabel from 'shared/assets/icons/LastPage.svg?url'
-import img1 from 'shared/assets/photos/img1.png';
-import img2 from 'shared/assets/photos/img2.png';
-import img3 from 'shared/assets/photos/img3.png';
-import img4 from 'shared/assets/photos/img4.png';
+import img1 from 'shared/assets/photos/2_2_3_1.png';
+import img2 from 'shared/assets/photos/2_2_3_2.png';
+import img3 from 'shared/assets/photos/2_2_3_3.png';
+import img4 from 'shared/assets/photos/2_2_3_4.png';
 
 interface LastPageProps {
     className?: string;

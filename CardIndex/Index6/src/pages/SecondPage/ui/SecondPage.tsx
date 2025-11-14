@@ -4,10 +4,10 @@ import { classNames } from "shared/lib/classNames";
 import { PhotoScroller } from 'features/PhotoScroller';
 import SecondPageLabel from 'shared/assets/icons/SecondPage.svg?url'
 import { BackAndNamePage } from "widgets/BackAndNamePage";
-import img1 from 'shared/assets/photos/img1.png';
-import img2 from 'shared/assets/photos/img2.png';
-import img3 from 'shared/assets/photos/img3.png';
-import img4 from 'shared/assets/photos/img4.png';
+import img1 from 'shared/assets/photos/2_3_2_1.png';
+import img2 from 'shared/assets/photos/2_3_2_2.png';
+import img3 from 'shared/assets/photos/2_3_2_3.png';
+import img4 from 'shared/assets/photos/2_3_2_4.png';
 
 interface SecondPageProps {
     className?: string;
