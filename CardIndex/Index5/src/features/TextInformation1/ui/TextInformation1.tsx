@@ -1,4 +1,4 @@
-import cls from './TextInformation.module.css'
+import cls from 'app/styles/TextInformation.module.css'
 import { classNames } from "shared/lib/classNames";
 
 interface TextInformationProps {

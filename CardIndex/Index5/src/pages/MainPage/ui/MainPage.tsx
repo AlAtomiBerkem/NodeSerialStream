@@ -1,7 +1,7 @@
 import cls from './MainPage.module.css'
 import { classNames } from "shared/lib/classNames";
 import NameApp from 'shared/assets/icons/AppName.svg?url';
-import StartPhoto from 'shared/assets/icons/startphoto.png'
+import StartPhoto from 'shared/assets/icons/photostart.png'
 import Label from 'shared/assets/icons/label.png'
 import {LinkGroup} from "features/LinkGroup";
 
