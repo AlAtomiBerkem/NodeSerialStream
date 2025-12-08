@@ -17,8 +17,8 @@ const SelectContentBtn = ({ label, isActive, onClick }) => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        width: 592,
-        height: 75,
+        width: 390,
+        height: 68,
         boxSizing: 'border-box',
         position: 'relative',
       }}
@@ -26,7 +26,7 @@ const SelectContentBtn = ({ label, isActive, onClick }) => {
     >
       <div
         style={{
-          width: 592,
+          width: 390,
           height: 75,
           position: 'relative',
           display: 'flex',
