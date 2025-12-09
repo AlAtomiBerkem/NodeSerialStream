@@ -9,14 +9,23 @@ const ButtonGroup = () => {
   const handleButtonClick = (buttonName) => {
     dispatch(setSection(buttonName));
   };
-
   const buttons = [
-    { key: 'inventions', label: 'БИОГРАФИЯ', baseZ: 3 },
-    { key: 'patents', label: 'НАЧАЛО ПУТИ', baseZ: 2 },
-    { key: 'licenses', label: 'ЗАКЛЮЧЕНИЕ В ЦКБ-29', baseZ: 1 },
-    { key: 'projects', label: 'РАЗРАБОТКИ И Д-ИЯ', baseZ: 1 },
-    { key: 'awards', label: 'НАСЛЕДИЕ', baseZ: 1 },
+    { key: 'inventions', label: 'БИОГРАФИЯ' },
+    { key: 'patents', label: 'НАЧАЛО ПУТИ' },
+    { key: 'licenses', label: 'ЗАКЛЮЧЕНИЕ В ЦКБ-29' },
+    { key: 'projects', label: 'РАЗРАБОТКИ И Д-ИЯ' },
+    { key: 'awards', label: 'НАСЛЕДИЕ' },
   ];
+
+  const activeIndex = buttons.findIndex((btn) => btn.key === activeButton);
+
+  const getZIndex = (idx) => {
+    if (activeIndex === -1) {
+      return 10 + idx;
+    }
+    const distance = Math.abs(idx - activeIndex);
+    return 100 - distance;
+  };
 
   return (
     <div
@@ -38,7 +47,7 @@ const ButtonGroup = () => {
           style={{
             position: 'relative',
             marginRight: idx < buttons.length - 1 ? '-80px' : 0,
-            zIndex: activeButton === button.key ? 4 : button.baseZ,
+            zIndex: getZIndex(idx),
           }}
         >
           <SelectContentBtn
