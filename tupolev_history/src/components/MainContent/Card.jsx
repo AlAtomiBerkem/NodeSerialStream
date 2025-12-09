@@ -20,10 +20,6 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
     photos && photos[safeIndex] && photos[safeIndex].url
       ? photos[safeIndex].url
       : '';
-  const photoCaption =
-    photos && photos[safeIndex] && photos[safeIndex].caption
-      ? photos[safeIndex].caption
-      : '';
   const prevPhotoIndex = useRef(activePhotoIndex);
   const [direction, setDirection] = React.useState(1);
   const text = cardTexts[card.id];
@@ -61,31 +57,6 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
             style={{position: 'relative'}}
             onTouchStart={handleTouchStart}
           >
-            {photoCaption && (
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 52,
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  color: '#A1A1A1',
-                  fontWeight: 400,
-                  fontSize: 40,
-                  zIndex: 2,
-                  padding: '2px 16px',
-                  borderRadius: 12,
-                  pointerEvents: 'none',
-                  maxWidth: '90%',
-                  textAlign: 'center',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  fontFamily: 'Akrobat, Arial, sans-serif',
-                }}
-              >
-                [{photoCaption}]
-              </div>
-            )}
             <AnimatePresence mode="wait" custom={direction}>
               {photoUrl && (
                 <motion.img
@@ -141,43 +112,17 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
           <div
             style={{
               display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'flex-end',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
               flexWrap: 'nowrap',
             }}
           >
-            <div
-              style={{
-                minWidth: 120,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                justifyContent: 'flex-end',
-              }}
-            >
-              {numberPart && (
-                <span
-                  style={{
-                    color: '#fff',
-                    fontSize: 109,
-                    fontWeight: 700,
-                    fontFamily: 'Akrobat, Arial, sans-serif',
-                    lineHeight: '1',
-                    letterSpacing: 2,
-                  }}
-                >
-                  {numberPart.text}
-                </span>
-              )}
-            </div>
-
             <div
               style={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'flex-start',
                 flex: 1,
-                marginLeft: 20,
                 minWidth: 0,
               }}
             >

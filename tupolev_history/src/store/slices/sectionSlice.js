@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  currentSection: 'inventions', // дефолтный раздел — А. Н. ТУПОЛЕВ
+  currentSection: 'inventions',
 };
 
 export const sectionSlice = createSlice({
