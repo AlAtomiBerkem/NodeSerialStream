@@ -13,8 +13,16 @@ const initialState = {
       { 
         id: 3, title: 'Карточка 3' },
     ],
-    projects: [],
-    awards: [],
+    projects: [
+      {
+        id: 4, title: 'Карточка 4'
+      }
+    ],
+    awards: [
+      {
+        id: 5, title: 'Карточка 5'
+      }
+    ],
   },
 };
 
