@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { usersConfig } from './config/users.config'
 
@@ -6,7 +6,7 @@ const Users = () => {
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
-    const [lastServerData, setLastServerData] = useState(null)
+    const lastServerDataRef = useRef(null)
 
 
     const truncateName = (name, fontSize) => {
@@ -102,17 +102,19 @@ const Users = () => {
             try {
                 const response = await axios.get('http://localhost:3300/api/users')
                 const serverData = response.data
-                
-                if (JSON.stringify(serverData) !== JSON.stringify(lastServerData)) {
-                    setLastServerData(serverData)
-                    updateUsers(serverData)
+                const dataChanged = JSON.stringify(serverData) !== JSON.stringify(lastServerDataRef.current)
+                if (dataChanged) {
+                    lastServerDataRef.current = serverData
                 }
+                
+                updateUsers(serverData)
                 
                 setError(null)
             } catch (error) {
                 console.error('Error fetching users:', error)
                 setError('Не удалось загрузить пользователей')
-                setUsers([])
+                // Не очищаем пользователей при ошибке, чтобы они не пропадали
+                // setUsers([])
             }
         }
 
@@ -121,20 +123,20 @@ const Users = () => {
         const interval = setInterval(fetchUsers, 5000)
         
         return () => clearInterval(interval)
-    }, [lastServerData])
+    }, [])
 
     useEffect(() => {
         const cleanupInterval = setInterval(() => {
             setUsers(currentUsers => {
                 const now = Date.now()
-                const thirtySecondsAgo = now - 30000
+                const sixtySecondsAgo = now - 60000
                 
                 const activeUsers = currentUsers.filter(user => 
-                    user.lastSeen > thirtySecondsAgo
+                    user.lastSeen > sixtySecondsAgo
                 )
                 
                 if (activeUsers.length !== currentUsers.length) {
-                    console.log(`Удалено ${currentUsers.length - activeUsers.length} неактивных пользователей`)
+                    console.log(`Удалено ${currentUsers.length - activeUsers.length} неактивных пользователей (последний раз видели более 60 секунд назад)`)
                 }
                 
                 return activeUsers

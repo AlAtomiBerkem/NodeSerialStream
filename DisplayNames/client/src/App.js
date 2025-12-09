@@ -1,5 +1,6 @@
 import radarBg from './assets/radar.png';
 import Users from './Users.jsx';
+import DailyVisitorCount from './DailyVisitorCount.jsx';
 import './index.css';
 
 
@@ -18,11 +19,12 @@ function App() {
         justifyContent: 'center',
       }}
     >
+      <DailyVisitorCount/>
       <Users />
       <div
         style={{
           position: 'absolute',
-          scale: 1.83,
+          scale: 1.78,
           top: 540,
           left: 0,
           width: '100%',
