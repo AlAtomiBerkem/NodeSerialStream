@@ -15,7 +15,8 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
     (state) => state.photos.activePhotoIndex[card.id]
   );
   const photos = useSelector((state) => state.photos.photos[card.id]);
-  const safeIndex = Math.max(0, Math.min(activePhotoIndex, photos.length - 1));
+  const totalPhotos = Array.isArray(photos) ? photos.length : 0;
+  const safeIndex = Math.max(0, Math.min(activePhotoIndex, totalPhotos - 1));
   const photoUrl =
     photos && photos[safeIndex] && photos[safeIndex].url
       ? photos[safeIndex].url
@@ -74,28 +75,40 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
           </div>
         </div>
         <div className="photo_radio_buttons">
-          {photos &&
-            photos.map((_, idx) => (
-              <button
-                key={idx}
-                className="photo-radio-btn-img"
-                onClick={() => handleRadioClick(idx)}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  padding: 2,
-                }}
-              >
-                <img
-                  src={activePhotoIndex === idx ? radioBtnActive : radionBtn}
-                  alt={
-                    activePhotoIndex === idx
-                      ? 'Активная радиокнопка'
-                      : 'Радиокнопка'
-                  }
-                />
-              </button>
-            ))}
+          {photos && totalPhotos > 0 && (() => {
+            const maxVisible = 6;
+            const half = Math.floor(maxVisible / 2);
+            const start = Math.min(
+              Math.max(0, safeIndex - half),
+              Math.max(0, totalPhotos - maxVisible)
+            );
+            const end = Math.min(totalPhotos, start + maxVisible);
+
+            return photos.slice(start, end).map((_, localIdx) => {
+              const realIdx = start + localIdx;
+              return (
+                <button
+                  key={realIdx}
+                  className="photo-radio-btn-img"
+                  onClick={() => handleRadioClick(realIdx)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    padding: 2,
+                  }}
+                >
+                  <img
+                    src={activePhotoIndex === realIdx ? radioBtnActive : radionBtn}
+                    alt={
+                      activePhotoIndex === realIdx
+                        ? 'Активная радиокнопка'
+                        : 'Радиокнопка'
+                    }
+                  />
+                </button>
+              );
+            });
+          })()}
         </div>
       </div>
       <div className="card-content">
