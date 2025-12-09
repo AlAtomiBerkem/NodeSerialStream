@@ -160,19 +160,49 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
         <div className="card-desc">
           {Array.isArray(text.description) &&
             text.description.map((p, idx) => (
-              <p
-                key={idx}
-                style={{
-                  color: '#fffff',
-                  fontWeight: 300,
-                  fontSize: 32,
-                  opacity: 0.9,
-                  fontFamily: 'Akrobat',
-                  marginBottom: idx < text.description.length - 1 ? 24 : 0,
-                }}
-              >
-                {p.text}
-              </p>
+              p.type === 'li' ? (
+                <div
+                  key={idx}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: 12,
+                    color: '#ffffff',
+                    fontWeight: 300,
+                    fontSize: 32,
+                    opacity: 0.9,
+                    fontFamily: 'Akrobat',
+                    marginBottom: idx < text.description.length - 1 ? 24 : 0,
+                  }}
+                >
+                  <span
+                    style={{
+                      flexShrink: 0,
+                      width: 8,
+                      height: 8,
+                      marginTop: 18,
+                      marginLeft: 5,
+                      borderRadius: '50%',
+                      backgroundColor: 'currentColor',
+                    }}
+                  />
+                  <span style={{ lineHeight: 1.4 }}>{p.text}</span>
+                </div>
+              ) : (
+                <p
+                  key={idx}
+                  style={{
+                    color: '#ffffff',
+                    fontWeight: 300,
+                    fontSize: 32,
+                    opacity: 0.9,
+                    fontFamily: 'Akrobat',
+                    marginBottom: idx < text.description.length - 1 ? 24 : 0,
+                  }}
+                >
+                  {p.text}
+                </p>
+              )
             ))}
         </div>
       </div>
