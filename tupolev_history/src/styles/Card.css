@@ -69,7 +69,7 @@
   white-space: pre-line;
 }
 
-/* Гибкие классы для кастомизации текста */
+
 .font-xxl {
   font-size: 3.2rem !important;
 }
@@ -144,10 +144,10 @@
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -186,9 +186,11 @@
 }
 
 .photo-img {
-  display: block;
-  max-width: 100%;
-  border-radius: 12px;
+  display: flex;
+  width: 98.5%;
+  height: 86.7%;
+  object-fit:fill;
+  scale: 1;
 }
 
 .card-description.custom-scroll {
