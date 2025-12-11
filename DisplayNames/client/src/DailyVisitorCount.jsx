@@ -79,7 +79,7 @@ const DailyVisitorCount = () => {
                     src={peopleIcon}
                     alt="people"
                     style={{
-                        marginTop: '40px',
+                        // marginTop: '30px',
                         marginLeft: '25px',
                         width: '100px',
                         height: '100px',
