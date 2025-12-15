@@ -1,12 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { usersConfig } from './config/users.config'
+
+const MAX_DISPLAY_USERS = 30; // Максимум пользователей на экране одновременно
+const ROTATION_INTERVAL = 180000; // Интервал смены группы пользователей (3 минуты в миллисекундах)
 
 const Users = () => {
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
-    const lastServerDataRef = useRef(null)
+    const [currentGroupIndex, setCurrentGroupIndex] = useState(0)
+    const [allArchivedUsers, setAllArchivedUsers] = useState([])
 
 
     const truncateName = (name, fontSize) => {
@@ -31,120 +35,111 @@ const Users = () => {
     }
 
 
-    const transformServerData = (serverUsers) => {
+    const transformServerData = (serverUsers, startIndex = 0) => {
         const positions = usersConfig.users.map(user => user.position)
         
         return serverUsers.map((serverUser, index) => {
-            const position = positions[index % positions.length]
-            const fontSize = usersConfig.users[index % usersConfig.users.length].style.fontSize
-            const originalName = serverUser.UserName || `Пользователь ${index + 1}`
+            const globalIndex = startIndex + index;
+            const position = positions[globalIndex % positions.length]
+            const fontSize = usersConfig.users[globalIndex % usersConfig.users.length].style.fontSize
+            const originalName = serverUser.UserName || `Пользователь ${globalIndex + 1}`
             
             return {
-                id: serverUser.idTab || serverUser._id || index + 1,
+                id: serverUser.idTab || serverUser._id || globalIndex + 1,
                 name: truncateName(originalName, fontSize),
                 originalName: originalName,
                 position: position,
                 style: {
                     fontSize: fontSize,
                     color: serverUser.checkingRoomOne?.[0] ? "#72D8FF" : "white",
-                    animation: usersConfig.users[index % usersConfig.users.length].style.animation,
+                    animation: usersConfig.users[globalIndex % usersConfig.users.length].style.animation,
                     className: serverUser.checkingRoomTwo?.[0] ? "glow-text" : ""
                 },
-                serverId: serverUser._id,
+                serverId: serverUser._id || serverUser.idTab,
                 lastSeen: Date.now()
             }
         })
     }
 
-    const updateUsers = (newServerUsers) => {
-        setUsers(currentUsers => {
-            const newUsers = transformServerData(newServerUsers)
-            
-            const currentUsersMap = new Map(
-                currentUsers.map(user => [user.serverId, user])
-            )
-            
-            const newUsersMap = new Map(
-                newUsers.map(user => [user.serverId, user])
-            )
-            
-            const usersToRemove = currentUsers.filter(
-                user => !newUsersMap.has(user.serverId)
-            )
-            
-            const usersToAdd = newUsers.filter(
-                user => !currentUsersMap.has(user.serverId)
-            )
-            
-            const updatedUsers = currentUsers
-                .filter(user => newUsersMap.has(user.serverId))
-                .map(user => {
-                    const newUser = newUsersMap.get(user.serverId)
-                    return {
-                        ...user,
-                        name: newUser.name,
-                        originalName: newUser.originalName,
-                        style: newUser.style,
-                        lastSeen: Date.now()
-                    }
-                })
-            
-            const finalUsers = [...updatedUsers, ...usersToAdd]
-            
-            console.log(`Обновление пользователей: ${usersToAdd.length} добавлено, ${usersToRemove.length} удалено`)
-            
-            return finalUsers
-        })
+    // Функция для получения текущей группы пользователей для отображения
+    const getCurrentGroup = (allUsers, groupIndex) => {
+        if (allUsers.length <= MAX_DISPLAY_USERS) {
+            return allUsers;
+        }
+        
+        const startIndex = groupIndex * MAX_DISPLAY_USERS;
+        const endIndex = Math.min(startIndex + MAX_DISPLAY_USERS, allUsers.length);
+        return allUsers.slice(startIndex, endIndex);
+    }
+
+    // Функция для вычисления количества групп
+    const getTotalGroups = (totalUsers) => {
+        return Math.ceil(totalUsers / MAX_DISPLAY_USERS);
     }
 
     useEffect(() => {
-        const fetchUsers = async () => {
+        const fetchArchivedUsers = async () => {
             try {
-                const response = await axios.get('http://localhost:3300/api/users')
-                const serverData = response.data
-                const dataChanged = JSON.stringify(serverData) !== JSON.stringify(lastServerDataRef.current)
-                if (dataChanged) {
-                    lastServerDataRef.current = serverData
+                // Получаем архивных пользователей за последние 24 часа
+                const response = await axios.get('http://localhost:3300/api/daily-archived')
+                const archivedData = response.data
+                
+                if (Array.isArray(archivedData)) {
+                    // Удаляем дубликаты по idTab
+                    const uniqueUsers = archivedData.reduce((acc, user) => {
+                        const id = user.idTab || user._id;
+                        if (id && !acc.find(u => (u.idTab || u._id) === id)) {
+                            acc.push(user);
+                        }
+                        return acc;
+                    }, []);
+                    
+                    setAllArchivedUsers(uniqueUsers);
+                    
+                    // Вычисляем текущую группу для отображения
+                    const totalGroups = getTotalGroups(uniqueUsers.length);
+                    if (totalGroups > 0) {
+                        const currentGroup = getCurrentGroup(uniqueUsers, currentGroupIndex);
+                        const transformedUsers = transformServerData(currentGroup, currentGroupIndex * MAX_DISPLAY_USERS);
+                        setUsers(transformedUsers);
+                    } else {
+                        setUsers([]);
+                    }
+                    
+                    setError(null);
                 }
-                
-                updateUsers(serverData)
-                
-                setError(null)
             } catch (error) {
-                console.error('Error fetching users:', error)
+                console.error('Error fetching archived users:', error)
                 setError('Не удалось загрузить пользователей')
-                // Не очищаем пользователей при ошибке, чтобы они не пропадали
-                // setUsers([])
             }
         }
 
-        fetchUsers().finally(() => setLoading(false))
+        fetchArchivedUsers().finally(() => setLoading(false))
         
-        const interval = setInterval(fetchUsers, 5000)
+        const interval = setInterval(fetchArchivedUsers, 10000) // Обновляем каждые 10 секунд
         
         return () => clearInterval(interval)
-    }, [])
+    }, [currentGroupIndex])
 
+    // Ротация групп пользователей
     useEffect(() => {
-        const cleanupInterval = setInterval(() => {
-            setUsers(currentUsers => {
-                const now = Date.now()
-                const sixtySecondsAgo = now - 60000
-                
-                const activeUsers = currentUsers.filter(user => 
-                    user.lastSeen > sixtySecondsAgo
-                )
-                
-                if (activeUsers.length !== currentUsers.length) {
-                    console.log(`Удалено ${currentUsers.length - activeUsers.length} неактивных пользователей (последний раз видели более 60 секунд назад)`)
-                }
-                
-                return activeUsers
-            })
-        }, 10000)
+        const totalGroups = getTotalGroups(allArchivedUsers.length);
         
-        return () => clearInterval(cleanupInterval)
-    }, [])
+        if (totalGroups <= 1) {
+            return; // Если групп одна или меньше, ротация не нужна
+        }
+        
+        const rotationInterval = setInterval(() => {
+            setCurrentGroupIndex(prevIndex => {
+                const nextIndex = (prevIndex + 1) % totalGroups;
+                console.log(`Ротация: переключение на группу ${nextIndex + 1} из ${totalGroups} (всего пользователей: ${allArchivedUsers.length})`);
+                return nextIndex;
+            });
+        }, ROTATION_INTERVAL);
+        
+        return () => clearInterval(rotationInterval);
+    }, [allArchivedUsers.length])
+
 
 
     return (
