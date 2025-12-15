@@ -3,13 +3,14 @@ import axios from 'axios'
 import { usersConfig } from './config/users.config'
 
 const MAX_DISPLAY_USERS = 30; // Максимум пользователей на экране одновременно
-const ROTATION_INTERVAL = 180000; // Интервал смены группы пользователей (3 минуты в миллисекундах)
+const ROTATION_INTERVAL = 60000; // Интервал смены группы (1 минута)
 
 const Users = () => {
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     const [currentGroupIndex, setCurrentGroupIndex] = useState(0)
+    const [rotationSeed, setRotationSeed] = useState(0) // Смещение для перемешивания окон
     const [allArchivedUsers, setAllArchivedUsers] = useState([])
 
 
@@ -66,10 +67,19 @@ const Users = () => {
         if (allUsers.length <= MAX_DISPLAY_USERS) {
             return allUsers;
         }
-        
-        const startIndex = groupIndex * MAX_DISPLAY_USERS;
-        const endIndex = Math.min(startIndex + MAX_DISPLAY_USERS, allUsers.length);
-        return allUsers.slice(startIndex, endIndex);
+
+        const totalUsers = allUsers.length;
+        // Берём окно длиной MAX_DISPLAY_USERS, при необходимости делаем wrap вокруг начала массива,
+        // чтобы даже для неполной последней группы экран всегда был заполнен.
+        const startIndex = (groupIndex * MAX_DISPLAY_USERS + rotationSeed) % totalUsers;
+        const window = [];
+
+        for (let i = 0; i < MAX_DISPLAY_USERS; i++) {
+            const idx = (startIndex + i) % totalUsers;
+            window.push(allUsers[idx]);
+        }
+
+        return window;
     }
 
     // Функция для вычисления количества групп
@@ -93,13 +103,16 @@ const Users = () => {
                         }
                         return acc;
                     }, []);
+
+                    // Перемешиваем порядок, чтобы группы были смешанные
+                    const shuffledUsers = [...uniqueUsers].sort(() => Math.random() - 0.5);
                     
-                    setAllArchivedUsers(uniqueUsers);
+                    setAllArchivedUsers(shuffledUsers);
                     
                     // Вычисляем текущую группу для отображения
-                    const totalGroups = getTotalGroups(uniqueUsers.length);
+                    const totalGroups = getTotalGroups(shuffledUsers.length);
                     if (totalGroups > 0) {
-                        const currentGroup = getCurrentGroup(uniqueUsers, currentGroupIndex);
+                        const currentGroup = getCurrentGroup(shuffledUsers, currentGroupIndex);
                         const transformedUsers = transformServerData(currentGroup, currentGroupIndex * MAX_DISPLAY_USERS);
                         setUsers(transformedUsers);
                     } else {
@@ -132,6 +145,8 @@ const Users = () => {
         const rotationInterval = setInterval(() => {
             setCurrentGroupIndex(prevIndex => {
                 const nextIndex = (prevIndex + 1) % totalGroups;
+                // Меняем seed, чтобы сдвигать окно и перемешивать старые/новые
+                setRotationSeed(Math.floor(Math.random() * Math.max(allArchivedUsers.length, 1)));
                 console.log(`Ротация: переключение на группу ${nextIndex + 1} из ${totalGroups} (всего пользователей: ${allArchivedUsers.length})`);
                 return nextIndex;
             });

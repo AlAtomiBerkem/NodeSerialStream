@@ -129,8 +129,24 @@ exports.testResult = async (req, res) => {
 
 exports.deleteAllUsers = async (req, res) => {
     try {
+        // Сначала переносим всех текущих пользователей в архив,
+        // чтобы массовое удаление не теряло историю.
+        const users = await User.find({});
+
+        if (users.length) {
+            const archivedPayload = users.map(user => ({
+                UserName: user.UserName,
+                UserLastName: user.UserLastName,
+                UserEmail: user.UserEmail,
+                idTab: user.idTab,
+                deletedAt: new Date()
+            }));
+
+            await DeletedUser.insertMany(archivedPayload);
+        }
+
         await User.deleteMany({});
-        logSuccess(`DELETE - [SUCCESS] пользователи успешно удалены`);
+        logSuccess(`DELETE - [SUCCESS] пользователи успешно удалены (архивировано: ${users.length})`);
         res.status(200).json({ message: "пользователи успешно удалены" });
     } catch (err) {
         const error = err instanceof Error ? err : new Error("Unknown error");
