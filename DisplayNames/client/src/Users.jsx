@@ -3,7 +3,7 @@ import axios from 'axios'
 import { usersConfig } from './config/users.config'
 
 const MAX_DISPLAY_USERS = 30; // Максимум пользователей на экране одновременно
-const ROTATION_INTERVAL = 60000; // Интервал смены группы (1 минута)
+const ROTATION_INTERVAL = 180000; // Интервал смены группы (3 минуты)
 
 const Users = () => {
     const [users, setUsers] = useState([])
