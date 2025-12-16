@@ -157,14 +157,14 @@ exports.deleteAllUsers = async (req, res) => {
 
 exports.getDailyArchivedUsers = async (req, res) => {
     try {
-        // Окно "за день" начинается в 08:00 локального времени.
-        // Если сейчас раньше 08:00, берем 08:00 предыдущего дня.
+        // Окно "за день" начинается в 04:00 локального времени.
+        // Если сейчас раньше 04:00, берём 04:00 предыдущего дня.
         const now = new Date();
         const start = new Date(now);
-        if (now.getHours() < 8) {
+        if (now.getHours() < 4) {
             start.setDate(start.getDate() - 1);
         }
-        start.setHours(8, 0, 0, 0);
+        start.setHours(4, 0, 0, 0);
 
         const archivedUsers = await DeletedUser.find({
             deletedAt: { $gte: start }

@@ -21,22 +21,15 @@ app.get('/api/users', async (req, res) => {
     }
 });
 
-// Получение количества пользователей за последние 24 часа с главного сервера
+// Получение количества посетителей "за день" с главного сервера
 app.get('/api/daily-count', async (req, res) => {
     try {
         const response = await axios.get(`${MAIN_SERVER_URL}/api/users/daily-archived`);
         const archivedUsers = response.data;
         
-        // Подсчитываем уникальных пользователей за последние 24 часа
-        const uniqueUsers = new Set();
-        archivedUsers.forEach(user => {
-            const userId = user.idTab || user._id;
-            if (userId) {
-                uniqueUsers.add(userId);
-            }
-        });
-        
-        res.json({ count: uniqueUsers.size });
+        // Считаем всех записей за день; один планшет (idTab) может дать несколько посетителей
+        const count = Array.isArray(archivedUsers) ? archivedUsers.length : 0;
+        res.json({ count });
     } catch (error) {
         console.error('Ошибка получения количества пользователей за день:', error.message);
         res.status(500).json({ error: 'Не удалось получить количество' });

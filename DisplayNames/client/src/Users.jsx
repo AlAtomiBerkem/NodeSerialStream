@@ -46,7 +46,9 @@ const Users = () => {
             const originalName = serverUser.UserName || `Пользователь ${globalIndex + 1}`
             
             return {
-                id: serverUser.idTab || serverUser._id || globalIndex + 1,
+                // Используем _id как уникальный ключ для React; если его нет, падаем назад
+                // на комбинацию idTab + globalIndex, чтобы ключи точно не совпадали.
+                id: serverUser._id || `${serverUser.idTab || 'no-idTab'}-${globalIndex + 1}`,
                 name: truncateName(originalName, fontSize),
                 originalName: originalName,
                 position: position,
@@ -95,18 +97,22 @@ const Users = () => {
                 const archivedData = response.data
                 
                 if (Array.isArray(archivedData)) {
-                    // Удаляем дубликаты по idTab
-                    const uniqueUsers = archivedData.reduce((acc, user) => {
-                        const id = user.idTab || user._id;
-                        if (id && !acc.find(u => (u.idTab || u._id) === id)) {
-                            acc.push(user);
+                    // Удаляем только дубликаты по _id (Mongo гарантирует уникальность _id),
+                    // idTab больше не используем для фильтрации, чтобы один планшет (idTab)
+                    // мог дать несколько разных посетителей за день.
+                    const seenIds = new Set();
+                    const uniqueUsers = archivedData.filter(user => {
+                        const id = user._id;
+                        if (!id || seenIds.has(id)) {
+                            return false;
                         }
-                        return acc;
-                    }, []);
+                        seenIds.add(id);
+                        return true;
+                    });
 
                     // Перемешиваем порядок, чтобы группы были смешанные
                     const shuffledUsers = [...uniqueUsers].sort(() => Math.random() - 0.5);
-                    
+
                     setAllArchivedUsers(shuffledUsers);
                     
                     // Вычисляем текущую группу для отображения
