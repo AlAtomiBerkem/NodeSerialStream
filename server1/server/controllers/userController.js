@@ -157,16 +157,20 @@ exports.deleteAllUsers = async (req, res) => {
 
 exports.getDailyArchivedUsers = async (req, res) => {
     try {
-        // Получаем дату 24 часа назад
-        const twentyFourHoursAgo = new Date();
-        twentyFourHoursAgo.setHours(twentyFourHoursAgo.getHours() - 24);
+        // Окно "за день" начинается в 08:00 локального времени.
+        // Если сейчас раньше 08:00, берем 08:00 предыдущего дня.
+        const now = new Date();
+        const start = new Date(now);
+        if (now.getHours() < 8) {
+            start.setDate(start.getDate() - 1);
+        }
+        start.setHours(8, 0, 0, 0);
 
-        // Находим всех пользователей, удаленных за последние 24 часа
         const archivedUsers = await DeletedUser.find({
-            deletedAt: { $gte: twentyFourHoursAgo }
-        }).sort({ deletedAt: -1 }); // Сортируем по дате удаления (новые первыми)
+            deletedAt: { $gte: start }
+        }).sort({ deletedAt: -1 }); // Новые первыми
 
-        logSuccess(`GET - [SUCCESS] Получено ${archivedUsers.length} архивных пользователей за последние 24 часа`);
+        logSuccess(`GET - [SUCCESS] Получено ${archivedUsers.length} архивных пользователей с ${start.toISOString()}`);
         res.status(200).json(archivedUsers);
     } catch (err) {
         const error = err instanceof Error ? err : new Error("Unknown error");
