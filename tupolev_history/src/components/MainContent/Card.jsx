@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setActivePhoto } from '../../store/slices/photoSlice';
 import radionBtn from '../../assets/buttons/radionBtn.png';
 import radioBtnActive from '../../assets/buttons/radioBtnActive.png';
+import { BtnPhotoLeftSVg } from '../../shared/ui/BtnPhotoLeft/BtnPhotoLeft.jsx';
+import { BtnPhotoRightSVg } from '../../shared/ui/BtnPhotoRight/BtnPhotoRight.jsx';
 import cardTexts from '../../store/texts/cardTexts';
 import '../../styles/CardTexts.css';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -35,6 +37,18 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
 
   const handleRadioClick = (idx) => {
     dispatch(setActivePhoto({ cardId: card.id, photoIndex: idx }));
+  };
+
+  const handlePrevPhoto = () => {
+    if (safeIndex > 0) {
+      dispatch(setActivePhoto({ cardId: card.id, photoIndex: safeIndex - 1 }));
+    }
+  };
+
+  const handleNextPhoto = () => {
+    if (safeIndex < totalPhotos - 1) {
+      dispatch(setActivePhoto({ cardId: card.id, photoIndex: safeIndex + 1 }));
+    }
   };
 
   const handleTouchStart = (e) => {
@@ -77,6 +91,77 @@ const Card = ({ card, onTouchStart, onTouchEnd }) => {
         <div className="photo_radio_buttons">
           {photos && totalPhotos > 0 && (() => {
             const maxVisible = 6;
+
+            if (totalPhotos > maxVisible) {
+              return (
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    width: 550,
+                    marginTop: 8,
+                  }}
+                >
+                  <button
+                    onClick={handlePrevPhoto}
+                    disabled={safeIndex === 0}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      padding: 0,
+                    }}
+                  >
+                    <BtnPhotoLeftSVg active={safeIndex !== 0} />
+                  </button>
+
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'baseline',
+                      gap: 8,
+                      fontFamily: 'Akrobat, Arial, sans-serif',
+                      lineHeight: 1,
+                      letterSpacing: 0,
+                    }}
+                  >
+                    <span
+                      style={{
+                        color: '#72D8FF',
+                        fontSize: 48,
+                        fontWeight: 700,
+                        fontStyle: 'normal',
+                      }}
+                    >
+                      {safeIndex + 1}
+                    </span>
+                    <span
+                      style={{
+                        color: '#A1A1A1',
+                        fontSize: 48,
+                        fontWeight: 600,
+                        fontStyle: 'normal',
+                      }}
+                    >
+                      /{totalPhotos}
+                    </span>
+                  </div>
+
+                  <button
+                    onClick={handleNextPhoto}
+                    disabled={safeIndex >= totalPhotos - 1}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      padding: 0,
+                    }}
+                  >
+                    <BtnPhotoRightSVg active={safeIndex < totalPhotos - 1} />
+                  </button>
+                </div>
+              );
+            }
+
             const half = Math.floor(maxVisible / 2);
             const start = Math.min(
               Math.max(0, safeIndex - half),
