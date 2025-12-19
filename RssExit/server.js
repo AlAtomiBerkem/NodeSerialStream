@@ -13,8 +13,10 @@ app.use(express.json());
 let pendingUsers = [];
 let windowTimer = null;
 
-// Последняя сформированная партия имен для бегущей строки
+// Последняя сформированная партия имён для бегущей строки и её срок действия
 let lastBatchText = null;
+let batchExpireAtMs = 0;
+let batchExpireTimer = null;
 
 function escapeXml(unsafe) {
   if (!unsafe) return '';
@@ -53,20 +55,33 @@ app.post('/events/user-deleted', (req, res) => {
         if (usersToSend.length > 0) {
           const names = usersToSend
             .map((u) => {
-              const fullName = [u.UserName, u.UserLastName].filter(Boolean).join(' ').trim();
-              return fullName || u.UserEmail || u.idTab;
+              // Берём только имя; если его нет — email или idTab
+              const nameOnly = (u.UserName || '').trim();
+              return nameOnly || u.UserEmail || u.idTab;
             })
             .filter(Boolean);
 
           lastBatchText = names.join('   •   ');
+          batchExpireAtMs = Date.now() + 60_000; // показываем эту партию 1 минуту
+
+          // Перезапускаем таймер очистки партии
+          if (batchExpireTimer) {
+            clearTimeout(batchExpireTimer);
+          }
+          batchExpireTimer = setTimeout(() => {
+            lastBatchText = null;
+            batchExpireAtMs = 0;
+            batchExpireTimer = null;
+            console.log('[RssExit] Витрина очистилась, возвращаемся к дефолтному тексту');
+          }, 60_000);
+
           console.log(
-            `[RssExit] Сформирована партия из ${usersToSend.length} пользователей для бегущей строки`
+            `[RssExit] Сформирована партия из ${usersToSend.length} пользователей для бегущей строки (только имена)`
           );
         } else {
-          // Если никого не было, возвращаемся к дефолтному тексту
-          if (!lastBatchText) {
-            lastBatchText = null;
-          }
+          // Никого не накопилось — просто сбрасываем окно
+          pendingUsers = [];
+          windowTimer = null;
         }
       }, 60_000);
 
@@ -84,8 +99,12 @@ app.post('/events/user-deleted', (req, res) => {
 app.get('/rss/users', (req, res) => {
   const baseUrl = `${req.protocol}://${req.get('host')}`;
 
-  // Если есть последняя партия имён — показываем её, иначе дефолтный текст
-  const text = lastBatchText && lastBatchText.length > 0 ? lastBatchText : DEFAULT_TEXT;
+  // Если партия ещё актуальна по времени — показываем её, иначе дефолтный текст
+  const nowMs = Date.now();
+  const text =
+    lastBatchText && lastBatchText.length > 0 && batchExpireAtMs > nowMs
+      ? lastBatchText
+      : DEFAULT_TEXT;
 
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
