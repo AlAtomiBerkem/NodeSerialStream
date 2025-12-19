@@ -19,8 +19,10 @@ services:
     environment:
       - MONGODB_URI=mongodb://mongodb:27017/User
       - RSS_EXIT_URL=http://rssexit:3200/events/user-deleted
+      - RSS_START_URL=http://rssstart:3201/events/user-created
     depends_on:
       - mongodb
+      - rssstart
 
   server2:
     build:
@@ -57,6 +59,15 @@ services:
       - "3200:3200"
     environment:
       - PORT=3200
+
+  rssstart:
+    build:
+      context: ./RssStart
+      dockerfile: Dockerfile
+    ports:
+      - "3201:3201"
+    environment:
+      - PORT=3201
 
 volumes:
   mongodb_data:

@@ -22,6 +22,17 @@ exports.createUser = async (req, res) => {
         const newUser = new User({ UserName, UserLastName, UserEmail, idTab });
         await newUser.save();
 
+        // Отправляем событие регистрации в RssStart (асинхронно, не блокируем ответ)
+        const RSS_START_URL = process.env.RSS_START_URL || 'http://rssstart:3201/events/user-created';
+        axios.post(RSS_START_URL, {
+            UserName,
+            UserLastName,
+            UserEmail,
+            idTab
+        }).catch(err => {
+            console.error(`[server1] Ошибка отправки события регистрации в RssStart: ${err.message}`);
+        });
+
         res.status(201).json(newUser);
         logSuccess(`POST - [SUCCESS пользователь ${UserName} ${UserLastName} ${UserEmail} создан ${res.statusCode}]`);
     } catch (err) {
