@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y udev
 
 COPY .. .
 
-EXPOSE 3000
+EXPOSE 3001
 
-# Команда для запуска сервера
-CMD ["npm", "run", "dev"]
+# Команда для запуска сервера в прод-режиме
+CMD ["npm", "start"]

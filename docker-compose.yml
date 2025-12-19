@@ -18,6 +18,7 @@ services:
       - ./:/app
     environment:
       - MONGODB_URI=mongodb://mongodb:27017/User
+      - RSS_EXIT_URL=http://rssexit:3200/events/user-deleted
     depends_on:
       - mongodb
 
@@ -47,6 +48,15 @@ services:
       - CHOKIDAR_USEPOLLING=true
     depends_on:
       - server2
+
+  rssexit:
+    build:
+      context: ./RssExit
+      dockerfile: Dockerfile
+    ports:
+      - "3200:3200"
+    environment:
+      - PORT=3200
 
 volumes:
   mongodb_data:

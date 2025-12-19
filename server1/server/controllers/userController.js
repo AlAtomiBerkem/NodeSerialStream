@@ -1,8 +1,7 @@
 const User = require('../models/userModel');
 const DeletedUser = require('../models/deletedUserModel');
 const { logError, logSuccess } = require('./log-page/logError');
-
-
+const axios = require('axios');
 
 exports.createUser = async (req, res) => {
     try {
@@ -89,6 +88,32 @@ exports.deleteUser = async (req, res) => {
             deletedAt: new Date()
         });
         await deletedUser.save();
+
+        // Отправляем событие в сервис RssExit (зона сдачи паспорта)
+        const rssExitUrl =
+            process.env.RSS_EXIT_URL || 'http://localhost:3200/events/user-deleted';
+        try {
+            await axios.post(
+                rssExitUrl,
+                {
+                    UserName: user.UserName,
+                    UserLastName: user.UserLastName,
+                    UserEmail: user.UserEmail,
+                    idTab: user.idTab,
+                },
+                { timeout: 2000 }
+            );
+            logSuccess(
+                `RSS EXIT - [INFO] Событие удаления пользователя ${user.idTab} отправлено в RssExit`
+            );
+        } catch (postErr) {
+            const msg =
+                postErr instanceof Error ? postErr.message : 'Unknown error while calling RssExit';
+            logError(
+                `RSS EXIT - [WARN] Не удалось отправить событие удаления пользователя ${user.idTab}: ${msg}`
+            );
+            // Ошибку не пробрасываем, чтобы удаление пользователя не ломалось из-за RssExit
+        }
 
         // Удаляем пользователя из основной таблицы
         await User.findOneAndDelete({ idTab: idTab });
