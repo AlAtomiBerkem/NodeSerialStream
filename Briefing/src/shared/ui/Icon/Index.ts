@@ -1,0 +1,1 @@
+export {Icon, type IconProps} from './ui/Icon.tsx'

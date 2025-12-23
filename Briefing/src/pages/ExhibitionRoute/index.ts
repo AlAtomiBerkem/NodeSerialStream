@@ -1,0 +1,1 @@
+export { ExhibitionRoute } from './ui/ExhibitionRoute.tsx'
