@@ -17,15 +17,15 @@ export const routePath: Record<RouteConfig, string> = {
 
 export const routeConfig: Record<RouteConfig, RouteProps> = {
   [RouteConfig.MAIN]: {
-    path: routePath.main,
+    path: routePath[RouteConfig.MAIN],
     element: <MainPage />
   },
   [RouteConfig.INSTRUCTIONS]: {
-    path: routePath.instructions,
+    path: routePath[RouteConfig.INSTRUCTIONS],
     element: <Instructions />
   },
   [RouteConfig.EXHIBITIONROUTE]: {
-    path: routePath.exhibitionRoute,
+    path: routePath[RouteConfig.EXHIBITIONROUTE],
     element: <ExhibitionRoute/>
   },
 }
