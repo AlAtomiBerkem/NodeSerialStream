@@ -54,7 +54,7 @@ export const AccordionItem: FC<AccordionItemProps> = ({
           {number && !icon && (
             <span className={cls.number}>{number}</span>
           )}
-          <h3 className={cls.title}>{title}</h3>
+          <h3 className={classNames(cls.title, { [cls.titleOpen]: isOpen })}>{title}</h3>
         </div>
         <Icon
           Svg={ToggleSvg}
@@ -63,30 +63,28 @@ export const AccordionItem: FC<AccordionItemProps> = ({
         />
       </div>
       <div className={cls.separator} />
-      {isOpen && (
-        <div className={cls.content}>
-          {content && <p className={cls.contentText}>{content}</p>}
-          {items && items.length > 0 && (
-            <ul className={cls.itemsList}>
-              {items.map((item, index) => (
-                <li key={index} className={cls.listItem}>
-                  <Icon Svg={FocusRombSvg} size={20} className={cls.rombIcon} />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-          {smallTexts && smallTexts.length > 0 && (
-            <div className={cls.smallTextsContainer}>
-              {smallTexts.map((text, index) => (
-                <div key={index} className={cls.smallTextWrapper}>
-                  <p className={cls.smallText}>{text}</p>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
+      <div className={classNames(cls.content, { [cls.contentOpen]: isOpen })}>
+        {content && <p className={cls.contentText}>{content}</p>}
+        {items && items.length > 0 && (
+          <ul className={cls.itemsList}>
+            {items.map((item, index) => (
+              <li key={index} className={cls.listItem}>
+                <Icon Svg={FocusRombSvg} size={40} className={cls.rombIcon} />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+        {smallTexts && smallTexts.length > 0 && (
+          <div className={cls.smallTextsContainer}>
+            {smallTexts.map((text, index) => (
+              <div key={index} className={cls.smallTextWrapper}>
+                <p className={cls.smallText}>{text}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   )
 }

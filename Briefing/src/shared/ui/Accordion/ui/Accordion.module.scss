@@ -13,6 +13,9 @@
 }
 
 .header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -20,6 +23,7 @@
   cursor: pointer;
   user-select: none;
   width: 100%;
+  background: transparent;
 }
 
 .headerLeft {
@@ -36,7 +40,7 @@
   font-size: 36px;
   line-height: 100%;
   letter-spacing: 0%;
-  color: #00B4FF;
+  color: #72D8FF;
   flex-shrink: 0;
 }
 
@@ -51,11 +55,16 @@
   color: #FFFFFF;
   margin: 0;
   flex: 1;
+  transition: color 0.3s ease;
+}
+
+.titleOpen {
+  color: #72D8FF;
 }
 
 .infoIcon {
   flex-shrink: 0;
-  color: #00B4FF;
+  color: #72D8FF;
   
   svg {
     width: 36px;
@@ -87,8 +96,19 @@
 
 .content {
   padding: 0;
+  margin-top: 0;
+  margin-bottom: 24px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out, margin-bottom 0.4s ease-out, padding-top 0.4s ease-out;
+  transform-origin: top;
+}
+
+.contentOpen {
+  max-height: 5000px;
   margin-top: 12px;
   margin-bottom: 24px;
+  padding-top: 0;
 }
 
 .contentText {
@@ -118,8 +138,8 @@
   line-height: 100%;
   letter-spacing: 0%;
   color: #FFFFFF;
-  margin-bottom: 12px;
-  padding-left: 32px;
+  margin-bottom: 24px;
+  padding-left: 52px;
   position: relative;
   display: flex;
   align-items: center;
@@ -132,8 +152,8 @@
   flex-shrink: 0;
   
   svg {
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
   }
 }
 
