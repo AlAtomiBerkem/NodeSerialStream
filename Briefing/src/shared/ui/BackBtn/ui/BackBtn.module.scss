@@ -1,0 +1,19 @@
+.backButtonSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  /* Для регулировки высоты кнопки измените max-height или height */
+  /* Например: max-height: 109px; или height: 109px; */
+  /* Для регулировки ширины: max-width: 481px; или width: 481px; */
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:active {
+    opacity: 0.6;
+  }
+}
+

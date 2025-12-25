@@ -1,0 +1,96 @@
+.Instructions {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 900px;
+  width: 100%;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.header {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.titleFrame {
+  display: inline-block;
+}
+
+.titleIcon {
+  width: 100%;
+  height: auto;
+  max-width: 530px;
+  display: block;
+}
+
+.greeting {
+  font-family: 'Akrobat', sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #FFFFFF;
+  margin: 0;
+  text-align: center;
+  max-width: 400px;
+}
+
+.content {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0;
+  margin-top: -50px;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.footerText {
+  font-family: 'Akrobat', sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 48px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin: 0;
+  text-align: center;
+  /* Для регулировки высоты текста измените font-size или line-height */
+  /* Например: font-size: 40px; или line-height: 120%; */
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  max-height: 300px;
+  /* Для регулировки высоты кнопки используйте max-height или height */
+  /* Например: max-height: 100px; или height: 109px; */
+}
