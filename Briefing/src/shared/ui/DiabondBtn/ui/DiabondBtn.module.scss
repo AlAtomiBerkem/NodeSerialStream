@@ -1,0 +1,28 @@
+.button {
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .pushed {
+    transform: scale(1.1);
+    filter: drop-shadow(0 4px 8px rgba(114, 216, 255, 0.3));
+  }
+  
+  .noScale {
+    transform: scale(1);
+  }
+  
+  .shape {
+    transition: fill 0.3s ease, stroke 0.3s ease;
+  }
+  
+  .text {
+    font-size: 19px;
+    font-family: Akrobat, Arial, sans-serif;
+    font-weight: 700;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    transition: fill 0.3s ease;
+  }
+  
