@@ -1,2 +1,2 @@
 export { Accordion } from './ui/Acardion'
-export { AccordionGroup } from './ui/AcardionGropup'
+export { AccordionGroup } from './ui/AccordionGroup'

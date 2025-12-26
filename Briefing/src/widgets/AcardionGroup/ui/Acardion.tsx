@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
-import { DiamondBtn as DiabondBtn } from 'shared/ui/DiabondBtn'
-import styles from './AcardionGropup.module.scss'
+import { DiamondBtn } from 'shared/ui/DiabondBtn'
+import styles from './AccordionGroup.module.scss'
 import { classNames } from 'shared/lib'
 
 type Props = {
@@ -47,7 +47,7 @@ export const Accordion = ({
   return (
     <div className={styles.root}>
       <div className={styles.iconWrapper}>
-        <DiabondBtn
+        <DiamondBtn
           number={number}
           pushed={isOpen}
           noScale

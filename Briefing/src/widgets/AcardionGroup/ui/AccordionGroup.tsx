@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Accordion } from './Acardion'
-import styles from './AcardionGropup.module.scss'
+import styles from './AccordionGroup.module.scss'
 import { classNames } from 'shared/lib'
 
 type AccordionItem = {

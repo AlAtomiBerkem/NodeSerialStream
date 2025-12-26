@@ -2,8 +2,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { activateButton } from 'app/provider/store/btnSlice';
 import { Link } from 'react-router-dom';
 import {AccordionGroup} from 'widgets/AcardionGroup'
-import {DiamondBtn as DiabondBtn} from 'shared/ui/DiabondBtn';
+import { DiamondBtn } from 'shared/ui/DiabondBtn';
 import { BackButton } from "shared/ui/BackBtn";
+import { classNames } from 'shared/lib';
 export const ExhibitionRoute = () => {
 
       const dispatch = useDispatch();
@@ -90,7 +91,7 @@ export const ExhibitionRoute = () => {
       </div>  
     
       <div className="diabond-btn-container" style={{ top: '60%', left: '18%', transform: 'scale(1.5)' }}>
-        <DiabondBtn 
+        <DiamondBtn 
           number="01"
           pushed={buttonStates['01'] || false}
           onClick={() => handleButtonClick('01')}
@@ -98,7 +99,7 @@ export const ExhibitionRoute = () => {
       </div>
     
       <div className="diabond-btn-container" style={{ top: '58.8%', left: '24.5%', transform: 'scale(1.5)' }}>
-        <DiabondBtn 
+        <DiamondBtn 
           number="02"
           pushed={buttonStates['02'] || false}
           onClick={() => handleButtonClick('02')}
@@ -106,7 +107,7 @@ export const ExhibitionRoute = () => {
       </div>
     
       <div className="diabond-btn-container" style={{ top: '53%', left: '18%', transform: 'scale(1.5)' }}>
-        <DiabondBtn 
+        <DiamondBtn 
           number="03"
           pushed={buttonStates['03'] || false}
           onClick={() => handleButtonClick('03')}
@@ -114,7 +115,7 @@ export const ExhibitionRoute = () => {
       </div>
     
       <div className="diabond-btn-container" style={{ top: '53%', left: '25%', transform: 'scale(1.5)' }}>
-        <DiabondBtn 
+        <DiamondBtn 
           number="04"
           pushed={buttonStates['04'] || false}
           onClick={() => handleButtonClick('04')}
@@ -122,7 +123,7 @@ export const ExhibitionRoute = () => {
       </div>
     
       <div className="diabond-btn-container" style={{ top: '47.5%', left: '17%', transform: 'scale(1.5)' }}>
-        <DiabondBtn 
+        <DiamondBtn 
           number="05"
           pushed={buttonStates['05'] || false}
           onClick={() => handleButtonClick('05')}
@@ -130,7 +131,7 @@ export const ExhibitionRoute = () => {
       </div>
     
       <div className="diabond-btn-container" style={{ top: '47.5%', left: '26%', transform: 'scale(1.5)' }}>
-        <DiabondBtn 
+        <DiamondBtn 
           number="06"
           pushed={buttonStates['06'] || false}
           onClick={() => handleButtonClick('06')}
@@ -138,7 +139,7 @@ export const ExhibitionRoute = () => {
       </div>
     
       <div className="diabond-btn-container" style={{ top: '39%', left: '22%', transform: 'scale(1.5)' }}>
-        <DiabondBtn 
+        <DiamondBtn 
           number="07"
           pushed={buttonStates['07'] || false}
           onClick={() => handleButtonClick('07')}
@@ -146,7 +147,7 @@ export const ExhibitionRoute = () => {
       </div>
     
       <div className="diabond-btn-container" style={{ top: '31%', left: '18%', transform: 'scale(1.5)' }}>
-        <DiabondBtn 
+        <DiamondBtn 
           number="08"
           pushed={buttonStates['08'] || false}
           onClick={() => handleButtonClick('08')}
@@ -154,7 +155,7 @@ export const ExhibitionRoute = () => {
       </div>
     
       <div className="diabond-btn-container" style={{ top: '26.7%', left: '19.3%', transform: 'scale(1.5)' }}>
-        <DiabondBtn 
+        <DiamondBtn 
           number="09"
           pushed={buttonStates['09'] || false}
           onClick={() => handleButtonClick('09')}
@@ -162,7 +163,7 @@ export const ExhibitionRoute = () => {
       </div>
     
       <div className="diabond-btn-container" style={{ top: '26.7%', left: '25.7%', transform: 'scale(1.5)' }}>
-        <DiabondBtn 
+        <DiamondBtn 
           number="10"
           pushed={buttonStates['10'] || false}
           onClick={() => handleButtonClick('10')}
@@ -170,7 +171,7 @@ export const ExhibitionRoute = () => {
       </div>
     
       <div className="diabond-btn-container" style={{ top: '21.3%', left: '21.8%', transform: 'scale(1.5)' }}>
-        <DiabondBtn 
+        <DiamondBtn 
           number="11"
           pushed={buttonStates['11'] || false}
           onClick={() => handleButtonClick('11')}
@@ -178,7 +179,7 @@ export const ExhibitionRoute = () => {
       </div>
     
       <div className="diabond-btn-container" style={{ top: '14%', left: '21.6%', transform: 'scale(1.5)' }}>
-        <DiabondBtn 
+        <DiamondBtn 
           number="12"
           pushed={buttonStates['12'] || false}
           onClick={() => handleButtonClick('12')}
