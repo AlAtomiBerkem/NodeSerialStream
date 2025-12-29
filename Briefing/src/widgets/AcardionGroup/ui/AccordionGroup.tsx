@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { Accordion } from './Acardion'
 import styles from './AccordionGroup.module.scss'
 import { classNames } from 'shared/lib'
@@ -16,6 +17,18 @@ type Props = {
 
 export const AccordionGroup = ({ items = [], onButtonClick }: Props) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const { activeButton } = useSelector((state: any) => state.buttons)
+
+  useEffect(() => {
+    if (activeButton) {
+      const index = items.findIndex(item => item.number === activeButton)
+      if (index !== -1) {
+        setOpenIndex(index)
+      }
+    } else {
+      setOpenIndex(null)
+    }
+  }, [activeButton, items])
 
   return (
     <div className={classNames(styles.wrapper)}>
@@ -26,7 +39,13 @@ export const AccordionGroup = ({ items = [], onButtonClick }: Props) => {
           name={item.name}
           description={item.description}
           isOpen={openIndex === index}
-          onToggle={(next: any) => setOpenIndex(next ? index : null)}
+          onToggle={(next: any) => {
+            const nextOpen = next ? index : null
+            setOpenIndex(nextOpen)
+            if (next) {
+              onButtonClick?.(item.number)
+            }
+          }}
           onButtonClick={onButtonClick}
         />
       ))}

@@ -23,7 +23,6 @@ export const ExhibitionRoute = () => {
     dispatch(activateButton(buttonId));
   };
 
-  // Button coordinates based on original code percentages
   const buttons = [
     { id: '01', top: '60%', left: '18%' },
     { id: '02', top: '58.8%', left: '24.5%' },
@@ -42,8 +41,11 @@ export const ExhibitionRoute = () => {
   return (
     <BackgroundScreen className={cls.ExhibitionRoute}>
       <img src={MapRoadTitle} className={cls.headerTitle} alt="Маршрут экспозиции" />
+      <p className={cls.subtitle}>
+        Нажав на метку на карте вы можете узнать, <br />
+        что находится в этой части шлюза
+      </p>
 
-      {/* Map Section with Fuselage Image */}
       <div className={cls.mapSection}>
         <img src={FuselageImage} className={cls.fuselageImage} alt="Fuselage Map" />
 
@@ -62,7 +64,6 @@ export const ExhibitionRoute = () => {
         ))}
       </div>
 
-      {/* Accordion Section - Positioned to the right */}
       <div className={cls.accordionSection}>
         <AccordionGroup
           items={[
