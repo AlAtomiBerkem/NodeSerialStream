@@ -5,7 +5,12 @@ import { AccordionGroup } from 'widgets/AcardionGroup';
 import { DiamondBtn } from 'shared/ui/DiabondBtn';
 import { BackButton } from "shared/ui/BackBtn";
 import { classNames } from 'shared/lib';
+import { BackgroundScreen } from "widgets/BackgroundScreen";
 import cls from './ExhibitionRoute.module.scss';
+
+// Import Assets
+import FuselageImage from 'shared/assets/fesulashe.svg';
+import MapRoadTitle from 'shared/assets/mapRoad.svg';
 
 export const ExhibitionRoute = () => {
   const dispatch = useDispatch();
@@ -35,9 +40,13 @@ export const ExhibitionRoute = () => {
   ];
 
   return (
-    <div className={cls.ExhibitionRoute}>
-      {/* Map Section covers the screen background */}
+    <BackgroundScreen className={cls.ExhibitionRoute}>
+      <img src={MapRoadTitle} className={cls.headerTitle} alt="Маршрут экспозиции" />
+
+      {/* Map Section with Fuselage Image */}
       <div className={cls.mapSection}>
+        <img src={FuselageImage} className={cls.fuselageImage} alt="Fuselage Map" />
+
         {buttons.map((btn) => (
           <div
             key={btn.id}
@@ -125,6 +134,6 @@ export const ExhibitionRoute = () => {
       <Link to="/" className={cls.backBtn}>
         <BackButton />
       </Link>
-    </div>
+    </BackgroundScreen>
   );
 };

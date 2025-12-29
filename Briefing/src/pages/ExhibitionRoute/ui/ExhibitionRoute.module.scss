@@ -1,45 +1,42 @@
 .ExhibitionRoute {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
     position: relative;
     display: flex;
-    background: #191919;
-    /* Fallback */
 }
 
 .mapSection {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    /* Occupy full space typically, or adjustable */
     height: 100%;
-    flex: 1;
-    /* We try to recreate the background behavior */
-    background-image: url('/airplane-route.png');
-    background-size: cover;
-    background-position: center;
+    z-index: 1;
+}
+
+.fuselageImage {
+    position: absolute;
+    width: 35%;
+    height: 80%;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 4%;
+    object-fit: contain;
+    opacity: 1;
 }
 
 .accordionSection {
     position: absolute;
-    right: 5%;
-    top: 50%;
+    right: 14%;
+    top: 53%;
     transform: translateY(-50%) scale(1.13);
     width: 40%;
-    /* Adjust as needed */
     max-width: 600px;
     z-index: 10;
-
-    /* Using Flex/Grid for internal layout if needed */
     display: flex;
     justify-content: flex-start;
 }
-
-/* 
-   Since the buttons were positioned using % relative to the WHOLE screen in the previous code,
-   if we keep them relative to .mapSection (which is full screen), they should work fine.
-   We just need to ensure the Accordion doesn't overlap them.
-*/
 
 .btnContainer {
     position: absolute;
@@ -49,7 +46,17 @@
 
 .backBtn {
     position: absolute;
-    bottom: 40px;
-    right: 40px;
+    bottom: -10px;
     z-index: 20;
+    transform: translateX(11%);
+}
+
+.headerTitle {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 15;
+    height: auto;
+    max-width: 80%;
 }
