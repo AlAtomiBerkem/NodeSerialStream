@@ -53,10 +53,9 @@
   width: 100%;
   flex: 1;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding-top: 0;
-  margin-top: -50px;
+  padding-top: 50px;
 }
 
 .footer {
@@ -75,11 +74,9 @@
   line-height: 100%;
   letter-spacing: 0%;
   text-transform: uppercase;
-  color: #FFFFFF;
+  color: #72D8FF;
   margin: 0;
   text-align: center;
-  /* Для регулировки высоты текста измените font-size или line-height */
-  /* Например: font-size: 40px; или line-height: 120%; */
 }
 
 .backButton {

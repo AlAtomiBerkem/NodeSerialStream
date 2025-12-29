@@ -1,4 +1,4 @@
-import { type FC } from 'react'
+import { type FC, useEffect, useRef, useState } from 'react'
 import { classNames } from 'shared/lib'
 import { Icon } from 'shared/ui/Icon/Index'
 import ToggleSvg from 'shared/assets/toggle.svg?react'
@@ -33,6 +33,14 @@ export const AccordionItem: FC<AccordionItemProps> = ({
   defaultOpen = false,
 }) => {
   const isOpen = controlledIsOpen !== undefined ? controlledIsOpen : defaultOpen
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [maxHeight, setMaxHeight] = useState('0px')
+
+  useEffect(() => {
+    if (contentRef.current) {
+      setMaxHeight(isOpen ? `${contentRef.current.scrollHeight}px` : '0px')
+    }
+  }, [isOpen])
 
   const toggleOpen = () => {
     if (onToggle) {
@@ -63,27 +71,33 @@ export const AccordionItem: FC<AccordionItemProps> = ({
         />
       </div>
       <div className={cls.separator} />
-      <div className={classNames(cls.content, { [cls.contentOpen]: isOpen })}>
-        {content && <p className={cls.contentText}>{content}</p>}
-        {items && items.length > 0 && (
-          <ul className={cls.itemsList}>
-            {items.map((item, index) => (
-              <li key={index} className={cls.listItem}>
-                <Icon Svg={FocusRombSvg} size={40} className={cls.rombIcon} />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        )}
-        {smallTexts && smallTexts.length > 0 && (
-          <div className={cls.smallTextsContainer}>
-            {smallTexts.map((text, index) => (
-              <div key={index} className={cls.smallTextWrapper}>
-                <p className={cls.smallText}>{text}</p>
-              </div>
-            ))}
-          </div>
-        )}
+      <div
+        className={classNames(cls.content, { [cls.contentOpen]: isOpen })}
+        style={{ maxHeight }}
+        ref={contentRef}
+      >
+        <div className={cls.innerContent}>
+          {content && <p className={cls.contentText}>{content}</p>}
+          {items && items.length > 0 && (
+            <ul className={cls.itemsList}>
+              {items.map((item, index) => (
+                <li key={index} className={cls.listItem}>
+                  <Icon Svg={FocusRombSvg} size={40} className={cls.rombIcon} />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+          {smallTexts && smallTexts.length > 0 && (
+            <div className={cls.smallTextsContainer}>
+              {smallTexts.map((text, index) => (
+                <div key={index} className={cls.smallTextWrapper}>
+                  <p className={cls.smallText}>{text}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
