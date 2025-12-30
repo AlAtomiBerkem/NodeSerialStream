@@ -47,6 +47,8 @@
   margin: 0;
   text-align: center;
   max-width: 400px;
+  opacity: 0.8;
+  margin-top: 20px;
 }
 
 .content {
@@ -55,7 +57,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding-top: 50px;
+  padding-top: 80px;
 }
 
 .footer {
@@ -88,6 +90,4 @@
   padding: 0;
   cursor: pointer;
   max-height: 300px;
-  /* Для регулировки высоты кнопки используйте max-height или height */
-  /* Например: max-height: 100px; или height: 109px; */
 }
