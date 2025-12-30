@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { AccordionGroup } from 'widgets/AcardionGroup';
 import { DiamondBtn } from 'shared/ui/DiabondBtn';
 import { BackButton } from "shared/ui/BackBtn";
-import { classNames } from 'shared/lib';
 import { BackgroundScreen } from "widgets/BackgroundScreen";
 import cls from './ExhibitionRoute.module.scss';
 

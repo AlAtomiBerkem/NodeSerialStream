@@ -4,7 +4,6 @@ import { BackgroundScreen } from "widgets/BackgroundScreen";
 import cls from './MainPage.module.scss'
 import { classNames } from "shared/lib";
 
-// Import Assets
 import InstructionHeader from "shared/assets/instruction.svg";
 import InstructionBtn from "shared/assets/instructionPageBtn.svg";
 import RouteBtn from "shared/assets/RoutMapPageBtn.svg";

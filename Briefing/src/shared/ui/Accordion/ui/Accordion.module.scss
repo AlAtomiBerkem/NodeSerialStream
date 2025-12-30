@@ -98,11 +98,6 @@
   transition: max-height 0.4s ease-out;
 }
 
-/* .contentOpen is no longer needed for height, but used in TSX for state. 
-     Keeping it empty triggers lint, so we can remove it or add a comment. 
-     Let's comment it out or remove it. Since TSX still toggles it, 
-     having no CSS rule is fine. */
-
 .innerContent {
   padding-top: 12px;
   padding-bottom: 24px;
